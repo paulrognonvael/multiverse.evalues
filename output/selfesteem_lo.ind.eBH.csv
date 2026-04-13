@@ -1,0 +1,20 @@
+"hyp","evalue","BHcrit","rejected"
+"FatherXLow self-esteem (adolescent)",92.419329667143,FALSE,TRUE
+"IncomeXLow self-esteem (adolescent)",92.1730391301022,FALSE,TRUE
+"DistressXLow self-esteem (adolescent)",88.2091717958629,TRUE,TRUE
+"`Electronic games`XLow self-esteem (adolescent)",88.1553099258003,TRUE,TRUE
+"EthnicityXLow self-esteem (adolescent)",81.0112872393195,TRUE,TRUE
+"EmployedXLow self-esteem (adolescent)",59.366154128397,TRUE,TRUE
+"TVXLow self-esteem (adolescent)",52.7908492912514,TRUE,TRUE
+"SiblingsXLow self-esteem (adolescent)",41.0893605698503,TRUE,TRUE
+"TimeXLow self-esteem (adolescent)",35.3485793501,TRUE,TRUE
+"`Own computer`XLow self-esteem (adolescent)",31.510289076257,TRUE,TRUE
+"ScoreXLow self-esteem (adolescent)",24.8300266307387,TRUE,TRUE
+"AgeXLow self-esteem (adolescent)",15.6376834777411,FALSE,FALSE
+"`Social media`XLow self-esteem (adolescent)",0.0977252243531397,FALSE,FALSE
+"IllnessXLow self-esteem (adolescent)",0.00461121458901103,FALSE,FALSE
+"BMIXLow self-esteem (adolescent)",9.50924874719705e-07,FALSE,FALSE
+"`Other internet`XLow self-esteem (adolescent)",3.63828573837928e-07,FALSE,FALSE
+"ClosenessXLow self-esteem (adolescent)",1.63305734043011e-22,FALSE,FALSE
+"MaleXLow self-esteem (adolescent)",3.58700158734484e-38,FALSE,FALSE
+"MotivationXLow self-esteem (adolescent)",8.32627741749446e-89,FALSE,FALSE

@@ -1,0 +1,20 @@
+"hyp","evalue","BHcrit","rejected"
+"EthnicityXHigh total difficulties (parent)",106.943573993511,FALSE,TRUE
+"`Other internet`XHigh total difficulties (parent)",89.5822684663572,FALSE,TRUE
+"`Own computer`XHigh total difficulties (parent)",88.2764303921427,TRUE,TRUE
+"MaleXHigh total difficulties (parent)",83.6836235964751,TRUE,TRUE
+"SiblingsXHigh total difficulties (parent)",50.4216985325298,TRUE,TRUE
+"TVXHigh total difficulties (parent)",21.1076811344014,FALSE,FALSE
+"AgeXHigh total difficulties (parent)",17.3402738853772,FALSE,FALSE
+"EmployedXHigh total difficulties (parent)",10.6430018947572,FALSE,FALSE
+"FatherXHigh total difficulties (parent)",9.76984482659483,FALSE,FALSE
+"TimeXHigh total difficulties (parent)",5.54605438496366,FALSE,FALSE
+"`Social media`XHigh total difficulties (parent)",0.133195727735579,FALSE,FALSE
+"IncomeXHigh total difficulties (parent)",0.103549498812147,FALSE,FALSE
+"`Electronic games`XHigh total difficulties (parent)",0.016576117821235,FALSE,FALSE
+"BMIXHigh total difficulties (parent)",2.9439717901979e-05,FALSE,FALSE
+"ScoreXHigh total difficulties (parent)",1.61090288659179e-06,FALSE,FALSE
+"ClosenessXHigh total difficulties (parent)",1.28518856464464e-17,FALSE,FALSE
+"MotivationXHigh total difficulties (parent)",1.10887424488383e-21,FALSE,FALSE
+"IllnessXHigh total difficulties (parent)",7.73964476478149e-32,FALSE,FALSE
+"DistressXHigh total difficulties (parent)",1.14255274175521e-40,FALSE,FALSE
