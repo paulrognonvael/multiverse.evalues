@@ -90,4 +90,5 @@ mcs_all.eBH['outcome'] = sapply(strsplit(mcs_all.eBH$hyp,'X'), function(x) x[[2]
 mcs_all.eBH['var'] = sapply(strsplit(mcs_all.eBH$hyp,'X'), function(x) x[[1]])
 write.csv(mcs_all.eBH, paste0('output/all.eBH.csv'), row.names=FALSE)
 detach(mcs)
+save.image('output/env.image.Rdata')
 
