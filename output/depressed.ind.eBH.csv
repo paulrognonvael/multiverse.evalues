@@ -1,20 +1,20 @@
 "hyp","evalue","BHcrit","rejected"
-"EmployedXDepressed (adolescent)",94.4519390975943,FALSE,TRUE
-"TimeXDepressed (adolescent)",92.0012179890712,FALSE,TRUE
-"FatherXDepressed (adolescent)",82.6646068633177,TRUE,TRUE
-"TVXDepressed (adolescent)",65.3715258477525,TRUE,TRUE
-"`Own computer`XDepressed (adolescent)",41.202842737006,TRUE,TRUE
-"IncomeXDepressed (adolescent)",36.3837113671639,TRUE,TRUE
-"AgeXDepressed (adolescent)",30.1243954359258,TRUE,TRUE
-"SiblingsXDepressed (adolescent)",17.879637533531,FALSE,FALSE
-"EthnicityXDepressed (adolescent)",14.181807611482,FALSE,FALSE
-"`Electronic games`XDepressed (adolescent)",10.3367481017835,FALSE,FALSE
-"DistressXDepressed (adolescent)",6.14043324837166,FALSE,FALSE
-"ScoreXDepressed (adolescent)",3.59786560485112,FALSE,FALSE
-"`Other internet`XDepressed (adolescent)",0.000773406844018843,FALSE,FALSE
-"`Social media`XDepressed (adolescent)",0.000151217334523061,FALSE,FALSE
-"BMIXDepressed (adolescent)",0.000128476420014501,FALSE,FALSE
-"IllnessXDepressed (adolescent)",6.01364496565047e-05,FALSE,FALSE
-"MaleXDepressed (adolescent)",1.19011470406321e-38,FALSE,FALSE
-"ClosenessXDepressed (adolescent)",2.71102008661902e-39,FALSE,FALSE
-"MotivationXDepressed (adolescent)",3.96949527558457e-93,FALSE,FALSE
+"MotivationXDepressed (adolescent)",3.64803316073672e+32,TRUE,TRUE
+"MaleXDepressed (adolescent)",0.00488449595008134,FALSE,FALSE
+"ClosenessXDepressed (adolescent)",1.18521823777001e-05,FALSE,FALSE
+"`Social media`XDepressed (adolescent)",3.99728703309037e-17,FALSE,FALSE
+"IllnessXDepressed (adolescent)",2.20667606457206e-17,FALSE,FALSE
+"BMIXDepressed (adolescent)",1.6063393660016e-17,FALSE,FALSE
+"`Other internet`XDepressed (adolescent)",1.39568619627208e-17,FALSE,FALSE
+"FatherXDepressed (adolescent)",2.61873381595076e-19,FALSE,FALSE
+"IncomeXDepressed (adolescent)",2.16581335742965e-19,FALSE,FALSE
+"DistressXDepressed (adolescent)",1.12448376018829e-19,FALSE,FALSE
+"EthnicityXDepressed (adolescent)",8.8904802630105e-20,FALSE,FALSE
+"AgeXDepressed (adolescent)",7.79763120827332e-20,FALSE,FALSE
+"TVXDepressed (adolescent)",6.60368281872317e-20,FALSE,FALSE
+"ScoreXDepressed (adolescent)",6.43792949470944e-20,FALSE,FALSE
+"TimeXDepressed (adolescent)",5.62522416303177e-20,FALSE,FALSE
+"EmployedXDepressed (adolescent)",4.583297260932e-20,FALSE,FALSE
+"`Electronic games`XDepressed (adolescent)",4.42389048817378e-20,FALSE,FALSE
+"`Own computer`XDepressed (adolescent)",4.03591563913624e-20,FALSE,FALSE
+"SiblingsXDepressed (adolescent)",3.81555711971694e-20,FALSE,FALSE

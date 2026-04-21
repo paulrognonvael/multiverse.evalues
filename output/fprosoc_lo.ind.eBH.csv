@@ -1,20 +1,20 @@
 "hyp","evalue","BHcrit","rejected"
-"FatherXLow pro-sociality (parent)",90.0264586177912,FALSE,TRUE
-"EmployedXLow pro-sociality (parent)",89.8647480896464,FALSE,TRUE
-"ScoreXLow pro-sociality (parent)",85.1734634983204,TRUE,TRUE
-"BMIXLow pro-sociality (parent)",80.0442271273995,TRUE,TRUE
-"TVXLow pro-sociality (parent)",77.1435642787849,TRUE,TRUE
-"`Other internet`XLow pro-sociality (parent)",76.2113654211875,TRUE,TRUE
-"EthnicityXLow pro-sociality (parent)",66.7612894748337,TRUE,TRUE
-"TimeXLow pro-sociality (parent)",52.3794032825004,TRUE,TRUE
-"IncomeXLow pro-sociality (parent)",41.0313455762556,TRUE,TRUE
-"`Social media`XLow pro-sociality (parent)",27.3735162939592,TRUE,TRUE
-"`Own computer`XLow pro-sociality (parent)",18.2192368380803,TRUE,TRUE
-"AgeXLow pro-sociality (parent)",11.7293025903099,FALSE,FALSE
-"SiblingsXLow pro-sociality (parent)",0.42226558556862,FALSE,FALSE
-"`Electronic games`XLow pro-sociality (parent)",0.162927865157538,FALSE,FALSE
-"IllnessXLow pro-sociality (parent)",0.0613316339536193,FALSE,FALSE
-"DistressXLow pro-sociality (parent)",0.0284978037389771,FALSE,FALSE
-"MotivationXLow pro-sociality (parent)",0.00203092995991537,FALSE,FALSE
-"MaleXLow pro-sociality (parent)",0.00113164987483777,FALSE,FALSE
-"ClosenessXLow pro-sociality (parent)",1.67270394684624e-15,FALSE,FALSE
+"ClosenessXLow pro-sociality (parent)",9.88838318043614e-13,FALSE,FALSE
+"MotivationXLow pro-sociality (parent)",3.01400957221161e-15,FALSE,FALSE
+"MaleXLow pro-sociality (parent)",3.37609534499527e-17,FALSE,FALSE
+"DistressXLow pro-sociality (parent)",3.15672248148869e-19,FALSE,FALSE
+"SiblingsXLow pro-sociality (parent)",3.45187403906971e-20,FALSE,FALSE
+"IllnessXLow pro-sociality (parent)",1.92443629668733e-20,FALSE,FALSE
+"`Own computer`XLow pro-sociality (parent)",3.04011221689992e-21,FALSE,FALSE
+"`Electronic games`XLow pro-sociality (parent)",2.99852645967494e-21,FALSE,FALSE
+"`Other internet`XLow pro-sociality (parent)",1.83838282932963e-21,FALSE,FALSE
+"AgeXLow pro-sociality (parent)",1.76690791779741e-21,FALSE,FALSE
+"EthnicityXLow pro-sociality (parent)",6.64505787866525e-22,FALSE,FALSE
+"TimeXLow pro-sociality (parent)",6.63444986385605e-22,FALSE,FALSE
+"IncomeXLow pro-sociality (parent)",6.49452702709623e-22,FALSE,FALSE
+"TVXLow pro-sociality (parent)",6.10872390571889e-22,FALSE,FALSE
+"FatherXLow pro-sociality (parent)",5.57592521587254e-22,FALSE,FALSE
+"EmployedXLow pro-sociality (parent)",5.55822581442999e-22,FALSE,FALSE
+"BMIXLow pro-sociality (parent)",5.52690840858797e-22,FALSE,FALSE
+"ScoreXLow pro-sociality (parent)",5.52630629060551e-22,FALSE,FALSE
+"`Social media`XLow pro-sociality (parent)",5.52275943742991e-22,FALSE,FALSE
