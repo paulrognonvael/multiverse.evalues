@@ -1,0 +1,502 @@
+%Version 3.1 December 2024
+% See section 11 of the User Manual for version history
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 %%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+%%                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%\documentclass[referee,sn-basic]{sn-jnl}% referee option is meant for double line spacing
+
+%%=======================================================%%
+%% to print line numbers in the margin use lineno option %%
+%%=======================================================%%
+
+%%\documentclass[lineno,pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%=========================================================================================%%
+%% the documentclass is set to pdflatex as default. You can delete it if not appropriate.  %%
+%%=========================================================================================%%
+
+%%\documentclass[sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%Note: the following reference styles support Namedate and Numbered referencing. By default the style follows the most common style. To switch between the options you can add or remove Numbered in the optional parenthesis. 
+%%The option is available for: sn-basic.bst, sn-chicago.bst%  
+ 
+%%\documentclass[pdflatex,sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
+%%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
+%%\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
+%%\documentclass[pdflatex,sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
+%%\documentclass[pdflatex,sn-vancouver-num]{sn-jnl}% Vancouver Numbered Reference Style
+%%\documentclass[pdflatex,sn-vancouver-ay]{sn-jnl}% Vancouver Author Year Reference Style
+%%\documentclass[pdflatex,sn-apa]{sn-jnl}% APA Reference Style
+%%\documentclass[pdflatex,sn-chicago]{sn-jnl}% Chicago-based Humanities Reference Style
+
+%%%% Standard Packages
+%%<additional latex packages if required can be included here>
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+%%%%
+
+%%%%%=============================================================================%%%%
+%%%%  Remarks: This template is provided to aid authors with the preparation
+%%%%  of original research articles intended for submission to journals published 
+%%%%  by Springer Nature. The guidance has been prepared in partnership with 
+%%%%  production teams to conform to Springer Nature technical requirements. 
+%%%%  Editorial and presentation requirements differ among journal portfolios and 
+%%%%  research disciplines. You may find sections in this template are irrelevant 
+%%%%  to your work and are empowered to omit any such section if allowed by the 
+%%%%  journal you intend to submit to. The submission guidelines and policies 
+%%%%  of the journal take precedence. A detailed User Manual is available in the 
+%%%%  template package for technical guidance.
+%%%%%=============================================================================%%%%
+
+%% as per the requirement new theorem styles can be included as shown below
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}% 
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
+
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
+
+
+% ADDED BY THE AUTHORS
+\newcommand{\david}[1]{{\small{\color{blue} \sf $\heartsuit$ [David: #1]}}}
+\newcommand{\paul}[1]{{\small{\color{green} \sf $\spadesuit$ Paul: #1}}}
+
+
+
+\begin{document}
+
+\title[e-values for multiverse analysis]{e-values for multiplicity control in multiverse analysis}
+
+%%=============================================================%%
+%% GivenName	-> \fnm{Joergen W.}
+%% Particle	-> \spfx{van der} -> surname prefix
+%% FamilyName	-> \sur{Ploeg}
+%% Suffix	-> \sfx{IV}
+%% \author*[1,2]{\fnm{Joergen W.} \spfx{van der} \sur{Ploeg} 
+%%  \sfx{IV}}\email{iauthor@gmail.com}
+%%=============================================================%%
+
+\author[1]{\fnm{Paul} \sur{Rognon-Vael}}\email{paul.rognon@gmail.com}
+
+\author*[2,3]{\fnm{David} \sur{Rossell}}\email{david.rossell@upf.edu}
+%\equalcont{These authors contributed equally to this work.}
+
+\affil*[1]{\orgdiv{Department of Economics and Business}, \orgname{Bocconi University}, \orgaddress{\street{Via Roberto Sarfatti, 25}, \city{Milano}, \postcode{20136}, \country{Italy}}}
+
+\affil*[2]{\orgdiv{Department of Economics and Business}, \orgname{Universitat Pompeu Fabra}, \orgaddress{\street{Ram\'on Trias Fargas 25}, \city{Barcelona}, \postcode{08005}, \country{Spain}}}
+
+\affil[3]{\orgdiv{Data Science Center}, \orgname{Barcelona School of Economics}, \orgaddress{\street{Ram\'on Trias Fargas 25}, \city{Barcelona}, \postcode{08005}, \country{Spain}}}
+
+
+\abstract{Multiverse analysis refers to a common situation in the Social Sciences where one wishes to assess the association between multiple potential treatment definitions and multiple potential outcome definitions, possibly within multiple sub-populations. To avoid a selective reporting of results, it is critical to acknowledge that multiple comparisons are being performed, and to ensure a valid statistical control of false positive findings. We propose the use of universal e-values as a tool to guarantee that the false discovery rate stays within a user-specified level, while accounting for the effect of confounding covariates. We illustrate the application of our methodology on a dataset stuying the association between technology use (defined in multiple ways) on well-being (also defined in multiple ways).}
+
+\keywords{multiverse analysis, e-value, multiple testing, false discovery rate}
+
+%%\pacs[JEL Classification]{D8, H51}
+
+%%\pacs[MSC Classification]{35A01, 65L10, 65L12, 65L20, 65L70}
+
+\maketitle
+
+\section{Introduction}
+\label{sec:intro}
+
+
+There are many applications where one wants to assess the effect of multiple treatments on multiple outcomes, potentially also separately within multiple sub-populations.
+A prominent example in the Social Sciences occurs when one has multiple outcomes that can be conceivably thought of as measuring related underlying characteristics, such as different measures of psychological well-being, several measures of economic activity, or several measures of radicalization in social media usage.
+Similarly, the multiple treatments may refer to using various types of technology, realizing various economic interventions, or exposure to various social media unradicalization campaigns.
+It may also be natural to wish to assess treatment effects within sub-populations, for example defined by sex and age groups, economic regions, or social media user backgrounds.
+Beyond the Social Sciences, similar situations arise in other fields. In Biomedicine one may study the effect of non-identical, but related, treatments on multiple measures of disease progression, in Climate Science one may study the association between multiple of multiple human-driven processes on multiple physical parameters, etc.
+
+Multiverse analysis aims to provide a principled data analysis framework to consider such multiple outcome-treatment-subpopulation combinations.
+A key pitfall to avoid is selective reporting, whereby researchers obtain treatment effect estimates for all combinations and report only those that are larger. Critically, selective reporting occurs when a researcher fails to indicate all the multiple comparisons that were made.
+A strategy to avoid this pitfall is to report all the analyses that were conducted, and account for the multiple comparisons when assessing the statistical significance of the findings.
+This is the strategy followed in this paper.
+
+Before proceeding, we discuss another popular strategy: focus the analysis on some summary measure across all the comparisons being made. 
+This is the standard approach for meta-analyses in the medical literature, where one combines the evidence regarding the effect of a medical treatment (or family or related treatments) across studies (typically, randomized clinical trials). Therein, it is common to account for treatment effect heterogeneity, often driven by differences in the patient population targeted by each study.
+A prominent example in the Social Sciences, where randomized trials are rare, is Specification Curve Analysis (SCA, \cite{simonsohn:2020}). By default, SCA reports the median estimated effect across treatment-outcome-subpopulations, and assesses the statistical significance of this single parameter.
+An advantage of using a single summary measure over multiple comparison adjustments is that, since no significance corrections are needed, if all treatment effects are comparable then one may have higher statistical power to detect that the summarized effect truly exists.
+However, we urge strong caution in the sense that aggregate measures should only be used in appropriate circumstances.
+A critical pitfall is that, when the treatments are not comparable or there is significant heterogeneity in their effects, the aggregate measure may be highly misleading.
+For example, \cite{semken:2022} showed that SCA led \cite{orben:2019} to erroneously conclude that the association between technology use and teenager well-being was mild, practically negligible. The reason was that the association was near-zero for some technologies such as television use, but large for others such as mobile phone use, and hence overall mild on the average.
+Another critical issue arises when the aggregate measure is obtained across multiple possible subsets of control covariates, an option that is explicitly considered in SCA.
+This is inadequate because one combines quantities that have a different statistical meaning, such as marginal and conditional associations, and hence the summary has no natural interpretation. % (on top of heterogeneity issues mentioned earlier, which may also occur across subsets of control covariates).
+For example, assessing the conditional association between salary and sex given an individual job's position, education and other characteristics has a different meaning than assessing the marginal association between salary and sex. A marginal association between sex and salary can be partially driven by people from different sexs making different career choices, whereas an association between sex and salary within people with the same job position, education and characteristics suggests salary discrimination.
+See \cite{semken:2022} for an in-depth discussion of issues with SCA.
+
+In this paper we propose the application of a simple and practical approach to multiplicity control in multiverse analysis based on universal inference e-values. The approach is discussed by \cite{ramdas:2025} (Chapter 5.2), and combines ideas from likelihood ratio tests and Bayes factors.
+Briefly, e-values are an increasingly popular approach to hypothesis testing that has several features relative to P-values.
+When comparing two hypotheses, e-values accumulate evidence against the null hypothesis similarly to a Bayes factor (see \cite{kass_raftery:1995} for a review). Further, e-values guarantee a strict control of the type I error probability, and are particularly suited to control the false discovery rate (FDR) in multiple comparisons \citep{wang_ruodu:2022}. Although less relevant to this work, e-values also enable anytime-valid inference, a strong asset in settings where one accumulates data and makes decisions sequentially. Universal inference e-values are a type of e-value which (as the name suggests) can be applied to any setting, including those where test statistics follow an unknown distribution and hence P-values are not applicable.
+For seminal papers on e-values see \cite{vovk:2021,gruenwald:2024,chugg:2026}, and for an excellent monograph see \cite{ramdas:2025}.
+
+We briefly review the rich literature on FDR control for multiple testing.
+\cite{benjamini:1995} proposed that, when conducting many statistical tests, one should use procedures that guarantee controlling the FDR below a user pre-specified level $\alpha$. The FDR is the expected proportion of false positives among the hypotheses that are claimed as statistically significant.
+\cite{benjamini:1995} proposed a P-value adjustment procedure that controls the FDR under the assumption that the tests are independent, and \cite{benjamini:2001} a variation that assumes that the tests follow a type of positive dependence structure.
+A large body of subsequent work extended the FDR framework in several directions.
+A prominent example are the q-values of \cite{storey:2003}.
+Analogously to p-values controlling the expected number of false discoveries, q-values control the expected positive FDR, that is the expected fraction of false discoveries, conditional on $\geq 1$ discoveries being reported.
+% which estimates the FDR associated with each individual hypothesis using an estimate of the proportion of true null hypotheses.
+However, q-values require estimating nuisance parameters such as the proportion of true null hypotheses, and therefore do not control the FDR exactly. Further, estimating said nuisance parameters often requires simplifying assumption, such as independence between the test statistics.
+Another influential line of work is based on the local FDR \citep{efron:2001}, which is embedded into an empirical Bayes framework. The local FDR can be interpreted as the posterior probability that a given hypothesis is null, given the value of the test statistic for that hypothesis. The local FDR provides a more refined, hypothesis-specific, assessment of significance than tail-area measures such as q-values. 
+Estimating the local FDR accurately requires the number of hypotheses being tested to be large (at least in the hundreds), assuming independence across tests, and making certain choices when estimating the global mixture distribution of the test statistics.
+Further related work includes the optimal discovery procedure of \cite{storey:2007}, and the Bayesian discovery procedure of \cite{guindani:2009}. See \cite{efron:2012} for a monograph on FDR control.
+
+An advantage of e-values over these methods are that they provide a finite-$n$ FDR control that does not require estimating nuisance parameters, and which holds regardless of the dependence structure between the multiple tests. This is relevant in multiverse analysis, where typically tests cannot be assumed independent.
+Another advantage of e-values for multiverse analysis is that they are more composable, for example they can be multiplied or averaged across independent datasets (corresponding to subpopulations where a treatment effect is tested, for example) to obtain valid e-values.
+A main limitation of e-values relative to methods based on p-values, q-values and empirical Bayes is that the latter usually have a higher statistical power, provided that their assumptions hold.
+Therefore, our framework is most appropriate for datasets where one has relatively large sample sizes. Otherwise, while FDR control is ensured, one may obtain few statistically significant findings.
+\david{Maybe this is something that we could assess via simulations?}
+
+
+The paper is structured as follows. In Section \ref{sec:framework} we introduce notation and lay out a generalized linear model framework for treatment effect estimation within the context of a multiverse analysis.
+Section \ref{sec:evalues} reviews e-values, issues related to statistical power and discusses their use for multiplicity control.
+Section \ref{sec:results} applies our methodology to a dataset studying the association between teenager mental well-being and technology use.
+Section \ref{sec:discussion} concludes.
+
+
+\section{Framework}
+\label{sec:framework}
+
+
+We lay out a framework that closely resembles that of \cite{semken:2022}.
+Consider a setting where one has $L$ outcomes, $p_x$ treatments and $p_z$ control covariates, with $n$ observations for each.
+Said observations may be potentially split across $p_g \geq 1$ subpopulations.
+Let $y^{(l)} \in \mathbb{R}^n$ for $l=1,\ldots,L$ be the observed outcomes,
+$X$ the $n \times p_x$ matrix with the treatment allocations,
+$Z$ the $n \times p_z$ matrix with the control covariates,
+and $G$ a $n \times p_g$ matrix enconding the subgroup information (if one is not interested in subgroups, then $G$ is omitted).
+Let $x_i$, $z_i$ and $g_i$ be the $i^{th}$ row in $X$, $Z$ and $G$ respectively.
+Throughout, we denote expectations by $\mathbb E$, probabilities by $\mathbb P$, and by $\mathbb E_P$ and $\mathbb P_p$ expectations and probabilities when data are generated by a specific distribution $P$.
+Further, we denote by $p$ the density (or probability mass) function associated to a distribution $P$, and by $q$ those associated to a distribution $Q$.
+
+A generalized linear model for outcome $l$ assumes that
+\begin{align}
+  F( \mathbb E (y_i^{(l)} \mid x_i, z_i, g_i) )=
+  \beta_0^{(l)} + z_i^T \eta_z^{(l)} + g_i^T \eta_g^{(l)} + \sum_{j=1}^{p_x} (\beta_j^{(l)} + g_i^T \delta_j^{(l)}) x_{ij},
+\label{eq:outcome_equation}
+\end{align}
+where $F$ is the link function (e.g., the identity for linear regression, or the logit for logistic regression),
+$\beta_0^{(l)} \in \mathbb{R}$ is the intercept,
+$\beta_j^{(l)} \in \mathbb{R}$ the average effect of treatment $j$ on outcome $l$,
+$\delta_j^{(l)}$ captures subpopulation-specific effects,
+and $\eta_z^{(l)} \in \mathbb{R}^{p_z}$ and $\eta_g^{(l)} \in \mathbb{R}^{p_g}$ are coefficients associated to control covariates and subgroups respectively,
+We denote the whole parameter vector by $\theta^{(l)}= (\{ \beta_j^{(l)} \}_{j=0}^{p_x}, \{ \delta_j^{(l)} \}_{j=1}^{p_x}, \eta_z^{(l)}, \eta_g^{(l)})$.
+Importantly, for this parameter interpretation to hold, $g_i$ must encode subpopulation information using a specific sum-to-zero constraint described next.
+Let $\rho_k$ the proportion of observations coming from subpopulation $k$, we define
+\begin{align}
+  g_{ik}= \begin{cases}
+    \rho_k  \mbox{, if observation } i \mbox{ comes from subpopulation } k \\
+    - (1 - \rho_k) \mbox{, otherwise}
+    \end{cases}
+\nonumber
+\end{align}
+for $k=1,\ldots,p_g$, which implies that $\sum_{i=1}^n g_{ik}=0$.
+We define the effect of treatment $j$ on outcome $l$ for individual $i$ in group $g_i=k$ as
+\begin{align}
+\beta_{jk}^{(l)}=  \frac{\partial}{\partial x_{ij}} F(\mathbb E (y_i^{(l)} \mid x_i, z_i, g_i=k)) 
+= \beta_j^{(l)} + g_i^T \delta_j^{(l)}
+= \beta_j^{(l)} + \rho_k \delta_{jk}^{(l)} - \sum_{m \neq k} \delta_{jm}^{(l)} (1 - \rho_m).
+\nonumber
+\end{align}
+The corresponding average treatment effect (ATE) across all individuals is
+\begin{align}
+\frac{1}{n} \sum_{i=1}^n \frac{\partial}{\partial x_{ij}} F(\mathbb E (y_i^{(l)} \mid x_i, z_i, g_i=k))
+= \beta_j^{(l)} + \frac{1}{n} \left( \sum_{i=1}^n g_i^T \right) \delta_j^{(l)}= \beta_j^{(l)}.
+\nonumber
+\end{align}
+
+We consider a multiverse analysis where one is interested in estimating the ATEs $\beta_j^{(l)}$ for $l=1,\ldots,L$ and $j=1,\ldots,p_x$,
+and performing the corresponding $L p_x$ hypothesis tests
+\begin{align}
+H_{lj}: &\beta_j^{(l)}= 0, \beta_{j'}^{(l)} \in \mathbb{R} \mbox{ for } j' \neq j
+\nonumber
+\\
+\overline{H}_l: & (\beta_1^{(l)},\ldots,\beta_{p_x}^{(l)}) \in \mathbb{R}^{p_x}
+\nonumber
+\end{align}
+That is, the null hypothesis $H_{lj}$ is that treatment $j$ has zero effect on outcome $j$, without any restrictions on the remaining treatment effects.
+And there is a global alternative hypothesis $\overline{H}_l$, shared across all treatments, that treatment effects are non-zero.
+We denote by $\mathcal{H}_{lj}$ the set of probability distributions such that $H_{lj}$ holds, and by $\overline{\mathcal{H}}_l$ the set where none of $H_{l1},\ldots,H_{lp_x}$ hold.
+In the event that one is also interested in testing the effect within subpopulations, there are $L p_x p_g$ further tests corresponding to $H_{ljk}: \beta_{jk}^{(l)}=0$ for  $l=1,\ldots,L$, $j=1,\ldots,p$ and $k=1,\ldots,p_g$.
+To ease notation we drop the subscript $k$ in the exposition below, that is we describe the case where there are no subpopulations, but our framework remains readily applicable when sub-populations are also of interest.
+
+Although not stated explictly, no constraints are specified on any of the other elements of $\theta^{(l)}$, neither under the null nor the alternative.
+In particular, the control covariates effects $\eta_z$ are always assumed to be non-zero.
+This is contrast to SCA \citep{simonsohn:2020} or its Bayesian counterpart \citep{semken:2022}, where one also considers covariate subsets.
+As discussed in Section \ref{sec:intro}, SCA computes a median over subsets of control covariates that has no statistical interpretation. Its Bayesian counterpart computes a weighted average where weights are given by posterior model probabilities, which as $n \to \infty$ converges to performing inference under a model that includes only the controls that have non-zero effects.
+While this implies an asymptotic gain in statistical power, one does not obtain strict type I error control for finite $n$.
+Hence our strategy here of including all controls, as an alternative that is more conservative but strictly controls false positives.
+
+
+Given the potentially large number of multiple tests being conducted, it is important to assess statistical significance in a way such that some measure of false positives is controlled.
+
+
+Specifically, we consider the FDR \citep{benjamini:1995}. Let $\gamma_{jkl}= \mbox{I}(\beta_{jk}^{(l)})$ be the indicator that the null hypothesis doesn't hold $H_{lj}$, let $\hat{\gamma}_{lj} = 1$ if we reject $H_{lj}$ and $\hat{\gamma}_{lj}=0$ otherwise. 
+Then $\mbox{FDR}= \mathbb E(\mbox{FDP})$, where 
+\begin{align}
+ \mbox{FDP}= \begin{cases}
+\frac{\sum_{jkl} \gamma_{lj} \hat{\gamma}_{lj}}{\sum_{jkl} \hat{\gamma}_{lj}} \mbox{, if } \sum_{jkl} \hat{\gamma}_{lj} > 0
+\nonumber \\
+0  \mbox{, otherwise} 
+\end{cases}
+\nonumber
+\end{align}
+and the expectation is with respect to the data-generating distribution.
+That is, the FDR is the expected false discovery proportion (FDP) and, if no hypotheses are rejected, then FDP is defined to be 0.
+
+
+
+
+\section{e-values}
+\label{sec:evalues}
+
+E-values provide a convenient way to assess statistical significance in a way that the FDR is strictly controlled, for any sample size and any dependence structure between the tests being performed.
+Formally, an e-value is the realization of a random variable called an e-variable, whose defining property is that its expectation under the null hypothesis is $\leq 1$.
+
+\begin{definition}
+Consider a null hypothesis $H_{lj}$ specifying a set of probability distributions $\mathcal{H}_{lj}$.
+A test statistic $E_{lj}$ is an e-variable if and only if
+$\mathbb E_P (E_{lj}) \leq 1$ for any $P \in \mathcal{H}_{lj}$.
+\label{def:evariable}
+\end{definition}
+
+Larger values of $E_{lj}$ provide stronger evidence for the alternative hypothesis.
+By Markov's inequality, if one rejects $H_{lj}$ when $E_{lj} \geq 1/\alpha$, then the type I error is $\leq \alpha$:
+\begin{align}
+ \mathbb P_P \left( E_{lj} \geq \frac{1}{\alpha} \right) \leq \alpha \mathbb E_P(E_{lj}) \leq \alpha,
+\nonumber
+\end{align}
+for any $P \in \mathcal{H}_{lj}$.
+
+In Section \ref{ssec:universal_evariables} we discuss strategies to define e-variables, including the universal Zellner mixture e-variables that we use as a default.
+Section \ref{ssec:fdr_control} reviews e-value-based procedures for FDR control.
+
+
+\subsection{Universal mixture e-variables}
+\label{ssec:universal_evariables}
+
+There are many ways to define valid e-variables. One option is to use so-called calibrators to convert P-values into E-values (and vice versa), see \cite{ramdas:2025} (Chapter 2) for a review.
+Calibrators may lack statistical power, and efforts have been made to define e-variables that accumulate evidence against the null as fast as possible. Such optimality is usually defined in terms of maximizing $\mathbb E_Q [\log E_{lj}]$, where $Q \in \overline{\mathcal{H}}_l$ is a distribution within the global alternative hypothesis. 
+One possible definition of optimality is the so-called numeraire, an e-variable $E_{lj}^*$ (\cite{ramdas:2025}, Chapter 6) that is defined by $E_{lj}/E_{lj}^*$ having expectation $\leq 1$ under the alternative, where $E_{lj}$ is any other e-variable. 
+Another possible definition by \cite{gruenwald:2024} uses a worst-case optimality criterion called GROW.
+When testing a point null hypothesis versus a point null alternative, both definitions return the likelihood-ratio test as the optimal e-variable. This is of course not applicable to our setting, where the null hypothesis $\mathcal{H}_{lj}$ contains infinitely many distributions indexed by $\theta^{(l)}$, and so does the alternative $\overline{\mathcal{H}}_l$.
+In such more general settings, obtaining either the numeraire or the GROW-optimal e-variable is related to so-called reverse information projections (RIP), and it is a highly non-trivial task.
+
+Instead, here we focus on a universal inference framework proposed by \cite{wasserman:2020}.
+The approach is practical, in that it is easy to implement and can be used in arbitrarily complex settings, the downside being that its power is dominated by that of the numeraire (\cite{ramdas:2025}, Chapter 6.5).
+The original approach of \cite{wasserman:2020} uses split likelihood-ratio e-variables.
+Specifically, one splits the observed data $y^{(l)}=(y_0^{(l)},y_1^{(l)})$, where $y_0^{(l)}$ is assumed independent from $y_1^{(l)}$.
+One then obtains the maximum likelihood estimate (MLE) for the density function under the null $\hat{p}_{lj} \in \mathcal{H}_{lj}$ using only $y_0^{(l)}$, that under the global alternative $\hat{q}_l$ using only $y_1^{(l)}$, and computes
+$$
+E_{lj}= \frac{\hat{q}_l(y_0^{(l)})}{ \hat{p}_{lj}(y_0^{(l)})}.
+$$
+Here we consider an alternative discussed in \cite{ramdas:2025} (Chapter 5.2), the universal mixture e-variable, which avoids using arbitrary data splits (as well as assuming independence) by considering a hybrid of frequentist and Bayesian hypothesis tests.
+Specifically, let $\hat{p}_{lj} \in \mathcal{H}_{lj}$ be the MLE under the null, now using the full data $y^{(l)}$. Define
+\begin{align}
+E_{lj}= \frac{q_l(y^{(l)})}{\hat{p}_{lj}(y^{(l)})},
+\label{eq:univ_evalue_mixture}
+\end{align}
+where
+\begin{align}
+ q_l(y)= \int p(y \mid \theta^{(l)}) p(\theta_l \mid \overline{H}_l) d\theta_l
+\nonumber
+\end{align}
+is the marginal (or integrated) likelihood with respect to a prior density $p(\theta_j^{(l)} \mid \overline{H}_l)$ that places full support on the alternative %, that is such that $P(y \mid \theta_{lj}) \not\in \mathcal{H}_{lj}$ with prior probability 1  
+(in our setting, under $p(\theta_j^{(l)} \mid \overline{H}_l)$ the prior probability that any $\theta_j^{(l)} = 0$ is zero).
+It is easy to show that $E_{lj}$ is an e-variable for any choice of $p(\theta_j^{(l)} \mid \overline{H}_l)$.
+Since $\hat{p}_{lj}$ is the MLE under $\mathcal{H}_{jl}$, by definition we have that $p(y^{(l)}) \leq \hat{p}_{lj}(y^{(l)})$ for any $P \in \mathcal{H}_{lj}$, therefore
+\begin{align}
+ \mathbb E_{P} \left( E_{lj} \right)=
+\int \frac{q_l(y^{(l)})}{\hat{p}_{lj}(y^{(l)})} p(y^{(l)}) dy^{(l)}
+\leq \int \frac{q_l(y^{(l)})}{p(y^{(l)})} p(y^{(l)}) dy^{(l)}= \int q_l(y^{(l)}) dy^{(l)}= 1.
+\nonumber
+\end{align}
+To avoid subjectivity in the choice of $p(\theta_j^{(l)})$, we consider Zellner's unit information prior \citep{zellner:1986}, a classical default that has tight connections to the Bayesian information criterion \citep{schwarz:1978}.
+Specifically, let $W=(X, Z, G)$ be the design matrix associated to the regression equation in \eqref{eq:outcome_equation} (if subpopulations are of interest, then the interaction terms $GX$ are also included in $W$).
+Zellner's unit information prior is
+\begin{align}
+\theta_j^{(l)} \sim N(0, n \sigma_l^2 (W^T W)^{-1}),
+\label{eq:uip}
+\end{align}
+where $\sigma_l^2 > 0$ is the GLM dispersion parameter associated to $y^{(l)}$.
+This choice assumes that $W^T W$ is invertible, as is the case in our examples here, otherwise an alternative default is to replace $W^TW$ by $\mbox{diag}(W^T W)$.
+
+Expression \eqref{eq:univ_evalue_mixture} requires obtaining an MLE for the $L p_x$ alternative hypotheses, which can be done efficiently and in parallel using any suitable optimization algorithm.
+It also requires obtaining $L$ marginal likelihoods $q_l(y)$, one for each outcome.
+In the linear regression case where $y^{(l)} \sim N(W \theta^{(l)}, \sigma_l^2 I)$, $q_l$ has a closed-form.
+Specifically, if one sets an inverse Gamma prior $\sigma_l^2 \sim \mbox{IG}(a/2,l/2)$, then
+\begin{align}
+ \frac{q_l(y^{(l)})}{\hat{p}_{lj}(y^{(l)})}= 
+\frac{l^{a/2} \Gamma(\frac{n+a}{2})}{(n + 1)^{d/2} \Gamma(a/2)}
+\frac{(2 e/\hat{\sigma}_l^2)^{\frac{n}{2}}}{\left( l+ \| y^{(l)} \|^2 - \frac{n}{n+1} (\hat{\theta}^{(l)})^T W^T W \hat{\theta}^{(l)} \right)^{\frac{n + a}{2}}}
+\nonumber
+\end{align}
+where $\| \cdot \|^2$ is the squared Euclidean norm, $d=\mbox{dim}(\theta^{(l)})$, $\hat{\theta}^{(l)}= (W^T W)^{-1} W^T y^{(l)}$ is the least-squares estimator and $\hat{\sigma}_l^2= n^{-1}(\| y^{(l)} \|^2 - \| W \hat{\theta}^{(l)} \|^2)$ the MLE for the error variance.
+Outside of linear regression numerical integration methods must be used and, as long as the number of outcomes $L$ is not too large, this can also be done quickly (and in parallel).
+In our implementation we approximate $q_l$ using Laplace approximations, which is very fast as it requires a single optimization exercise for each outcome, and is very accurate as $n$ grows (\cite{kass:1990}, \cite{rossell:2021b} Lemma S3).
+
+
+
+
+\subsection{FDR control with e-variables}
+\label{ssec:fdr_control}
+
+A popular and simple strategy to control the FDR below any user-specified $\alpha$ is the e-BH procedure of \cite{wang_ruodu:2022}.
+Let $e_{lj}$ be the e-value, that is the observed value of the e-variable $E_{lj}$, for $l=1,\ldots,L$ and $j=1,\ldots,p_x$, and let $K= L p_x$ be the number of hypotheses being tested.
+Let $e_{[k]}$ be the $k^{th}$ order statistic of $e_{lj}$ across all $(l,j)$, sorted from largest to smallest. The e-BH procedure at level $\alpha$ rejects all hypotheses with the $k^*$ largest e-values, where
+\begin{align}
+ k^*= \max \left\{ k \in \{1, \ldots, L p_x \} : \frac{k e_{[k]}}{L p_x} \geq \frac{1}{\alpha}  \right\},
+\nonumber
+\end{align}
+with the convention that $\max \emptyset = 0$.
+That is, the $k^{th}$ test effectively uses $k e_{[k]} / K$ as its e-value, and if we reject test $k$ then we also reject all the previous tests.
+\cite{wang_ruodu:2022} proved that 
+$\mathbb \mbox{FDR} \leq \alpha K_0 / K \leq \alpha$, where $K_0$ is the number of truly null hypotheses.
+
+A slight refinement of e-BH, which only has a practical effect when $K$ is small, is as follows.
+Test the joint null hypothesis that all $\theta_{lj}=0$:
+if $K^{-1} \sum_{l,j} E_{lj} \leq 1/\alpha$ then no hypothesis is rejected,
+otherwise apply the e-BH procedure replacing $\alpha$ by $\alpha K/(K-1)$. 
+This procedure controls the FDR below $\alpha$ and dominates uniformly the e-BH procedure.
+A further improvement is possible by using the closed e-BH procedure (\cite{ramdas:2025}, Chapter 9.6), denoted by $\overline{\text{e-BH}}$.
+Specifically, let $R_k$ the set of indices corresponding to the $k$ largest e-values, $\overline{\text{e-BH}}$ rejects all null hypotheses $k \leq \bar{k}$, where
+$\bar k= \max \{k \geq 0: R_k \in C_\alpha \}$ and
+\begin{align}
+ C_\alpha = \left\{ R: \frac{1}{|A|} \sum_{k \in A} E_k \geq \frac{\mbox{FDP}_A(R)}{\alpha}  \mbox{, for all } A \subseteq \{ 1,\ldots,K \}  \right\}
+\nonumber
+\end{align}
+where $\mbox{FDP}_A(R)= |A \cap R|/\max\{|R|, 1\}$ is the false discovery proportion associated to rejecting the hypotheses in $R$, if $A$ were the subset of truly null hypotheses.
+In words, $R_{\bar k}$ is such that the average of the e-values over any other subset $A$ exceeds $\mbox{FDP}_A(R)/\alpha$.
+$\overline{\text{e-BH}}$ controls the FDR at level $\alpha$, and rejects at least as many hypothesis as the refined e-BH procedure.
+A disadvantage however is that finding $R_{\bar k}$ requires order $K^3$ operations, relative to e-BH which only requires $K$ operations.
+\david{I didn't have time to check exactly what the algorithm is, but if $K$ is not super-large in our examples perhaps it's worth trying it out? Assuming that the algorithm is simple to implement or that code is available, of course.}
+
+
+
+\section{Results}
+\label{sec:results}
+
+
+
+%\section{Tables}\label{sec5}
+
+%\begin{table}[h]
+%\caption{Caption text}\label{tab1}%
+%\begin{tabular}{@{}llll@{}}
+%\toprule
+%Column 1 & Column 2  & Column 3 & Column 4\\
+%\midrule
+%row 1    & data 1   & data 2  & data 3  \\
+%row 2    & data 4   & data 5\footnotemark[1]  & data 6  \\
+%row 3    & data 7   & data 8  & data 9\footnotemark[2]  \\
+%\botrule
+%\end{tabular}
+%\footnotetext{Source: This is an example of table footnote. This is an example of table footnote.}
+%\footnotetext[1]{Example for a first table footnote. This is an example of table footnote.}
+%\footnotetext[2]{Example for a second table footnote. This is an example of table footnote.}
+%\end{table}
+
+
+%\begin{table}[h]
+%\caption{Example of a lengthy table which is set to full textwidth}\label{tab2}
+%\begin{tabular*}{\textwidth}{@{\extracolsep\fill}lcccccc}
+%\toprule%
+%& \multicolumn{3}{@{}c@{}}{Element 1\footnotemark[1]} & \multicolumn{3}{@{}c@{}}{Element 2\footnotemark[2]} \\\cmidrule{2-4}\cmidrule{5-7}%
+%Project & Energy & $\sigma_{calc}$ & $\sigma_{expt}$ & Energy & $\sigma_{calc}$ & $\sigma_{expt}$ \\
+%\midrule
+%Element 3  & 990 A & 1168 & $1547\pm12$ & 780 A & 1166 & $1239\pm100$\\
+%Element 4  & 500 A & 961  & $922\pm10$  & 900 A & 1268 & $1092\pm40$\\
+%\botrule
+%\end{tabular*}
+%\footnotetext{Note: This is an example of table footnote. This is an example of table footnote this is an example of table footnote this is an example of~table footnote this is an example of table footnote.}
+%\footnotetext[1]{Example for a first table footnote.}
+%\footnotetext[2]{Example for a second table footnote.}
+%\end{table}
+
+
+
+\section{Discussion}
+\label{sec:discussion}
+
+
+
+
+\backmatter
+
+%\bmhead{Supplementary information}
+% 
+%If your article has accompanying supplementary file/s please state so here. 
+% 
+
+
+\section*{Declarations}
+
+\bmhead{Funding}
+
+DR was funded by grant ICREA Academia 2026 from AGAUR, Generalitat de Catalunya, and by grant PID2022-138268NB-I00 by Ministerio de Ciencia e Innovaci\'on (MICIN)/Agencia Espa\~{n}ola de Investigaci\'on(AEI)/10.13039/501100011033 /Fondo Europeo de Desarrollo Regional (FEDER).
+
+\bmhead{Ethics approval}
+
+Not applicable.
+
+\bmhead{Consent}
+
+Not applicable.
+
+\bmhead{Data}
+
+\bmhead{Code availability}
+
+\bmhead{Author's contribution statements}
+
+All authors contributed equally to this work.
+
+%If any of the sections are not relevant to your manuscript, please include the heading and write `Not applicable' for that section. 
+
+
+\begin{appendices}
+
+\section{Section title of first appendix}\label{secA1}
+
+
+\end{appendices}
+
+
+\bibliography{references}% common bib file
+%% if required, the content of .bbl file can be included here once bbl is generated
+%%\input sn-article.bbl
+
+\end{document}

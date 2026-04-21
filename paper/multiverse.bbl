@@ -1,0 +1,334 @@
+%% BioMed_Central_Bib_Style_v1.01
+
+\begin{thebibliography}{21}
+% BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
+\ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
+\ifx \binits  \undefined \def \binits#1{#1}\fi
+\ifx \bauthor  \undefined \def \bauthor#1{#1}\fi
+\ifx \batitle  \undefined \def \batitle#1{#1}\fi
+\ifx \bjtitle  \undefined \def \bjtitle#1{#1}\fi
+\ifx \bvolume  \undefined \def \bvolume#1{\textbf{#1}}\fi
+\ifx \byear  \undefined \def \byear#1{#1}\fi
+\ifx \bissue  \undefined \def \bissue#1{#1}\fi
+\ifx \bfpage  \undefined \def \bfpage#1{#1}\fi
+\ifx \blpage  \undefined \def \blpage #1{#1}\fi
+\ifx \burl  \undefined \def \burl#1{\textsf{#1}}\fi
+\ifx \doiurl  \undefined \def \doiurl#1{\url{https://doi.org/#1}}\fi
+\ifx \betal  \undefined \def \betal{\textit{et al.}}\fi
+\ifx \binstitute  \undefined \def \binstitute#1{#1}\fi
+\ifx \binstitutionaled  \undefined \def \binstitutionaled#1{#1}\fi
+\ifx \bctitle  \undefined \def \bctitle#1{#1}\fi
+\ifx \beditor  \undefined \def \beditor#1{#1}\fi
+\ifx \bpublisher  \undefined \def \bpublisher#1{#1}\fi
+\ifx \bbtitle  \undefined \def \bbtitle#1{#1}\fi
+\ifx \bedition  \undefined \def \bedition#1{#1}\fi
+\ifx \bseriesno  \undefined \def \bseriesno#1{#1}\fi
+\ifx \blocation  \undefined \def \blocation#1{#1}\fi
+\ifx \bsertitle  \undefined \def \bsertitle#1{#1}\fi
+\ifx \bsnm \undefined \def \bsnm#1{#1}\fi
+\ifx \bsuffix \undefined \def \bsuffix#1{#1}\fi
+\ifx \bparticle \undefined \def \bparticle#1{#1}\fi
+\ifx \barticle \undefined \def \barticle#1{#1}\fi
+\bibcommenthead
+\ifx \bconfdate \undefined \def \bconfdate #1{#1}\fi
+\ifx \botherref \undefined \def \botherref #1{#1}\fi
+\ifx \url \undefined \def \url#1{\textsf{#1}}\fi
+\ifx \bchapter \undefined \def \bchapter#1{#1}\fi
+\ifx \bbook \undefined \def \bbook#1{#1}\fi
+\ifx \bcomment \undefined \def \bcomment#1{#1}\fi
+\ifx \oauthor \undefined \def \oauthor#1{#1}\fi
+\ifx \citeauthoryear \undefined \def \citeauthoryear#1{#1}\fi
+\ifx \endbibitem  \undefined \def \endbibitem {}\fi
+\ifx \bconflocation  \undefined \def \bconflocation#1{#1}\fi
+\ifx \arxivurl  \undefined \def \arxivurl#1{\textsf{#1}}\fi
+\csname PreBibitemsHook\endcsname
+
+%%% 1
+\bibitem[\protect\citeauthoryear{Simonsohn et~al.}{2020}]{simonsohn:2020}
+\begin{barticle}
+\bauthor{\bsnm{Simonsohn}, \binits{U.}},
+\bauthor{\bsnm{Simmons}, \binits{J.P.}},
+\bauthor{\bsnm{Nelson}, \binits{L.D.}}:
+\batitle{Specification curve analysis}.
+\bjtitle{Nature human behaviour}
+\bvolume{4}(\bissue{11}),
+\bfpage{1208}--\blpage{1214}
+(\byear{2020})
+\end{barticle}
+\endbibitem
+
+%%% 2
+\bibitem[\protect\citeauthoryear{Semken and Rossell}{2022}]{semken:2022}
+\begin{barticle}
+\bauthor{\bsnm{Semken}, \binits{C.}},
+\bauthor{\bsnm{Rossell}, \binits{D.}}:
+\batitle{Specification analysis for technology use and teenager well-being:
+  Statistical validity and a bayesian proposal}.
+\bjtitle{Journal of the Royal Statistical Society C}
+\bvolume{71}(\bissue{5}),
+\bfpage{1330}--\blpage{1355}
+(\byear{2022})
+\end{barticle}
+\endbibitem
+
+%%% 3
+\bibitem[\protect\citeauthoryear{Orben and Przybylski}{2019}]{orben:2019}
+\begin{barticle}
+\bauthor{\bsnm{Orben}, \binits{A.}},
+\bauthor{\bsnm{Przybylski}, \binits{A.K.}}:
+\batitle{The association between adolescent well-being and digital technology
+  use}.
+\bjtitle{Nature human behaviour}
+\bvolume{3}(\bissue{2}),
+\bfpage{173}--\blpage{182}
+(\byear{2019})
+\end{barticle}
+\endbibitem
+
+%%% 4
+\bibitem[\protect\citeauthoryear{Ramdas and Wang}{2025}]{ramdas:2025}
+\begin{barticle}
+\bauthor{\bsnm{Ramdas}, \binits{A.}},
+\bauthor{\bsnm{Wang}, \binits{R.}}:
+\batitle{Hypothesis testing with e-values}.
+\bjtitle{Foundations and Trends{\textregistered} in Statistics}
+\bvolume{1}(\bissue{1-2}),
+\bfpage{1}--\blpage{390}
+(\byear{2025})
+\end{barticle}
+\endbibitem
+
+%%% 5
+\bibitem[\protect\citeauthoryear{Kass and Raftery}{1995}]{kass_raftery:1995}
+\begin{barticle}
+\bauthor{\bsnm{Kass}, \binits{R.E.}},
+\bauthor{\bsnm{Raftery}, \binits{A.E.}}:
+\batitle{Bayes factors}.
+\bjtitle{Journal of the american statistical association}
+\bvolume{90}(\bissue{430}),
+\bfpage{773}--\blpage{795}
+(\byear{1995})
+\end{barticle}
+\endbibitem
+
+%%% 6
+\bibitem[\protect\citeauthoryear{Wang and Ramdas}{2022}]{wang_ruodu:2022}
+\begin{barticle}
+\bauthor{\bsnm{Wang}, \binits{R.}},
+\bauthor{\bsnm{Ramdas}, \binits{A.}}:
+\batitle{False discovery rate control with e-values}.
+\bjtitle{Journal of the Royal Statistical Society B}
+\bvolume{84}(\bissue{3}),
+\bfpage{822}--\blpage{852}
+(\byear{2022})
+\end{barticle}
+\endbibitem
+
+%%% 7
+\bibitem[\protect\citeauthoryear{Vovk and Wang}{2021}]{vovk:2021}
+\begin{barticle}
+\bauthor{\bsnm{Vovk}, \binits{V.}},
+\bauthor{\bsnm{Wang}, \binits{R.}}:
+\batitle{E-values: Calibration, combination and applications}.
+\bjtitle{The Annals of Statistics}
+\bvolume{49}(\bissue{3}),
+\bfpage{1736}--\blpage{1754}
+(\byear{2021})
+\end{barticle}
+\endbibitem
+
+%%% 8
+\bibitem[\protect\citeauthoryear{Gr{\"u}nwald et~al.}{2024}]{gruenwald:2024}
+\begin{barticle}
+\bauthor{\bsnm{Gr{\"u}nwald}, \binits{P.}},
+\bauthor{\bsnm{Heide}, \binits{R.}},
+\bauthor{\bsnm{Koolen}, \binits{W.}}:
+\batitle{Safe testing}.
+\bjtitle{Journal of the Royal Statistical Society B}
+\bvolume{86}(\bissue{5}),
+\bfpage{1091}--\blpage{1128}
+(\byear{2024})
+\end{barticle}
+\endbibitem
+
+%%% 9
+\bibitem[\protect\citeauthoryear{Chugg et~al.}{2026}]{chugg:2026}
+\begin{barticle}
+\bauthor{\bsnm{Chugg}, \binits{B.}},
+\bauthor{\bsnm{Ramdas}, \binits{A.}},
+\bauthor{\bsnm{Gr{\"u}nwald}, \binits{P.}}:
+\batitle{E-values as statistical evidence: A comparison to bayes factors,
+  likelihoods, and p-values}.
+\bjtitle{arXiv}
+\bvolume{2603.24421},
+\bfpage{1}--\blpage{34}
+(\byear{2026})
+\end{barticle}
+\endbibitem
+
+%%% 10
+\bibitem[\protect\citeauthoryear{Benjamini and Hochberg}{1995}]{benjamini:1995}
+\begin{barticle}
+\bauthor{\bsnm{Benjamini}, \binits{Y.}},
+\bauthor{\bsnm{Hochberg}, \binits{Y.}}:
+\batitle{Controlling the false discovery rate: A practical and powerful
+  approach to multiple testing}.
+\bjtitle{Journal of the Royal Statistical Society B}
+\bvolume{57}(\bissue{1}),
+\bfpage{289}--\blpage{300}
+(\byear{1995})
+\end{barticle}
+\endbibitem
+
+%%% 11
+\bibitem[\protect\citeauthoryear{Benjamini and
+  Yekutieli}{2001}]{benjamini:2001}
+\begin{barticle}
+\bauthor{\bsnm{Benjamini}, \binits{Y.}},
+\bauthor{\bsnm{Yekutieli}, \binits{D.}}:
+\batitle{The control of the false discovery rate in multiple testing under
+  dependency}.
+\bjtitle{The Annals of Statistics}
+\bvolume{29},
+\bfpage{1165}--\blpage{1188}
+(\byear{2001})
+\end{barticle}
+\endbibitem
+
+%%% 12
+\bibitem[\protect\citeauthoryear{Storey}{2003}]{storey:2003}
+\begin{barticle}
+\bauthor{\bsnm{Storey}, \binits{J.D.}}:
+\batitle{The positive false discovery rate: a {B}ayesian interpretation and the
+  q-value}.
+\bjtitle{The Annals of Statistics}
+\bvolume{31},
+\bfpage{2013}--\blpage{2035}
+(\byear{2003})
+\end{barticle}
+\endbibitem
+
+%%% 13
+\bibitem[\protect\citeauthoryear{Efron et~al.}{2001}]{efron:2001}
+\begin{barticle}
+\bauthor{\bsnm{Efron}, \binits{B.}},
+\bauthor{\bsnm{Tibshirani}, \binits{R.}},
+\bauthor{\bsnm{Storey}, \binits{J.D.}},
+\bauthor{\bsnm{Tusher}, \binits{V.}}:
+\batitle{Empirical {B}ayes analysis of a microarray experiment}.
+\bjtitle{Journal of the Americal Statistical Association}
+\bvolume{96},
+\bfpage{1151}--\blpage{1160}
+(\byear{2001})
+\end{barticle}
+\endbibitem
+
+%%% 14
+\bibitem[\protect\citeauthoryear{Storey}{2007}]{storey:2007}
+\begin{barticle}
+\bauthor{\bsnm{Storey}, \binits{J.D.}}:
+\batitle{The optimal discovery procedure: A new approach to simultaneous
+  significance testing}.
+\bjtitle{Journal of the Royal Statistical Society B}
+\bvolume{69},
+\bfpage{347}--\blpage{368}
+(\byear{2007})
+\end{barticle}
+\endbibitem
+
+%%% 15
+\bibitem[\protect\citeauthoryear{Guindani et~al.}{2009}]{guindani:2009}
+\begin{barticle}
+\bauthor{\bsnm{Guindani}, \binits{M.}},
+\bauthor{\bsnm{M\"uller}, \binits{P.}},
+\bauthor{\bsnm{Zhang}, \binits{S.}}:
+\batitle{A {B}ayesian discovery procedure}.
+\bjtitle{Journal of the Royal Statistical Society, Series B}
+\bvolume{71},
+\bfpage{905}--\blpage{925}
+(\byear{2009})
+\end{barticle}
+\endbibitem
+
+%%% 16
+\bibitem[\protect\citeauthoryear{Efron}{2012}]{efron:2012}
+\begin{bbook}
+\bauthor{\bsnm{Efron}, \binits{B.}}:
+\bbtitle{Large-scale Inference: Empirical {B}ayes Methods for Estimation,
+  Testing, and Prediction}
+vol. \bseriesno{1}.
+\bpublisher{Cambridge University Press},
+\blocation{Cambridge, United Kingdom}
+(\byear{2012})
+\end{bbook}
+\endbibitem
+
+%%% 17
+\bibitem[\protect\citeauthoryear{Wasserman et~al.}{2020}]{wasserman:2020}
+\begin{barticle}
+\bauthor{\bsnm{Wasserman}, \binits{L.}},
+\bauthor{\bsnm{Ramdas}, \binits{A.}},
+\bauthor{\bsnm{Balakrishnan}, \binits{S.}}:
+\batitle{Universal inference}.
+\bjtitle{Proceedings of the National Academy of Sciences}
+\bvolume{117}(\bissue{29}),
+\bfpage{16880}--\blpage{16890}
+(\byear{2020})
+\end{barticle}
+\endbibitem
+
+%%% 18
+\bibitem[\protect\citeauthoryear{Zellner}{1986}]{zellner:1986}
+\begin{bchapter}
+\bauthor{\bsnm{Zellner}, \binits{A.}}:
+\bctitle{On assessing prior distributions and bayesian regression analysis with
+  g-prior distributions}.
+In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
+  Bruno de Finetti}.
+\bpublisher{North-Holland/Elsevier},
+\blocation{Amsterdam; New York}
+(\byear{1986})
+\end{bchapter}
+\endbibitem
+
+%%% 19
+\bibitem[\protect\citeauthoryear{Schwarz}{1978}]{schwarz:1978}
+\begin{barticle}
+\bauthor{\bsnm{Schwarz}, \binits{G.}}:
+\batitle{Estimating the dimension of a model}.
+\bjtitle{The Annals of Statistics}
+\bvolume{6},
+\bfpage{461}--\blpage{464}
+(\byear{1978})
+\end{barticle}
+\endbibitem
+
+%%% 20
+\bibitem[\protect\citeauthoryear{Kass et~al.}{1990}]{kass:1990}
+\begin{barticle}
+\bauthor{\bsnm{Kass}, \binits{R.E.}},
+\bauthor{\bsnm{Tierney}, \binits{L.}},
+\bauthor{\bsnm{Kadane}, \binits{J.B.}}:
+\batitle{The validity of posterior expansions based on {L}aplace's method}.
+\bjtitle{Bayesian and likelihood methods in statistics and econometrics}
+\bvolume{7},
+\bfpage{473}--\blpage{488}
+(\byear{1990})
+\end{barticle}
+\endbibitem
+
+%%% 21
+\bibitem[\protect\citeauthoryear{Rossell and Rubio}{2021}]{rossell:2021b}
+\begin{barticle}
+\bauthor{\bsnm{Rossell}, \binits{D.}},
+\bauthor{\bsnm{Rubio}, \binits{F.J.}}:
+\batitle{Additive {B}ayesian variable selection under censoring and
+  misspecification}.
+\bjtitle{Statistical Science}
+\bvolume{38}(\bissue{1}),
+\bfpage{13}--\blpage{29}
+(\byear{2021})
+\end{barticle}
+\endbibitem
+
+\end{thebibliography}
