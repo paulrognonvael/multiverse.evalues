@@ -1,0 +1,20 @@
+"hyp","evalue","BHcrit","rejected"
+"DistressXHigh emotional problems (parent)",6139711.20258802,TRUE,TRUE
+"IllnessXHigh emotional problems (parent)",0.0788334920583566,FALSE,FALSE
+"MaleXHigh emotional problems (parent)",6.40639325249198e-06,FALSE,FALSE
+"MotivationXHigh emotional problems (parent)",5.33971823297424e-11,FALSE,FALSE
+"ClosenessXHigh emotional problems (parent)",1.64023721592957e-11,FALSE,FALSE
+"ScoreXHigh emotional problems (parent)",2.90351250181791e-12,FALSE,FALSE
+"FatherXHigh emotional problems (parent)",1.95606470302861e-13,FALSE,FALSE
+"`Social media`XHigh emotional problems (parent)",9.59018049982708e-14,FALSE,FALSE
+"SiblingsXHigh emotional problems (parent)",7.63410544114815e-14,FALSE,FALSE
+"BMIXHigh emotional problems (parent)",7.48229579586539e-14,FALSE,FALSE
+"`Electronic games`XHigh emotional problems (parent)",7.05158041540258e-14,FALSE,FALSE
+"TimeXHigh emotional problems (parent)",5.90213917029544e-14,FALSE,FALSE
+"IncomeXHigh emotional problems (parent)",5.63667523511806e-14,FALSE,FALSE
+"EmployedXHigh emotional problems (parent)",3.84890989610637e-14,FALSE,FALSE
+"AgeXHigh emotional problems (parent)",3.33198726629734e-14,FALSE,FALSE
+"`Other internet`XHigh emotional problems (parent)",3.27399555169454e-14,FALSE,FALSE
+"EthnicityXHigh emotional problems (parent)",2.56631931050143e-14,FALSE,FALSE
+"`Own computer`XHigh emotional problems (parent)",2.51423892171886e-14,FALSE,FALSE
+"TVXHigh emotional problems (parent)",2.37728975168581e-14,FALSE,FALSE
