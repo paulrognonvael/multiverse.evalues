@@ -1,0 +1,20 @@
+"hyp","evalue","BHcrit","rejected"
+"ClosenessXHigh conduct problems (parent)",3614.94073626369,TRUE,TRUE
+"DistressXHigh conduct problems (parent)",2.9333161580212e-14,FALSE,FALSE
+"ScoreXHigh conduct problems (parent)",6.68375860979042e-16,FALSE,FALSE
+"IllnessXHigh conduct problems (parent)",2.1515412501452e-16,FALSE,FALSE
+"MaleXHigh conduct problems (parent)",5.70690834344068e-19,FALSE,FALSE
+"MotivationXHigh conduct problems (parent)",2.60865980151268e-19,FALSE,FALSE
+"BMIXHigh conduct problems (parent)",1.35349938713825e-20,FALSE,FALSE
+"AgeXHigh conduct problems (parent)",8.19832061282414e-21,FALSE,FALSE
+"TimeXHigh conduct problems (parent)",3.04894677802031e-21,FALSE,FALSE
+"IncomeXHigh conduct problems (parent)",2.0762789615165e-21,FALSE,FALSE
+"`Own computer`XHigh conduct problems (parent)",2.43161842136523e-22,FALSE,FALSE
+"FatherXHigh conduct problems (parent)",1.14323872234315e-22,FALSE,FALSE
+"`Electronic games`XHigh conduct problems (parent)",1.11281099109321e-22,FALSE,FALSE
+"`Other internet`XHigh conduct problems (parent)",9.80835562141023e-23,FALSE,FALSE
+"EthnicityXHigh conduct problems (parent)",9.34955454602696e-23,FALSE,FALSE
+"SiblingsXHigh conduct problems (parent)",8.81215353978628e-23,FALSE,FALSE
+"TVXHigh conduct problems (parent)",7.43941830535235e-23,FALSE,FALSE
+"EmployedXHigh conduct problems (parent)",5.76605875323927e-23,FALSE,FALSE
+"`Social media`XHigh conduct problems (parent)",5.07917808041892e-23,FALSE,FALSE

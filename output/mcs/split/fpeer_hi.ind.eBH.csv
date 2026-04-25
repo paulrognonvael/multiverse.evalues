@@ -1,0 +1,20 @@
+"hyp","evalue","BHcrit","rejected"
+"DistressXHigh peer problems (parent)",3330.73046266139,TRUE,TRUE
+"IllnessXHigh peer problems (parent)",0.00907036076773349,FALSE,FALSE
+"ScoreXHigh peer problems (parent)",0.00437722602086187,FALSE,FALSE
+"MotivationXHigh peer problems (parent)",3.97445440585851e-05,FALSE,FALSE
+"BMIXHigh peer problems (parent)",3.62257442067029e-05,FALSE,FALSE
+"ClosenessXHigh peer problems (parent)",1.92653353486938e-06,FALSE,FALSE
+"IncomeXHigh peer problems (parent)",1.90468773601114e-06,FALSE,FALSE
+"`Electronic games`XHigh peer problems (parent)",1.00002376393947e-06,FALSE,FALSE
+"SiblingsXHigh peer problems (parent)",9.83555747979188e-07,FALSE,FALSE
+"`Social media`XHigh peer problems (parent)",7.74185382044576e-07,FALSE,FALSE
+"`Other internet`XHigh peer problems (parent)",5.58588370376304e-07,FALSE,FALSE
+"TimeXHigh peer problems (parent)",1.97337534504331e-07,FALSE,FALSE
+"TVXHigh peer problems (parent)",9.11516952648398e-08,FALSE,FALSE
+"EmployedXHigh peer problems (parent)",8.07296210215571e-08,FALSE,FALSE
+"AgeXHigh peer problems (parent)",1.81516403247189e-08,FALSE,FALSE
+"EthnicityXHigh peer problems (parent)",1.49162022078073e-08,FALSE,FALSE
+"`Own computer`XHigh peer problems (parent)",1.42763382675479e-08,FALSE,FALSE
+"FatherXHigh peer problems (parent)",1.02271386202537e-08,FALSE,FALSE
+"MaleXHigh peer problems (parent)",9.97225066276689e-09,FALSE,FALSE

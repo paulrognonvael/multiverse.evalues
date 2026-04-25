@@ -1,0 +1,20 @@
+"hyp","evalue","BHcrit","rejected"
+"MaleXHigh hyperactivity/inattention (parent)",6.27522492818746e-26,FALSE,FALSE
+"IllnessXHigh hyperactivity/inattention (parent)",2.04402579510423e-33,FALSE,FALSE
+"MotivationXHigh hyperactivity/inattention (parent)",1.42491921219687e-33,FALSE,FALSE
+"DistressXHigh hyperactivity/inattention (parent)",1.39689406052679e-36,FALSE,FALSE
+"ClosenessXHigh hyperactivity/inattention (parent)",3.0166011441158e-44,FALSE,FALSE
+"IncomeXHigh hyperactivity/inattention (parent)",2.81205409900271e-50,FALSE,FALSE
+"ScoreXHigh hyperactivity/inattention (parent)",1.93836270654257e-50,FALSE,FALSE
+"TimeXHigh hyperactivity/inattention (parent)",2.09019557459765e-52,FALSE,FALSE
+"EthnicityXHigh hyperactivity/inattention (parent)",5.843809496667e-53,FALSE,FALSE
+"FatherXHigh hyperactivity/inattention (parent)",2.37313576497509e-53,FALSE,FALSE
+"TVXHigh hyperactivity/inattention (parent)",2.03071838801988e-53,FALSE,FALSE
+"SiblingsXHigh hyperactivity/inattention (parent)",1.92806700290265e-53,FALSE,FALSE
+"AgeXHigh hyperactivity/inattention (parent)",1.58571767031794e-53,FALSE,FALSE
+"`Electronic games`XHigh hyperactivity/inattention (parent)",1.51588500765665e-53,FALSE,FALSE
+"`Other internet`XHigh hyperactivity/inattention (parent)",9.19901870071046e-54,FALSE,FALSE
+"EmployedXHigh hyperactivity/inattention (parent)",6.54342971198937e-54,FALSE,FALSE
+"`Own computer`XHigh hyperactivity/inattention (parent)",5.44093278859954e-54,FALSE,FALSE
+"BMIXHigh hyperactivity/inattention (parent)",4.55888638745951e-54,FALSE,FALSE
+"`Social media`XHigh hyperactivity/inattention (parent)",4.26667285195872e-54,FALSE,FALSE
