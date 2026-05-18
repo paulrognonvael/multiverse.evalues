@@ -36,13 +36,13 @@ gauss.loglik.n <- function(y, mean, var){
 }
 
 binom.loglik.mle.model = function(model, y, x){
-  glm.fit.model = glm.fit(y, x=x[,model], family=binomial(), intercept = FALSE)
+  glm.fit.model = glm.fit(y=y, x=x[,model], family=binomial(), intercept = FALSE)
   loglik = binom.loglik.n(y,glm.fit.model$fitted.values)
   return(loglik)
 }
 
 gauss.loglik.mle.model = function(model, y, x){
-  lm.fit.model = lm.fit(y, x=x[,model])
+  lm.fit.model = lm.fit(y, x=x[,model],intercept = FALSE)
   loglik = gauss.loglik.n(y,lm.fit.model$fitted.values,var(lm.fit.model$residuals))
   return(loglik)
 }
@@ -73,11 +73,12 @@ evalues.split = function(formula, data, family){
   pred = predict(full.llik.model, data = data[partition,], newdata = data[!partition,])
   if(family=='binomial'){
     prob.pred = 1/(1+exp(-pred))
-    full.llik = binom.loglik.n(data$y[!partition],pred[,1])
+    full.llik = binom.loglik.n(data$y[!partition],prob.pred[,1])
   }
   if(family=='normal'){
-    full.llik = gauss.loglik.n(data$y[!partition],pred[,1] #XXXXX
-    )
+    coreff.reg = coef(full.llik.model)
+    full.llik = gauss.loglik.n(data$y[!partition],pred[,1],
+                               coreff.reg[rownames(coreff.reg)=='phi','estimate'])
   }
   
   ## MLE likelihood on sample 0 for small models
@@ -158,7 +159,7 @@ evalues.nosplit2 = function(formula, data, family){
   
   ## MLE log likelihood for small models
   llik = bestIC(y=formula, data=data, family=family, 
-                models = list.modelsminus1, penalty = 0)$models
+                models = list.modelsminus1, penalty = 0, verbose=FALSE)$models
   llik$llik = -0.5 * llik$ic
   llik$modname = unname(sapply(llik$modelid,get.modname2,cols=colnames(x.modmat)))
   evalues = llik[,c('modname','llik')] 
