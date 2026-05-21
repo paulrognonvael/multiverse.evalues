@@ -35,7 +35,7 @@ set.seed(35)
 
 n.sim=50
 p.sim=20
-beta = c(1/2,2/3,1:5,rep(0,p.sim-7))
+beta = c(1/3,1/2,2/3,1.2,1.5,1.7,2,rep(0,p.sim-7))
 
 cov = matrix(rep(0.5,p.sim*p.sim), ncol=p.sim)
 diag(cov) = rep(1,p.sim)
@@ -50,7 +50,7 @@ for(n.sim in c(50,100,200,300,500,700,900,1000,1200)){
     cat('\n------------- simulation',i,'--------------\n')
     x =rmvnorm(n.sim, mean=rep(0,p.sim), cov)
     x = x %*% diag(1/sqrt(diag(t(x) %*% x)/n.sim))
-    
+    colnames(x) = sprintf('X%s',1:p.sim)
     # simulate data
     y = x %*% beta + rnorm(n.sim,sd=sqrt(0.5))
     datareg = data.frame(y=y)

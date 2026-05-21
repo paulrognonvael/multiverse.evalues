@@ -5,7 +5,8 @@ set.seed(35)
 
 sim.logistic = function(n,p=30){
   x = rmvnorm(n, mean=rep(0,p))
-  beta = c(runif(2,1/2,2/3),1:5,rep(0,p-7))
+  colnames(x) = sprintf('X%s',1:p)
+  beta = c(1/3,1/2,2/3,1.2,1.5,1.7,2,rep(0,p.sim-7))
   y = rbinom(n,1, 1/(1+exp(-x %*% beta )))
   datareg = data.frame(y=y)
   datareg = cbind(datareg, x)
