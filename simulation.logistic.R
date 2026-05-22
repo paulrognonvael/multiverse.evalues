@@ -5,8 +5,12 @@ set.seed(35)
 
 sim.logistic = function(n,p=30){
   x = rmvnorm(n, mean=rep(0,p))
-  colnames(x) = sprintf('X%s',1:p)
-  beta = c(1/3,1/2,2/3,1.2,1.5,1.7,2,rep(0,p.sim-7))
+  if(p<=26){
+    colnames(x) = LETTERS[1:p]
+  }else{
+    colnames(x) = sprintf('X%s',1:p)
+  }
+  beta = c(0.2,0.4,0.6,0.8,1,1.25,1.5,rep(0,p.sim-7))
   y = rbinom(n,1, 1/(1+exp(-x %*% beta )))
   datareg = data.frame(y=y)
   datareg = cbind(datareg, x)
@@ -30,9 +34,8 @@ evalues.df = data.frame(split=res.split$evalues,
 
 ### Simulation
 
-n.sim=50
 p.sim=20
-beta = c(1/2,2/3,1:5,rep(0,p.sim-7))
+beta = c(0.2,0.4,0.6,0.8,1,1.25,1.5,rep(0,p.sim-7))
 
 cov = matrix(rep(0.5,p.sim*p.sim), ncol=p.sim)
 diag(cov) = rep(1,p.sim)
@@ -40,7 +43,7 @@ diag(cov) = rep(1,p.sim)
 nb.sim = 100
 summary.res = data.frame()
 
-for(n.sim in c(250,500,750,1000,1250,1500,1750,2000)){
+for(n.sim in round(exp(seq(log(100), log(50000), length.out = 10)))){
   cat('\n------- n =',n.sim,'--------\n')
   evalues.res = data.frame()
   for(i in 1:nb.sim){
