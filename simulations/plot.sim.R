@@ -61,12 +61,14 @@ summar.log.bf.res[,-1] = log10(summar.log.bf.res[,-1])
 summar.log.res %>% pivot_longer(cols=-n,names_to='beta*=', values_to = 'log10mean_evalue') %>% 
   ggplot() + geom_line(aes(x=n,y=log10mean_evalue, colour = `beta*=`))+
   geom_point(aes(x=n,y=log10mean_evalue, colour = `beta*=`)) +
+  coord_cartesian(ylim=c(-50,300))+
   ggtitle('Logistic regression - proposed evalue')
 ggsave('sim.logreg.propeval.png')
 
 summar.log.bf.res %>% pivot_longer(cols=-n,names_to='beta*=', values_to = 'log10mean_evalue') %>% 
   ggplot() + geom_line(aes(x=n,y=log10mean_evalue, colour = `beta*=`))+
   geom_point(aes(x=n,y=log10mean_evalue, colour = `beta*=`)) +
+  coord_cartesian(ylim=c(-50,300))+
   ggtitle('Logistic regression - Bayes factor')
 ggsave('sim.logreg.bf.png')
 
