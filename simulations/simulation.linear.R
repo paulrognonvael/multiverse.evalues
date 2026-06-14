@@ -9,11 +9,11 @@ beta = c(0.05,0.1,0.2,0.4,0.6,0.8,1,rep(0,p.sim-7))
 cov = matrix(rep(0.5,p.sim*p.sim), ncol=p.sim)
 diag(cov) = rep(1,p.sim)
 
-nb.sim = 100
+nb.sim = 50
 summary.res = data.frame()
 summary.res.bf = data.frame()
 
-for(n.sim in round(exp(seq(log(100), log(20000), length.out = 10)))){
+for(n.sim in round(exp(seq(log(100), log(10000), length.out = 10)))){
   cat('\n------- n =',n.sim,'--------\n')
   evalues.res = data.frame()
   bf.res = data.frame()
@@ -32,7 +32,7 @@ for(n.sim in round(exp(seq(log(100), log(20000), length.out = 10)))){
     datareg = cbind(datareg, x)
     
     # compute evalues
-    res.nosplitbestIC = evalues.nosplit2(formula=y~., data=datareg, family='normal')
+    res.nosplitbestIC = unimixevalue(formula=y~., data=datareg, family='normal', BF=TRUE)
     # store evalues
     evalues.df = matrix(ncol=length(res.nosplitbestIC$evalues$var))
     colnames(evalues.df) = res.nosplitbestIC$evalues$var

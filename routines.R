@@ -1,25 +1,6 @@
 #### Helper functions ####
 
-get.modname2 = function(string,cols){
-  indexes = as.numeric(strsplit(string,',')[[1]])
-  if(length(indexes)==length(cols)){
-    name = 'full'
-  } else {
-    name = paste0('min',cols[!c(1:length(cols) %in% indexes)])
-  }
-  return(name)
-}
-
-get.modname = function(model,cols){
-  name = paste0('min',cols[!model])
-  return(name)
-}
-
-get.varname = function(string){
-  return(strsplit(string,'min')[[1]][2])
-}
-
-evalues.nosplit2 = function(formula, data, family){
+unimixevalue = function(formula, data, family, vars=NA, BF=FALSE){
   if(!require(modelSelection)){
     install.packages("modelSelection")
     library(modelSelection)
@@ -28,38 +9,56 @@ evalues.nosplit2 = function(formula, data, family){
   nvars = ncol(x.modmat)
   
   ## List of models minus 1 variables + full model
-  list.models = expand.grid(replicate(nvars, c(FALSE,TRUE), simplify=FALSE))
-  list.modelsminus1 = list.models[rowSums(list.models)==nvars-1,]
-  list.modelsminus1 = as.matrix(list.modelsminus1)
-  rownames(list.modelsminus1) = sprintf('min%s',rev(colnames(x.modmat)))
-  full.model = as.matrix(list.models[rowSums(list.models)==nvars,])
+  if(sum(is.na(vars))!=0){
+    list.modelsminus1 = matrix(rep(TRUE,nvars^2),ncol=nvars)
+    for(i in 1:nvars){
+      list.modelsminus1[i,i] = FALSE
+    }
+    rownames(list.modelsminus1) = sprintf('min%s',colnames(x.modmat))
+  }else{
+    list.modelsminus1 = matrix(rep(TRUE,nvars*length(vars)),ncol=nvars)
+    for(i in 1:length(vars)){
+      list.modelsminus1[i,which(colnames(x.modmat)==vars[i])] = FALSE
+    }
+    rownames(list.modelsminus1) = sprintf('min%s',vars)
+  }
+  full.model = as.matrix(rep(TRUE,ncol(x.modmat)))
   
   ## marginal loglik full model - zellner unit information prior
   full.llik = marginalLikelihood(y=formula, data=data, family=family
-                                 , priorCoef = zellnerprior()
-                                 )
+                                 , priorCoef = zellnerprior())
   
   ## MLE log likelihood for small models
-  mle.llik = bestIC(y=formula, data=data, family=family, 
-                models = list.modelsminus1, penalty = 0, verbose=FALSE)$models
-  mle.llik$llik = -0.5 * mle.llik$ic
-  mle.llik$modname = unname(sapply(mle.llik$modelid,get.modname2,cols=colnames(x.modmat)))
+  mle.llik = data.frame(llik=rep(NA,nrow(list.modelsminus1)),modname=rep(NA,nrow(list.modelsminus1)))
+  for(i in 1:nrow(list.modelsminus1)){
+    if(family=='binomial'){
+      glm.fitmin = glm.fit(y=data[,all.vars(formula)[1]], x=x.modmat[,list.modelsminus1[i,]], family=binomial(), intercept = FALSE)
+    }
+    if(family=='normal'){
+    glm.fitmin = glm.fit(y=data[,all.vars(formula)[1]], x=x.modmat[,list.modelsminus1[i,]],family=gaussian(),intercept = FALSE)
+    }
+    mle.llik$llik[i] = -0.5*(glm.fitmin$aic-2*(sum(list.modelsminus1[i,])+1))
+    mle.llik$modname[i] = rownames(list.modelsminus1)[i]
+  }
   
-  ## marginal loglik for small model- zellner unit information prior
-  small.llik = data.frame(modname=row.names(list.modelsminus1))
-  small.llik['llik'] = apply(list.modelsminus1, MARGIN = 1, FUN = marginalLikelihood, 
-                     y=data[,all.vars(formula)[1]], x=x.modmat, 
-                     family=family
-                     , priorCoef = zellnerprior()
-                     )
+  # mle.llik = bestIC(y=formula, data=data, family=family, 
+  #               models = list.modelsminus1, penalty = 0, verbose=FALSE)$models
+  # mle.llik$llik = -0.5 * mle.llik$ic
+  # mle.llik$modname = unname(sapply(mle.llik$modelid,get.modname2,cols=colnames(x.modmat)))
   
-  evalues = mle.llik[,c('modname','llik')] 
+  evalues = mle.llik
   evalues['evalue'] =  exp(full.llik-mle.llik['llik'])
-  evalues['var'] = unname(sapply(evalues$modname,get.varname))
-  evalues = evalues[order(evalues$modname),]
-  evalues['BF'] = exp(full.llik-small.llik[order(small.llik$modname),'llik'])
-  evalues=evalues[,c('var','evalue','BF')]
-  evalues=evalues[order(evalues$var),]
+  evalues['logevalue'] =  full.llik-mle.llik['llik']
+  evalues['var'] = substring(rownames(list.modelsminus1), first=4)
+  if(BF){
+    evalues['BF'] = rep(NA,nrow(list.modelsminus1))
+    ## marginal loglik for small model- zellner unit information prior
+    small.llik = data.frame(modname=row.names(list.modelsminus1))
+    small.llik['llik'] = apply(list.modelsminus1, MARGIN = 1, FUN = marginalLikelihood, 
+                               y=data[,all.vars(formula)[1]], x=x.modmat, 
+                               family=family, priorCoef = zellnerprior())
+    evalues['BF'] = exp(full.llik-small.llik['llik'])
+  }
   return(list(evalues=evalues,loglik=mle.llik, full.loglik= full.llik))
 }
 

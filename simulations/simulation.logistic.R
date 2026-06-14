@@ -19,11 +19,11 @@ sim.logistic = function(n,p,beta){
 
 p.sim=20
 beta = c(0.05,0.1,0.2,0.4,0.6,0.8,1,rep(0,p.sim-7))
-nb.sim = 50#100
+nb.sim = 50
 summary.res = data.frame()
 summary.res.bf = data.frame()
 
-for(n.sim in round(exp(seq(log(100), log(30000), length.out = 10)))){
+for(n.sim in round(exp(seq(log(100), log(10000), length.out = 10)))){
   cat('\n------- n =',n.sim,'--------\n')
   evalues.res = data.frame()
   bf.res = data.frame()
@@ -33,7 +33,7 @@ for(n.sim in round(exp(seq(log(100), log(30000), length.out = 10)))){
     datareg = sim.logistic (n=n.sim,p=p.sim, beta)
     
     # compute evalues
-    res.nosplitbestIC = evalues.nosplit2(formula=y~., data=datareg, family='binomial')
+    res.nosplitbestIC = unimixevalue(formula=y~., data=datareg, family='binomial', BF=TRUE)
     # store evalues
     evalues.df = matrix(ncol=length(res.nosplitbestIC$evalues$var))
     colnames(evalues.df) = res.nosplitbestIC$evalues$var
