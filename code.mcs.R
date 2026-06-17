@@ -34,14 +34,17 @@ for (idy in 1:length(yvars)){
   my.formula= as.formula(my.formula.string)
   
   ###### computing raw universal mixture evalue
-  res = unimixevalue(formula=my.formula, data=datareg, family='binomial', vars=x_names, BF=TRUE)
-  res$evalues['yvar'] = yname
-  res$evalues['hyp'] = sprintf(paste0('%sX',yname),res$evalues$var)
-  write.csv(res$evalues,paste0('output/mcs/',yvar,'.evalues.csv'), row.names=FALSE)
+  res = hypsupp(formula=my.formula, data=datareg, family='binomial', vars=x_names, 
+                softrank=TRUE, mixtevalue=TRUE, BF=TRUE, p.value=TRUE)
+  res$stats['yvar'] = yname
+  res$stats['hyp'] = sprintf(paste0('%sX',yname),res$stats$var)
+  write.csv(res$stats,paste0('output/mcs/',yvar,'.supportstats.csv'), row.names=FALSE)
   
-  mcs_all.evalues = rbind(mcs_all.evalues,res$evalues)
+  mcs_all.evalues = rbind(mcs_all.evalues,res$stats)
   hyptotest = c(hyptotest, sprintf(paste0('%sX',yname),x_names))
 }
+
+mcs_all.evalues['anovp-to-e'] = mcs_all.evalues$anov.pvalue^(-0.5)-1
 write.csv(mcs_all.evalues,paste0('output/mcs/','all.evalues.csv'), row.names=FALSE)
 
 #### Computing eBH corrected e-values for all outcomes ####

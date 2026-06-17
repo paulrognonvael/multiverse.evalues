@@ -44,9 +44,12 @@ llik = bestIC(y=datareg$y, x=x.modmat, family='normal',
 ### in the binomial family
 glm.fit = glm(formula, data=datareg, family=binomial())
 -0.5*(glm.fit$aic-2*(ncol(x.modmat)))
+logLik(glm.fit)
 marginalLikelihood(y=formula, data=datareg, family='binomial', priorCoef = zellnerprior())
 
 ### in the gaussian family
 glm.fit = glm(formula, data=datareg, family=gaussian())
 -0.5*(glm.fit$aic-2*(ncol(x.modmat)+1))
+logLik(glm.fit)
 marginalLikelihood(y=formula, data=datareg, family='normal', priorCoef = zellnerprior())
+

@@ -1,6 +1,6 @@
-"llik","modname","evalue","logevalue","var","BF","yvar","hyp"
--1514.27161050746,"minTV",4.9392923406995e-34,-76.6906710917297,"TV",0.150187256519888,"Low pro-sociality (parent)","TVXLow pro-sociality (parent)"
--1520.64790823309,"minElectronic_games",2.90305757192933e-31,-70.3143733660959,"Electronic_games",79.3110043824095,"Low pro-sociality (parent)","Electronic_gamesXLow pro-sociality (parent)"
--1515.1796552053,"minSocial_media",1.22468255900972e-33,-75.7826263938905,"Social_media",0.252405123244346,"Low pro-sociality (parent)","Social_mediaXLow pro-sociality (parent)"
--1514.50722239436,"minOther_internet",6.25157828184378e-34,-76.4550592048333,"Other_internet",0.14479412233449,"Low pro-sociality (parent)","Other_internetXLow pro-sociality (parent)"
--1515.46424494624,"minOwn_computer",1.62786837871437e-33,-75.4980366529471,"Own_computer",0.349567652759265,"Low pro-sociality (parent)","Own_computerXLow pro-sociality (parent)"
+"var","softevalue","logsoftevalue","mixtevalue","logmixtevalue","BF","logBF","yvar","hyp"
+"TV",0.00039633324608777,-7.83325517007341,1.34263886151704e-33,-75.6906710917297,0.150187256519888,-1.89587238666104,"Low pro-sociality (parent)",NA
+"Electronic_games",0.124325067441017,-2.08485563192408,7.89132864474594e-31,-69.3143733660959,79.3110043824095,4.37337688802222,"Low pro-sociality (parent)",NA
+"Social_media",0.00104651692854901,-6.86228783986026,3.32903234578683e-33,-74.7826263938905,0.252405123244346,-1.37671985040561,"Low pro-sociality (parent)",NA
+"Other_internet",0.000298609571034369,-8.11637362034417,1.69935516427252e-33,-75.4550592048333,0.14479412233449,-1.93244239146702,"Low pro-sociality (parent)",NA
+"Own_computer",0.000947062521949351,-6.96214544589165,4.42500503298235e-33,-74.4980366529471,0.349567652759265,-1.0510581659139,"Low pro-sociality (parent)",NA

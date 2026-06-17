@@ -4,18 +4,20 @@ source('routines.R')
 set.seed(35)
 
 p.sim=20
-beta = c(0.05,0.1,0.2,0.4,0.6,0.8,1,rep(0,p.sim-7))
+beta = c(0.05,0.1,0.2,0.4,0.5,0.75,1,rep(0,p.sim-7))
 
 cov = matrix(rep(0.5,p.sim*p.sim), ncol=p.sim)
 diag(cov) = rep(1,p.sim)
 
-nb.sim = 50
-summary.res = data.frame()
+nb.sim = 30
+summary.mixt.res = data.frame()
+summary.soft.res = data.frame()
 summary.res.bf = data.frame()
 
 for(n.sim in round(exp(seq(log(100), log(10000), length.out = 10)))){
   cat('\n------- n =',n.sim,'--------\n')
-  evalues.res = data.frame()
+  softrankevalues.res= data.frame()
+  mixtevalues.res= data.frame()
   bf.res = data.frame()
   for(i in 1:nb.sim){
     cat('\n------------- simulation',i,'--------------\n')
@@ -31,35 +33,53 @@ for(n.sim in round(exp(seq(log(100), log(10000), length.out = 10)))){
     datareg = data.frame(y=y)
     datareg = cbind(datareg, x)
     
-    # compute evalues
-    res.nosplitbestIC = unimixevalue(formula=y~., data=datareg, family='normal', BF=TRUE)
-    # store evalues
-    evalues.df = matrix(ncol=length(res.nosplitbestIC$evalues$var))
-    colnames(evalues.df) = res.nosplitbestIC$evalues$var
-    evalues.df[1,] = res.nosplitbestIC$evalues$evalue
-    evalues.res = rbind(evalues.res,evalues.df)
+    # construct formula
+    my.formula.string = paste('y', "~", paste(colnames(x), collapse = " + "))
+    my.formula= as.formula(my.formula.string)
+    
+    # compute evalues, BF
+    supp.stats = hypsupp(formula=my.formula, data=datareg, family='normal', 
+                                softrank=TRUE, mixtevalue=FALSE, BF=FALSE)$stats
+    # store universal mixture evalues
+    mixtevalues.df = matrix(ncol=length(supp.stats$var))
+    colnames(mixtevalues.df) = supp.stats$var
+    mixtevalues.df[1,] = supp.stats$logmixtevalue
+    mixtevalues.res = rbind(mixtevalues.res,mixtevalues.df)
+    
+    # store soft rank evalues
+    softrankevalues.df = matrix(ncol=length(supp.stats$var))
+    colnames(softrankevalues.df) = supp.stats$var
+    softrankevalues.df[1,] = supp.stats$logsoftevalue
+    softrankevalues.res = rbind(softrankevalues.res,softrankevalues.df)
     
     # store BF
-    bf.df = matrix(ncol=length(res.nosplitbestIC$evalues$var))
-    colnames(bf.df) = res.nosplitbestIC$evalues$var
-    bf.df[1,] = res.nosplitbestIC$evalues$BF
+    bf.df = matrix(ncol=length(supp.stats$var))
+    colnames(bf.df) = supp.stats$var
+    bf.df[1,] = supp.stats$logBF
     bf.res = rbind(bf.res,bf.df)
   }
-  evalues.res$sim = as.numeric(rownames(evalues.res))
-  evalues.res$n = rep(n.sim, nrow(evalues.res))
-  write.csv(evalues.res,paste0('simulations/linreg/evalues.sim.n',n.sim,'.csv'),row.names = FALSE)
-  summary.sim = as.matrix(t(colMeans(evalues.res)))
-  summary.res = rbind(summary.res, summary.sim)
+  softrankevalues.res$sim = as.numeric(rownames(softrankevalues.res))
+  softrankevalues.res$n = rep(n.sim, nrow(softrankevalues.res))
+  write.csv(softrankevalues.res,paste0('simulations/linreg/logsoftevalues.sim.n',n.sim,'.csv'),row.names = FALSE)
+  summary.soft.sim = as.matrix(t(colMeans(softrankevalues.res)))
+  summary.soft.res = rbind(summary.soft.res, summary.soft.sim)
+  
+  mixtevalues.res$sim = as.numeric(rownames(mixtevalues.res))
+  mixtevalues.res$n = rep(n.sim, nrow(mixtevalues.res))
+  write.csv(mixtevalues.res,paste0('simulations/linreg/logmixtevalues.sim.n',n.sim,'.csv'),row.names = FALSE)
+  summary.mixt.sim = as.matrix(t(colMeans(mixtevalues.res)))
+  summary.mixt.res = rbind(summary.mixt.res, summary.mixt.sim)
   
   bf.res$sim = as.numeric(rownames(bf.res))
   bf.res$n = rep(n.sim, nrow(bf.res))
-  write.csv(bf.res,paste0('simulations/linreg/bf.sim.n',n.sim,'.csv'),row.names = FALSE)
+  write.csv(bf.res,paste0('simulations/linreg/logbf.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.sim.bf = as.matrix(t(colMeans(bf.res)))
   summary.res.bf = rbind(summary.res.bf, summary.sim.bf)
 }
 
-write.csv(summary.res,paste0('simulations/linreg/summaries.sim.csv'),row.names = FALSE)
-write.csv(summary.res.bf,paste0('simulations/linreg/summaries.sim.bf.csv'),row.names = FALSE)
+write.csv(mixtevalues.res,paste0('simulations/linreg/summaries.logmixt.sim.csv'),row.names = FALSE)
+write.csv(softrankevalues.res,paste0('simulations/linreg/summaries.logsoft.sim.csv'),row.names = FALSE)
+write.csv(summary.res.bf,paste0('simulations/linreg/summaries.logsim.bf.csv'),row.names = FALSE)
 
 
 

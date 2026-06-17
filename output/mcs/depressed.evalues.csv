@@ -1,6 +1,6 @@
-"llik","modname","evalue","logevalue","var","BF","yvar","hyp"
--1852.284272847,"minTV",9.21255909349967e-47,-106.000931698734,"TV",0.144836198173843,"Depressed (adolescent)","TVXDepressed (adolescent)"
--1854.9799215032,"minElectronic_games",1.36485219702072e-45,-103.305283042529,"Electronic_games",2.63784710689418,"Depressed (adolescent)","Electronic_gamesXDepressed (adolescent)"
--1862.49389764297,"minSocial_media",2.50244186955036e-42,-95.7913069027634,"Social_media",508073.059238893,"Depressed (adolescent)","Social_mediaXDepressed (adolescent)"
--1860.71491153867,"minOther_internet",4.22435248758004e-43,-97.5702930070574,"Other_internet",4413.95974041322,"Depressed (adolescent)","Other_internetXDepressed (adolescent)"
--1852.66069626137,"minOwn_computer",1.34232876962911e-46,-105.62450828436,"Own_computer",0.171299451064563,"Depressed (adolescent)","Own_computerXDepressed (adolescent)"
+"var","softevalue","logsoftevalue","mixtevalue","logmixtevalue","BF","logBF","yvar","hyp"
+"TV",0.000711011953940547,-7.24882131544646,2.50423319774653e-46,-105.000931698734,0.144836198173843,-1.93215184288374,"Depressed (adolescent)",NA
+"Electronic_games",0.00975828686387363,-4.62963842020613,3.71005292569382e-45,-102.305283042529,2.63784710689418,0.969963094652712,"Depressed (adolescent)",NA
+"Social_media",3.94955374093753,1.37360259555281,6.80234226077383e-42,-94.7913069027634,508073.059238893,13.1383805336193,"Depressed (adolescent)",NA
+"Other_internet",2.60818085445712,0.958652987694254,1.14829806039946e-42,-96.5702930070574,4413.95974041322,8.39252746589,"Depressed (adolescent)",NA
+"Own_computer",0.000930201782729835,-6.98010902467446,3.64882790230061e-46,-104.62450828436,0.171299451064563,-1.76434207818397,"Depressed (adolescent)",NA

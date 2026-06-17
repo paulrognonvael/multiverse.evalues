@@ -1,65 +1,136 @@
 #### Helper functions ####
 
-unimixevalue = function(formula, data, family, vars=NA, BF=FALSE){
+drop_one_formulas <- function(formula,vars) {
+  tt <- terms(formula)
+  response <- as.character(attr(tt, "variables"))[2]
+  terms <- attr(tt, "term.labels")
+  minterms = terms[terms%in%vars]
+  
+  lapply(minterms, function(minterm) {
+    rhs <- terms[-which(terms == minterm)]
+    
+    if (length(rhs) == 0) {
+      as.formula(paste(response, "~ 1"))
+    } else {
+      as.formula(paste(response, "~", paste(rhs, collapse = " + ")))
+    }
+  })
+}
+
+permuted.LRT = function(formula,x1,family,data,e,x1hat,y.rest.form){
+  eperm= sample(e, size=length(e), replace=FALSE)
+  x1tilde= x1hat + eperm
+  data.perm =  data
+  data.perm[x1] =  x1tilde
+  llik= logLik(glm(formula,family,data.perm))#-logLik(glm(y.rest.form,family,data.perm))
+  return(llik)
+}
+
+lmResPerm.onevar = function(x1, formula, data, family, B=5000){
+  if(!require(parallel)){
+    install.packages("parallel")
+    library(parallel)
+  }
+  tt <- terms(formula)
+  terms <- attr(tt, "term.labels")
+  response <- as.character(attr(tt, "variables"))[2]
+  rest = terms[-which(terms == x1)]
+  x1.rest.form = as.formula(paste(x1, "~", paste(rest, collapse = " + ")))
+  y.rest.form = as.formula(paste(response, "~", paste(rest, collapse = " + ")))
+  
+  fit= glm(x1.rest.form, 'gaussian',data)
+  x1hat= predict(fit)
+  e= residuals(fit)
+  bperm= double(B)
+  mc= detectCores()-1
+  cl <- makeCluster(mc)
+  clusterExport(cl, c('formula','x1','family','data','e','x1hat','permuted.LRT','y.rest.form'),
+                envir = environment())
+  bperm = parLapply(cl, 1:B,fun=function(i) permuted.LRT(formula,x1,family,data,e,x1hat,y.rest.form))
+  stopCluster(cl)
+  # for (b in 1:B) {
+  #   eperm= sample(e, size=length(e), replace=FALSE)
+  #   x1tilde= x1hat + eperm
+  #   data.perm =  data
+  #   data.perm[x1] =  x1tilde
+  #   bperm[b]= exp(logLik(glm(formula,family,data.perm))-logLik(glm(y.rest.form,family,data.perm)))
+  # }
+  eval = sum(exp(unlist(bperm)-logLik(glm(formula,family,data))))^(-1)#-logLik(glm(y.rest.form,family,data)))
+  logeval = log(eval)
+  return(c(eval,logeval))  
+}
+
+
+hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=TRUE, BF=FALSE, 
+                        p.value=FALSE){
   if(!require(modelSelection)){
     install.packages("modelSelection")
     library(modelSelection)
   }
-  x.modmat = model.matrix(formula, data)
-  nvars = ncol(x.modmat)
   
-  ## List of models minus 1 variables + full model
-  if(sum(is.na(vars))!=0){
-    list.modelsminus1 = matrix(rep(TRUE,nvars^2),ncol=nvars)
-    for(i in 1:nvars){
-      list.modelsminus1[i,i] = FALSE
-    }
-    rownames(list.modelsminus1) = sprintf('min%s',colnames(x.modmat))
-  }else{
-    list.modelsminus1 = matrix(rep(TRUE,nvars*length(vars)),ncol=nvars)
+  family.glm = family
+  if(family.glm=='normal'){family.glm='gaussian'}
+  
+  ## List of small models, minus 1 variable
+  if(sum(is.na(vars))!=0){vars=attr(terms(formula), "term.labels")}  
+  list.modelsminus1 = drop_one_formulas(formula,vars)
+  names(list.modelsminus1) = sprintf('min%s',vars)
+  
+  hypsupp = data.frame(modname = names(list.modelsminus1), var = vars)
+  
+  if(mixtevalue | BF){
+    ## marginal loglik full model - zellner unit information prior
+    full.marg.llik = marginalLikelihood(y=formula, data=data, family=family, 
+                                        priorCoef = zellnerprior())
+  }
+  
+  if(softrank){
+    hypsupp['softevalue']=rep(NA,length(list.modelsminus1))
+    hypsupp['logsoftevalue']=rep(NA,length(list.modelsminus1))
     for(i in 1:length(vars)){
-      list.modelsminus1[i,which(colnames(x.modmat)==vars[i])] = FALSE
+      hypsupp[i,c('softevalue','logsoftevalue')]=lmResPerm.onevar(vars[i], formula=formula,
+                                                                  data=data, 
+                                                                  family=family.glm, 
+                                                                  B=5000)
     }
-    rownames(list.modelsminus1) = sprintf('min%s',vars)
   }
-  full.model = as.matrix(rep(TRUE,ncol(x.modmat)))
-  
-  ## marginal loglik full model - zellner unit information prior
-  full.llik = marginalLikelihood(y=formula, data=data, family=family
-                                 , priorCoef = zellnerprior())
-  
-  ## MLE log likelihood for small models
-  mle.llik = data.frame(llik=rep(NA,nrow(list.modelsminus1)),modname=rep(NA,nrow(list.modelsminus1)))
-  for(i in 1:nrow(list.modelsminus1)){
-    if(family=='binomial'){
-      glm.fitmin = glm.fit(y=data[,all.vars(formula)[1]], x=x.modmat[,list.modelsminus1[i,]], family=binomial(), intercept = FALSE)
+
+  if(mixtevalue){
+    ## MLE log likelihood for small models
+    hypsupp['mle.llik']=rep(NA,length(list.modelsminus1))
+    for(i in 1:length(list.modelsminus1)){
+      glm.fitmin = glm(formula = list.modelsminus1[[i]], data=data, family=family.glm)
+      hypsupp$mle.llik[i] = as.numeric(logLik(glm.fitmin))
     }
-    if(family=='normal'){
-    glm.fitmin = glm.fit(y=data[,all.vars(formula)[1]], x=x.modmat[,list.modelsminus1[i,]],family=gaussian(),intercept = FALSE)
-    }
-    mle.llik$llik[i] = -0.5*(glm.fitmin$aic-2*(sum(list.modelsminus1[i,])+1))
-    mle.llik$modname[i] = rownames(list.modelsminus1)[i]
+    hypsupp['mixtevalue'] =  exp(full.marg.llik-hypsupp['mle.llik'])
+    hypsupp['logmixtevalue'] =  full.marg.llik-hypsupp['mle.llik']
   }
-  
-  # mle.llik = bestIC(y=formula, data=data, family=family, 
-  #               models = list.modelsminus1, penalty = 0, verbose=FALSE)$models
-  # mle.llik$llik = -0.5 * mle.llik$ic
-  # mle.llik$modname = unname(sapply(mle.llik$modelid,get.modname2,cols=colnames(x.modmat)))
-  
-  evalues = mle.llik
-  evalues['evalue'] =  exp(full.llik-mle.llik['llik'])
-  evalues['logevalue'] =  full.llik-mle.llik['llik']
-  evalues['var'] = substring(rownames(list.modelsminus1), first=4)
+
   if(BF){
-    evalues['BF'] = rep(NA,nrow(list.modelsminus1))
+    hypsupp['marg.llik'] = rep(NA,length(list.modelsminus1))
+    
     ## marginal loglik for small model- zellner unit information prior
-    small.llik = data.frame(modname=row.names(list.modelsminus1))
-    small.llik['llik'] = apply(list.modelsminus1, MARGIN = 1, FUN = marginalLikelihood, 
-                               y=data[,all.vars(formula)[1]], x=x.modmat, 
-                               family=family, priorCoef = zellnerprior())
-    evalues['BF'] = exp(full.llik-small.llik['llik'])
+    for(i in 1:length(list.modelsminus1)){
+      hypsupp$marg.llik[i] = marginalLikelihood(y=list.modelsminus1[[i]], 
+                                    data = data, family=family, priorCoef = zellnerprior())
+    }
+    hypsupp['BF'] = exp(full.marg.llik-hypsupp['marg.llik'])
+    hypsupp['logBF'] = full.marg.llik-hypsupp['marg.llik']
   }
-  return(list(evalues=evalues,loglik=mle.llik, full.loglik= full.llik))
+  
+  if(p.value){
+    hypsupp['anov.pvalue'] = rep(NA,length(list.modelsminus1))
+    ## MLE fit for full model
+    glm.fitfull = glm(formula=formula, data=data, family=family.glm)
+    for(i in 1:length(list.modelsminus1)){
+      glm.fitmin = glm(formula = list.modelsminus1[[i]], data=data, family=family.glm)
+      hypsupp$anov.pvalue[i]=anova(glm.fitfull,glm.fitmin)$`Pr(>Chi)`[2]
+    }
+  }
+  
+  res = hypsupp[,-which(colnames(hypsupp)%in%c('mle.llik','marg.llik','modname'))] 
+
+  return(list(stats = res, all.res = hypsupp))
 }
 
 eBH = function(evalues,hyp,level){

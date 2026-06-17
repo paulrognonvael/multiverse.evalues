@@ -1,6 +1,6 @@
-"llik","modname","evalue","logevalue","var","BF","yvar","hyp"
--1527.98031519201,"minTV",2.5256871163483e-46,-104.992401126732,"TV",0.343682011647519,"Low self-esteem (adolescent)","TVXLow self-esteem (adolescent)"
--1526.19784278476,"minElectronic_games",4.24875431125051e-47,-106.774873533982,"Electronic_games",0.0958221957432158,"Low self-esteem (adolescent)","Electronic_gamesXLow self-esteem (adolescent)"
--1531.17192205823,"minSocial_media",6.14436206660183e-45,-101.800794260512,"Social_media",760.497992684543,"Low self-esteem (adolescent)","Social_mediaXLow self-esteem (adolescent)"
--1540.28867289944,"minOther_internet",5.59540314373373e-41,-92.6840434193011,"Other_internet",1692620.50955971,"Low self-esteem (adolescent)","Other_internetXLow self-esteem (adolescent)"
--1527.4221668072,"minOwn_computer",1.44536916461722e-46,-105.550549511547,"Own_computer",0.230452566974463,"Low self-esteem (adolescent)","Own_computerXLow self-esteem (adolescent)"
+"var","softevalue","logsoftevalue","mixtevalue","logmixtevalue","BF","logBF","yvar","hyp"
+"TV",0.00232716237842349,-6.0631056169403,6.86552939274271e-46,-103.992401126732,0.343682011647519,-1.06803843386137,"Low self-esteem (adolescent)",NA
+"Electronic_games",0.000377667984857579,-7.88149509525501,1.15493116378593e-46,-105.774873533982,0.0958221957432158,-2.34526093249838,"Low self-esteem (adolescent)",NA
+"Social_media",0.00130282832240998,-6.64321774515313,1.67021077531168e-44,-100.800794260512,760.497992684543,6.63397347222781,"Low self-esteem (adolescent)",NA
+"Other_internet",544.640978958812,6.30012682338534,1.5209882688514e-40,-91.6840434193011,1692620.50955971,14.341788483337,"Low self-esteem (adolescent)",NA
+"Own_computer",0.00132551812656833,-6.62595185706025,3.92892073559403e-46,-104.550549511547,0.230452566974463,-1.46771022091275,"Low self-esteem (adolescent)",NA
