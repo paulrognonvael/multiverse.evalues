@@ -17,17 +17,29 @@ sim.logistic = function(n,p,beta){
   return(datareg)
 }
 
-p.sim=20
-beta = c(0.05,0.1,0.2,0.4,0.5,0.75,1,rep(0,p.sim-7))
-nb.sim = 3
-summary.res = data.frame()
-summary.res.bf = data.frame()
+p.sim=10
+beta = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 0.75, 1)
+nb.sim = 100
+summary.mixt.res = data.frame()
+summary.soft.res = data.frame()
+summary.bf.res = data.frame()
+summary.p.values.res = data.frame()
+summary.calib1.res = data.frame()
+summary.calib2.res = data.frame()
+summary.calib3.res = data.frame()
+summary.calib4.res = data.frame()
 
-for(n.sim in round(exp(seq(log(100), log(10000), length.out = 2)))){
+for(n.sim in c(100, 250, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000)){
   cat('\n------- n =',n.sim,'--------\n')
   softrankevalues.res= data.frame()
   mixtevalues.res= data.frame()
   bf.res = data.frame()
+  p.values.res = data.frame()
+  calib1.res = data.frame()
+  calib2.res = data.frame()
+  calib3.res = data.frame()
+  calib4.res = data.frame()
+  
   for(i in 1:nb.sim){
     cat('\n------------- simulation',i,'--------------\n')
     # simulate data
@@ -39,7 +51,7 @@ for(n.sim in round(exp(seq(log(100), log(10000), length.out = 2)))){
     
     # compute evalues, BF
     supp.stats = hypsupp(formula=my.formula, data=datareg, family='binomial', 
-                         softrank=TRUE, mixtevalue=TRUE, BF=TRUE)$stats
+                         softrank=TRUE, mixtevalue=TRUE, BF=TRUE, p.to.e = TRUE)$stats
     # store universal mixture evalues
     mixtevalues.df = matrix(ncol=length(supp.stats$var))
     colnames(mixtevalues.df) = supp.stats$var
@@ -57,6 +69,36 @@ for(n.sim in round(exp(seq(log(100), log(10000), length.out = 2)))){
     colnames(bf.df) = supp.stats$var
     bf.df[1,] = supp.stats$logBF
     bf.res = rbind(bf.res,bf.df)
+    
+    # store p.values
+    p.values.df = matrix(ncol=length(supp.stats$var))
+    colnames(p.values.df) = supp.stats$var
+    p.values.df[1,] = supp.stats$anov.pvalue
+    p.values.res = rbind(p.values.res,p.values.df)
+    
+    # store calibrated e-values (calibrator 1)
+    calib1.df = matrix(ncol=length(supp.stats$var))
+    colnames(calib1.df) = supp.stats$var
+    calib1.df[1,] = supp.stats$logcalib1
+    calib1.res = rbind(calib1.res,calib1.df)
+    
+    # store calibrated e-values (calibrator 2)
+    calib2.df = matrix(ncol=length(supp.stats$var))
+    colnames(calib2.df) = supp.stats$var
+    calib2.df[1,] = supp.stats$logcalib2
+    calib2.res = rbind(calib2.res,calib2.df)
+    
+    # store calibrated e-values (calibrator 3)
+    calib3.df = matrix(ncol=length(supp.stats$var))
+    colnames(calib3.df) = supp.stats$var
+    calib3.df[1,] = supp.stats$logcalib3
+    calib3.res = rbind(calib3.res,calib3.df)
+    
+    # store calibrated e-values (calibrator 4)
+    calib4.df = matrix(ncol=length(supp.stats$var))
+    colnames(calib4.df) = supp.stats$var
+    calib4.df[1,] = supp.stats$logcalib4
+    calib4.res = rbind(calib4.res,calib4.df)
   }
   softrankevalues.res$sim = as.numeric(rownames(softrankevalues.res))
   softrankevalues.res$n = rep(n.sim, nrow(softrankevalues.res))
@@ -72,12 +114,65 @@ for(n.sim in round(exp(seq(log(100), log(10000), length.out = 2)))){
   
   bf.res$sim = as.numeric(rownames(bf.res))
   bf.res$n = rep(n.sim, nrow(bf.res))
-  write.csv(bf.res,paste0('simulations/linreg/logbf.sim.n',n.sim,'.csv'),row.names = FALSE)
+  write.csv(bf.res,paste0('simulations/logreg/logbf.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.sim.bf = as.matrix(t(colMeans(bf.res)))
-  summary.res.bf = rbind(summary.res.bf, summary.sim.bf)
+  summary.bf.res = rbind(summary.bf.res, summary.sim.bf)
+  
+  p.values.res$sim = as.numeric(rownames(p.values.res))
+  p.values.res$n = rep(n.sim, nrow(p.values.res))
+  write.csv(p.values.res,paste0('simulations/logreg/p.values.sim.n',n.sim,'.csv'),row.names = FALSE)
+  summary.sim.p.values = as.matrix(t(colMeans(p.values.res)))
+  summary.p.values.res = rbind(summary.p.values.res, summary.sim.p.values)
+  
+  calib1.res$sim = as.numeric(rownames(calib1.res))
+  calib1.res$n = rep(n.sim, nrow(calib1.res))
+  write.csv(calib1.res,paste0('simulations/logreg/logcalib1.sim.n',n.sim,'.csv'),row.names = FALSE)
+  summary.sim.calib1 = as.matrix(t(colMeans(calib1.res)))
+  summary.calib1.res = rbind(summary.calib1.res, summary.sim.calib1)
+  
+  calib2.res$sim = as.numeric(rownames(calib2.res))
+  calib2.res$n = rep(n.sim, nrow(calib2.res))
+  write.csv(calib2.res,paste0('simulations/logreg/logcalib2.sim.n',n.sim,'.csv'),row.names = FALSE)
+  summary.sim.calib2 = as.matrix(t(colMeans(calib2.res)))
+  summary.calib2.res = rbind(summary.calib2.res, summary.sim.calib2)
+  
+  calib3.res$sim = as.numeric(rownames(calib3.res))
+  calib3.res$n = rep(n.sim, nrow(calib3.res))
+  write.csv(calib3.res,paste0('simulations/logreg/logcalib3.sim.n',n.sim,'.csv'),row.names = FALSE)
+  summary.sim.calib3 = as.matrix(t(colMeans(calib3.res)))
+  summary.calib3.res = rbind(summary.calib3.res, summary.sim.calib3)
+  
+  calib4.res$sim = as.numeric(rownames(calib4.res))
+  calib4.res$n = rep(n.sim, nrow(calib4.res))
+  write.csv(calib4.res,paste0('simulations/logreg/logcalib4.sim.n',n.sim,'.csv'),row.names = FALSE)
+  summary.sim.calib4 = as.matrix(t(colMeans(calib4.res)))
+  summary.calib4.res = rbind(summary.calib4.res, summary.sim.calib4)
 }
 
-write.csv(mixtevalues.res,paste0('simulations/logreg/summaries.logmixt.sim.csv'),row.names = FALSE)
-write.csv(softrankevalues.res,paste0('simulations/logreg/summaries.logsoft.sim.csv'),row.names = FALSE)
-write.csv(summary.res.bf,paste0('simulations/logreg/summaries.logsim.bf.csv'),row.names = FALSE)
+write.csv(summary.mixt.res,paste0('simulations/logreg/summaries.logmixt.sim.csv'),row.names = FALSE)
+write.csv(summary.soft.res,paste0('simulations/logreg/summaries.logsoft.sim.csv'),row.names = FALSE)
+write.csv(summary.bf.res,paste0('simulations/logreg/summaries.logbf.sim.csv'),row.names = FALSE)
+write.csv(summary.p.values.res,paste0('simulations/logreg/summaries.pvalues.sim.csv'),row.names = FALSE)
+write.csv(summary.calib1.res,paste0('simulations/logreg/summaries.logcalib1.sim.csv'),row.names = FALSE)
+write.csv(summary.calib2.res,paste0('simulations/logreg/summaries.logcalib2.sim.csv'),row.names = FALSE)
+write.csv(summary.calib3.res,paste0('simulations/logreg/summaries.logcalib3.sim.csv'),row.names = FALSE)
+write.csv(summary.calib4.res,paste0('simulations/logreg/summaries.logcalib4.sim.csv'),row.names = FALSE)
 
+
+summary.mixt.res$type='mixt'
+summary.soft.res$type='soft'
+summary.bf.res$type='bf'
+summary.p.values.res$type='pvalues'
+summary.calib1.res$type='calib1'
+summary.calib2.res$type='calib2'
+summary.calib3.res$type='calib3'
+summary.calib4.res$type='calib4'
+summary.all.res=rbind(summary.mixt.res,
+                      summary.soft.res,
+                      summary.bf.res,
+                      summary.p.values.res,
+                      summary.calib1.res,
+                      summary.calib2.res,
+                      summary.calib3.res,
+                      summary.calib4.res)
+write.csv(summary.all.res,'~/GitHub/multiverse.evalues/simulations/logreg/summaries.all.csv',row.names = FALSE)

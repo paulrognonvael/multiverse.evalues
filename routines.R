@@ -60,9 +60,25 @@ lmResPerm.onevar = function(x1, formula, data, family, B=5000){
   return(c(eval,logeval))  
 }
 
+logcalib1 = function(p){
+  return(log((1-p+p*log(p))/(p*log(p)^2)))
+}
 
-hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=TRUE, BF=FALSE, 
-                        p.value=FALSE){
+logcalib2 = function(p){
+  return(log(2*(1-p)))
+}
+
+logcalib3 = function(p){
+  return(log(p^(-1/2)-1))
+}
+
+logcalib4 = function(p){
+  return(log(-log(p)))
+}
+
+
+hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FALSE, BF=FALSE, 
+                   p.to.e=FALSE){
   if(!require(modelSelection)){
     install.packages("modelSelection")
     library(modelSelection)
@@ -118,13 +134,26 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=TRU
     hypsupp['logBF'] = full.marg.llik-hypsupp['marg.llik']
   }
   
-  if(p.value){
+  if(p.to.e){
     hypsupp['anov.pvalue'] = rep(NA,length(list.modelsminus1))
+    hypsupp['logcalib1'] = rep(NA,length(list.modelsminus1))
+    hypsupp['logcalib2'] = rep(NA,length(list.modelsminus1))
+    hypsupp['logcalib3'] = rep(NA,length(list.modelsminus1))
+    hypsupp['logcalib4'] = rep(NA,length(list.modelsminus1))
     ## MLE fit for full model
     glm.fitfull = glm(formula=formula, data=data, family=family.glm)
     for(i in 1:length(list.modelsminus1)){
       glm.fitmin = glm(formula = list.modelsminus1[[i]], data=data, family=family.glm)
-      hypsupp$anov.pvalue[i]=anova(glm.fitfull,glm.fitmin)$`Pr(>Chi)`[2]
+      if(family.glm=='gaussian'){
+        hypsupp$anov.pvalue[i]=anova(glm.fitfull,glm.fitmin)$`Pr(>F)`[2]        
+      }
+      if(family.glm=='binomial'){
+        hypsupp$anov.pvalue[i]=anova(glm.fitfull,glm.fitmin)$`Pr(>Chi)`[2]        
+      }
+      hypsupp$logcalib1[i] = logcalib1(hypsupp$anov.pvalue[i])
+      hypsupp$logcalib2[i] = logcalib2(hypsupp$anov.pvalue[i])
+      hypsupp$logcalib3[i] = logcalib3(hypsupp$anov.pvalue[i])
+      hypsupp$logcalib4[i] = logcalib4(hypsupp$anov.pvalue[i])
     }
   }
   
