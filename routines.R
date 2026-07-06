@@ -164,9 +164,9 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
 
 eBH = function(evalues,hyp,level){
   evalues.df = data.frame(hyp=hyp,evalue=evalues)
-  evalues.df = evalues.df[order(evalues.df$evalue,decreasing = TRUE),]
+  evalues.df = evalues.df[order(evalues.df[,'evalue'],decreasing = TRUE),]
   rank = 1:nrow(evalues.df)
-  evalues.df['BHcrit'] = evalues.df$evalue*rank/nrow(evalues.df) >= (1/level)
+  evalues.df['BHcrit'] = evalues.df[,'evalue']*rank/nrow(evalues.df) >= (1/level)
   k.star = ifelse(max(evalues.df['BHcrit']==TRUE)>0,max(rank[evalues.df['BHcrit']==TRUE]),
                   0)
   evalues.df['rejected'] = 1:nrow(evalues.df) <= k.star

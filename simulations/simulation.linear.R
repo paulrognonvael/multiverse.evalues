@@ -9,7 +9,7 @@ beta = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 0.75, 1)
 cov = matrix(rep(0.5,p.sim*p.sim), ncol=p.sim)
 diag(cov) = rep(1,p.sim)
 
-nb.sim = 100
+nb.sim = 2
 summary.mixt.res = data.frame()
 summary.soft.res = data.frame()
 summary.bf.res = data.frame()
@@ -19,7 +19,8 @@ summary.calib2.res = data.frame()
 summary.calib3.res = data.frame()
 summary.calib4.res = data.frame()
 
-for(n.sim in c(100, 250, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000)){
+for(n.sim in c(100, 250#, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000
+               )){
   cat('\n------- n =',n.sim,'--------\n')
   softrankevalues.res= data.frame()
   mixtevalues.res= data.frame()
@@ -151,7 +152,7 @@ for(n.sim in c(100, 250, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000)){
 
 write.csv(summary.mixt.res,paste0('simulations/linreg/summaries.logmixt.sim.csv'),row.names = FALSE)
 write.csv(summary.soft.res,paste0('simulations/linreg/summaries.logsoft.sim.csv'),row.names = FALSE)
-write.csv(summary.res.bf,paste0('simulations/linreg/summaries.logbf.sim.csv'),row.names = FALSE)
+write.csv(summary.bf.res,paste0('simulations/linreg/summaries.logbf.sim.csv'),row.names = FALSE)
 write.csv(summary.p.values.res,paste0('simulations/linreg/summaries.pvalues.sim.csv'),row.names = FALSE)
 write.csv(summary.calib1.res,paste0('simulations/linreg/summaries.logcalib1.sim.csv'),row.names = FALSE)
 write.csv(summary.calib2.res,paste0('simulations/linreg/summaries.logcalib2.sim.csv'),row.names = FALSE)
