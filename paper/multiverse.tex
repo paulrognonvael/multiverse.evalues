@@ -360,7 +360,9 @@ where $\| \cdot \|^2$ is the squared Euclidean norm, $d=\mbox{dim}(\theta^{(l)})
 Outside of linear regression numerical integration methods must be used and, as long as the number of outcomes $L$ is not too large, this can also be done quickly (and in parallel).
 One may approximate $q_l$ using Laplace approximations, which is very fast as it requires a single optimization exercise for each outcome, and is very accurate as $n$ grows (\cite{kass:1990}, \cite{rossell:2021b} Lemma S3).
 
-A second possible strategy is to use soft-rank e-variables \citep{koning:2024}. Let $T_0$ be a test statistic for the null hypothesis of interest, and let $T_1,\ldots,T_B$ be the realization of $B$ test statistics that are exchangeable with $T_0$ under the null. The soft-rank e-variable is 
+A second possible strategy is to use soft-rank e-variables \citep{koning:2024}. 
+These are typically based on permutation exercises akin to those used to obtain permutation-based p-values, therefore they are more computationally-intensive but as a positive aspect they are more reliable when our statistical model in \eqref{eq:outcome_equation} is misspecified (e.g., covariate effects are truly non-linear, errors are heteroskedastic, etc.).
+Let $T_0$ be a test statistic for the null hypothesis of interest, and let $T_1,\ldots,T_B$ be the realization of $B$ test statistics that are exchangeable with $T_0$ under the null. The soft-rank e-variable is 
 \begin{align}
   E^{sr} \,=\,\frac{(B+1)T_0}{\sum_{b=0}^{B}T_b}.
 \end{align}
@@ -379,11 +381,16 @@ where $\hat{p}^b_{lj}$ are the MLEs under the null and alternative hypotheses re
 The third and final option that we discuss here to obtain an e-variable is to use so-called p-to-e calibrators \cite{ramdas:2025}, which convert p-values into e-values. Let $\pi_{lj}$ be a p-value for the null hypothesis $H_{lj}$ in \eqref{eq:test}, two popular calibrators are
 \begin{equation}
   E^{c1}(\pi_{lj})=\int_0^1 \kappa \pi_{lj}^{\kappa-1} \mathrm{~d} \kappa=\frac{1-\pi_{lj}+\pi_{lj} \log \pi_{lj}}{\pi_{lj}(\log \pi_{lj})^2},
+\label{eq:calibrator1}
 \end{equation}
 which uses a mixture over $k\in(0,1)$ of the calibrator function proposed in \cite{shafer:2011}, and
 \begin{equation}
   E^{c2}(\pi_{lj})=\pi_{lj}^{1/2} -1.
+\label{eq:calibrator2}
 \end{equation}
+\david{There must be a typo in \eqref{eq:calibrator2}. Should it be $\pi_{lj}^{-1/2}$? Else, larger p-value gives a larger e-value.}
+
+We refer to \eqref{eq:calibrator1} as the mixture calibrator and to \eqref{eq:calibrator2} as the inverse root calibrator.
 The family of p-to-e calibrators is however much richer, with no single calibrator shown to uniformly outperform all others. See \cite{ramdas:2025} (Chapter 2) for a review. In our setting one may take $\pi_{lj}$ to be the p-value of the likelihood ratio test for~\eqref{eq:test}. % with statistic~\eqref{eq:lrt}. 
 A theoretical caveat is that, outside of the Gaussian family, most implementations of the test rely on the chi-square asymptotic distribution of the likelihood ratio test. Since such a p-value is not exact for finite $n$, neither is the resulting calibrated e-value.
 %This is the case of the p-value output by R function \texttt{anova} from the \texttt{stats} package that we use in our simulations and application.
@@ -391,6 +398,7 @@ In our simulations, such e-values controlled the type I error and FDR below the 
 
 
 \subsection{Simulation study}\label{ssec:simstudy}
+
 \begin{figure}[ht]
 \begin{tabular}{cc}
          $\beta_i^*=0$& $\beta_i^*=0.15$ \\
@@ -400,14 +408,17 @@ In our simulations, such e-values controlled the type I error and FDR below the 
          \includegraphics{images/sim.logreg.paper.beta0.3.png}  & 
          \includegraphics{images/sim.logreg.paper.beta0.5.png} \\
 \end{tabular}
-\caption{Average log e-values in logistic regression for $\beta_i^*=0$ (top left), $\beta_i^*=0.15$ (top right), $\beta_i^*=0.3$ (bottom left) and $\beta_i^*=0.5$ (bottom right).}
+\caption{Average log e-values in logistic regression for $\beta_i^*=0$ (top left), $\beta_i^*=0.15$ (top right), $\beta_i^*=0.3$ (bottom left) and $\beta_i^*=0.5$ (bottom right) for universal mixture and soft-rank e-values, mixture (calib.c1) and inverse root p-to-e calibrators (calib.c2)}
 \label{fig:simlogreg}
 \end{figure}
-To assess the power of the three alternatives discussed in~\ref{ssec:define_evariables}, we run a simulation study in Gaussian (linear) and logistic regressions. We consider sample sizes $n$ ranging from 100 to 10 000 and a fixed dimension $d=10$. For each family and each sample size, we simulate 100 datasets with data-generating regression coefficients $\beta_i^*\in[0,1]$, $i=1,\ldots,10$.
 
-Figure~\ref{fig:simlogreg} plots the average log e-value over the 100 repetitions for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ in logistic regression. All considered e-variables exhibit good type 1 error control with negative or nearly null log e-values for $\beta_i^*=0$. For nonzero effects and small $n$, the calibrated e-values $E^{c1}$ and $E^{c2}$ clearly dominate the universal mixture and soft-rank e-variables $E^{um}$ and $E^{sr}$, accumulating evidence faster. For large $n$, the soft-rank e-variable $E^{sr}$ matches the calibrated e-variable $E^{c1}$, both dominating the universal mixture e-variable $E^{um}$ and the calibrated e-variable $E^{c2}$. 
+We assess the power of the four strategies to obtain e-values discussed in Section \ref{ssec:define_evariables}: universal mixture and soft-rank e-values and the mixture and inverse root calibrators in \eqref{eq:calibrator1}-\eqref{eq:calibrator2}.
+We run a simulation study in Gaussian linear and logistic regressions. We consider sample sizes $n$ ranging from 100 to 10,000 and 10 covariates. \david{How were the covariates generated, a zero-mean multivariate Gaussian? Are they correlated?} For each family and each sample size, we simulate 100 datasets with data-generating regression coefficients $\beta_i^*\in[0,1]$, $i=1,\ldots,10$.
 
-Figure~\ref{fig:simlinreg} plots the average log e-value over 100 repetitions for the same $\beta_i^*$ values as in Figure~\ref{fig:simlogreg} but in Gaussian linear regression. Findings are similar to that in logistic regression, and, out of the assessed e-variables, we recommend $E^{c1}$ for test~\eqref{eq:test}.
+Figure~\ref{fig:simlogreg} plots the average log e-value over the 100 repetitions for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ in logistic regression. All considered e-variables exhibit good type 1 error control with negative or nearly null log e-values for $\beta_i^*=0$. \david{This is a statement about the mean log e-value. Type I error depends on the probability that 1/e-value is $\geq 1/\alpha$. Can we add a table showing the type I error for each $n$ and each method?} For nonzero $\beta_i^*$ and small $n$, the calibrated e-values $E^{c1}$ and $E^{c2}$ clearly dominate the universal mixture and soft-rank e-variables $E^{um}$ and $E^{sr}$, accumulating stronger evidence in favor of the alternative. For large $n$, the calibrated e-variable $E^{c2}$ became less competitive whereas the soft-rank e-variable $E^{sr}$ became more competitive, nearly matching the mixture calibrated e-variable $E^{c1}$ in some scenarios. 
+
+Figure~\ref{fig:simlinreg} plots the average log e-value over 100 repetitions for the same $\beta_i^*$ values as in Figure~\ref{fig:simlogreg} but in Gaussian linear regression. Findings are similar to that in logistic regression. In summary, out of the assessed e-variables, we recommend the mixture calibrator $E^{c1}$ to test the null hypotheses in \eqref{eq:test}, as it accrues stronger evidence for truly alternative hypotheses while appropriately controlling type 1 error. We remark that such e-values are only properly calibrated when the assumed model is correct (or approximately so), otherwise soft-rank e-variables may be preferable for being more robust to model misspecification.
+
 
 \subsection{FDR control with e-variables}
 \label{ssec:fdr_control}
@@ -422,7 +433,7 @@ Let $e_{[k]}$ be the $k^{th}$ order statistic of $e_{lj}$ across all $(l,j)$, so
 with the convention that $\max \emptyset = 0$.
 That is, the $k^{th}$ test effectively uses $k e_{[k]} / K$ as its e-value, and if we reject test $k$ then we also reject all the previous tests.
 \cite{wang_ruodu:2022} proved that 
-$\mathbb \mbox{FDR} \leq \alpha K_0 / K \leq \alpha$, where $K_0$ is the number of truly null hypotheses.
+$\mbox{FDR} \leq \alpha K_0 / K \leq \alpha$, where $K_0$ is the number of truly null hypotheses.
 
 A slight refinement of e-BH, which only has a practical effect when $K$ is small, is as follows.
 Test the joint null hypothesis that all $\theta_{lj}=0$:
@@ -430,7 +441,7 @@ if $K^{-1} \sum_{l,j} E_{lj} \leq 1/\alpha$ then no hypothesis is rejected,
 otherwise apply the e-BH procedure replacing $\alpha$ by $\alpha K/(K-1)$. 
 This procedure controls the FDR below $\alpha$ and dominates uniformly the e-BH procedure.
 A further improvement is possible by using the closed e-BH procedure (\cite{ramdas:2025}, Chapter 9.6), denoted by $\overline{\text{e-BH}}$.
-Specifically, let $R_k$ the set of indices corresponding to the $k$ largest e-values, $\overline{\text{e-BH}}$ rejects all null hypotheses $k \leq \bar{k}$, where
+Specifically, let $R_k$ be the set of indices corresponding to the $k$ largest e-values, $\overline{\text{e-BH}}$ rejects all null hypotheses $k \leq \bar{k}$, where
 $\bar k= \max \{k \geq 0: R_k \in C_\alpha \}$ and
 \begin{align}
  C_\alpha = \left\{ R: \frac{1}{|A|} \sum_{k \in A} E_k \geq \frac{\mbox{FDP}_A(R)}{\alpha}  \mbox{, for all } A \subseteq \{ 1,\ldots,K \}  \right\}
@@ -440,13 +451,13 @@ where $\mbox{FDP}_A(R)= |A \cap R|/\max\{|R|, 1\}$ is the false discovery propor
 In words, $R_{\bar k}$ is such that the average of the e-values over any other subset $A$ exceeds $\mbox{FDP}_A(R)/\alpha$.
 $\overline{\text{e-BH}}$ controls the FDR at level $\alpha$, and rejects at least as many hypothesis as the refined e-BH procedure.
 A disadvantage however is that finding $R_{\bar k}$ requires order $K^3$ operations, relative to e-BH which only requires $K$ operations.
-\david{I didn't have time to check exactly what the algorithm is, but if $K$ is not super-large in our examples perhaps it's worth trying it out? Assuming that the algorithm is simple to implement or that code is available, of course.}
+%\david{I didn't have time to check exactly what the algorithm is, but if $K$ is not super-large in our examples perhaps it's worth trying it out? Assuming that the algorithm is simple to implement or that code is available, of course.}
 
 \section{Results}
 \label{sec:results}
 
 \begin{table}[ht]
-\caption{Rejected hypothesis by the eBH procedure with level 0.05}\label{tab1}%
+\caption{Rejected hypothesis by the eBH procedure with FDR level 0.05 \david{Using the mixture calibrator e-variable?}}\label{tab1}%
 \begin{tabular}{@{}llc@{}}
 \toprule
 Outcome & Treatment (time on$\ldots$) & e-value ($E^{c1}$) \\
@@ -459,11 +470,12 @@ Depressive symptoms (self-assessed) &  internet & 396\\
 \end{tabular}
 \end{table}
 
-We apply our multiverse analysis framework to the study of the effect of technology on teenager well-being in the 2015 survey of the Millennium Cohort Study (MCS). The MCS a socio-economic and health survey tracking a representative sample of children born in the UK around year 2000 throughout their life. The 2015 data that we use has a rather large sample size, $n = 11884$, and features several measures of well-being among teenagers and technology use. 
 
-An earlier analysis of this dataset in~\cite{orben:2019} concluded to no significant association between technology and teenager well-being. To assess significance of effects across outcomes and treatments, the authors used the Specification Curve Analysis~\cite{simonsohn:2020} method which has serious shortcomings as briefly discussed in Section~\ref{sec:intro}. When applied to MCS dataset, our framework leads to conclusions opposite to those in~\cite{orben:2019}.
+We apply our multiverse analysis framework to the study of the association between technology on teenager mental well-being in the 2015 survey of the Millennium Cohort Study (MCS). The MCS is a socio-economic and health survey tracking a representative sample of children born in the UK around year 2000 throughout their life. The 2015 data that we use has a rather large sample size, $n = 11,884$ teenagers, and features several outcome measures of mental well-being, $p_x=5$ treatments measuring the use of various technologies, and $p_z=14$ control covariates.
 
-We consider $L=8$ outcomes: self-assessed depressive symptoms (Mood and Feelings Questionnaire) and self-esteem (Rosenberg scale), as well as parent-assessed total difficulties, emotional problems, conduct problems, hyperactivity/inattention, peer problems and pro-sociality (all Strengths and Difficulties Questionnaire). There are $p_x=5$ treatments: times spent watching TV, playing video games, using the internet and using social media, and owning a PC. 
+An earlier analysis of this dataset in~\cite{orben:2019} concluded that the association between technology and teenager well-being was not practically relevant. To assess significance of effects across outcomes and treatments, the authors used the Specification Curve Analysis~\cite{simonsohn:2020} method, which has serious shortcomings when used for proper statistical inference, as briefly discussed in Section~\ref{sec:intro}. When applied to MCS dataset, our framework leads to conclusions opposite to those in~\cite{orben:2019}.
+
+We consider $L=8$ outcomes: self-assessed depressive symptoms (Mood and Feelings Questionnaire) and self-esteem (Rosenberg scale), as well as parent-assessed total difficulties, emotional problems, conduct problems, hyperactivity/inattention, peer problems and pro-sociality (all Strengths and Difficulties Questionnaire). There are $p_x=5$ treatments: time spent watching TV, playing video games, using the internet, using social media, and owning a personal computer. 
 In all regressions, we include $p_z=14$ control covariates: sex, age, BMI, (self-reported) educational motivation, mother’s ethnicity, 
 (self-reported) closeness to parents, presence of natural father, time spent with primary
 caretaker (PC), PC’s word activity score, PC’s employment status, own longstanding
@@ -471,9 +483,16 @@ illness, PC’s psychological distress, number of siblings and household income.
 
 The data were prepared as described in~\cite{semken:2022}. In particular, all treatment variables but TV usage were treated as
 continuous variables, normalized such that 0 means “no usage” and 1 means maximum
-reportable usage. TV usage was discretized into low, medium and high usage to boost the monotonic association with treatments. Outcomes variables are binary and were obtained by binning originally continuous data with validated cutoffs for abnormal behavior. See \cite{semken:2022} (Section S4) for further details.
+reportable usage. TV usage was discretized into low, medium and high usage because its association with most outcomes was not linear (although it was monotone). The outcome variables are binary and were obtained by binning originally continuous data with validated cutoffs for abnormal behavior. See \cite{semken:2022} (Section S4) for further details on data pre-processing.
 
-Following our proposed framework, we fit a logistic regression for each outcome and compute e-values for each outcome-treatment pair and apply the eBH procedure. In particular, we use e-variable $E^{c1}$ that exhibits largest power in our simulations. We report in Table~\ref{tab1}, the hypotheses rejected by the e-BH procedure with level 0.05. Alternative, less powerful, choices of e-variables in Section~\ref{ssec:define_evariables} lead to no rejection in this dataset. In total, four hypotheses are rejected by our framework suggesting a significant effect of technology on teenager well-being contrary to the original study in~\cite{orben:2019}.
+Following our proposed framework, we fit a logistic regression for each outcome and compute e-values for each outcome-treatment pair and apply the eBH procedure. In particular, we used the mixture calibrator e-variable $E^{c1}$ in \eqref{eq:calibrator1}, as it exhibited the largest power in our simulations. 
+Before applying the eBH procedure, there were \david{XXX (can you please indicate)} hypothesis for which $1/E^{c1} > 20$, which controls the individual type 1 error for each hypothesis at the 0.05 level.
+Table~\ref{tab1} reports the subset of these that were rejected by the e-BH procedure, when controlling the FDR below 0.05. Alternative, less powerful, choices of e-variables in Section~\ref{ssec:define_evariables} (universal mixture, soft-rank and inverse root calibrator) lead to no rejection in this dataset after the eBH adjustment. In total, four hypotheses are rejected by our framework suggesting a significant effect of technology on teenager well-being contrary to the original study in~\cite{orben:2019}.
+\david{Can we indicate the estimated odds-ratio for each covariate in Table 1? If you have time, perhaps also the e-value based confidence interval (based on e-value inversion, these are all the null parameter values for which the e-value would not be statistically significant, before any FDR correction is applied).} Specifically, a strong internet usage was found to be significantly associated with low self-steem and depressive symptoms as self-assessed by the teenagers, and high peer problems as assessed by their parents.
+High social media usage was also found to be significantly associated with self-assessed depressive symptoms.
+We remark that the odds-ratio for these associations were in the range \david{can you please add?}, that is these findings are not only statistically significant but also practically relevant.
+
+
 
 %\section{Tables}\label{sec5}
 
@@ -516,6 +535,14 @@ Following our proposed framework, we fit a logistic regression for each outcome 
 \label{sec:discussion}
 
 
+Multiverse analysis is a useful tool to descriptively assess how the association between treatments and outcomes varies as one considers different treatments, outcomes, sub-populations of individuals, control covariates, or other analysis choices. When purely used in such a descriptive manner, it can help flag whether treatment-outcome associations are robust across analysis specifications or not.
+A more contentious issue is when a multiverse analysis is used for formal statistical inference. In such situations, one must be careful to assess properly defined statistical estimands and to properly account for possible treatment effect heterogeneity. In particular, we do not recommend reporting averaged treatment effect estimates across all analysis specifications, except for fairly rare circumstances where the treatment and specifications are effectively viewed as exchangeable.
+Instead, we recommend reporting treatment effects for all analysis specifications separately and accounting for the multiple comparisons being performed. This ensures statistical validity but has a cost in statistical power, which can be a practical issue when either the sample size of the treatment effect are relatively small.
+For example, in the teenager data a previous analysis had found that the average effect across all treatments and outcomes was practically irrelevant, whereas assessing each treatment-outcome association separately reveals strong and very practically-relevant associations.
+
+A further statistical issue is that many false positive control methods make strong assumptions about the hypotheses being performed (e.g., independence or positive dependence across hypotheses, many tests being performed, etc.). E-values may be an appealing FDR control strategy in this setting because they relax these assumptions, in particular they remain valid regardless of the dependence structure across the statistical tests and of the number of hypotheses tested. A concern however is that e-values can be conservative, in the sense of having low statistical power to detect treatment effects when they truly exist. Our simulations show that this issue is much more marked for some strategies than for others, and these findings were confirmed in the teenager mental well-being data. Mixture calibrated e-variables worked best in our experiments, whereas on the other end of the spectrum universal mixture e-variables were extremely conservative in our examples, to the point of being practically useless unless $n$ or the treatment effects are extremely large. Soft-rank e-variables were less powerful than mixture calibrated e-variables, particularly for small $n$, but they may be appealing in settings where the model is misspecified.
+
+In conclusion, our results suggest that e-variables can be a useful complement to multiverse analyses, but they also point to significant limitations in terms of their statistical power. Hence, they should be viewed as a conservative procedure that is best suited for moderately large sample sizes and treatment effect sizes. We also remark that e-variables is a recent framework and that there is active research in designing more powerful e-variables, which may improve their properties when used within multiverse analyses.
 
 
 \backmatter
@@ -530,7 +557,7 @@ Following our proposed framework, we fit a logistic regression for each outcome 
 
 \bmhead{Funding}
 
-DR was funded by grant ICREA Academia 2026 from AGAUR, Generalitat de Catalunya, and by grant PID2022-138268NB-I00 by Ministerio de Ciencia e Innovaci\'on (MICIN)/Agencia Espa\~{n}ola de Investigaci\'on(AEI)/10.13039/501100011033 /Fondo Europeo de Desarrollo Regional (FEDER). Co-funded by the European Union (ERC, BigBayesUQ, project number: 101041064). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Council. Neither the European Union nor the granting authority can be held responsible for them.
+DR was funded by grant 0045 within the ICREA Academia program from AGAUR (Generalitat de Catalunya), and by grant PID2022-138268NB-I00 by Ministerio de Ciencia e Innovaci\'on (MICIN)/Agencia Espa\~{n}ola de Investigaci\'on(AEI)/10.13039/501100011033 /Fondo Europeo de Desarrollo Regional (FEDER). Co-funded by the European Union (ERC, BigBayesUQ, project number: 101041064). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Council. Neither the European Union nor the granting authority can be held responsible for them.
 
 \bmhead{Ethics approval}
 

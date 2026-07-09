@@ -44,6 +44,8 @@
     "eq:univ_evalue_mixture"
     "eq:uip"
     "eq:lrt"
+    "eq:calibrator1"
+    "eq:calibrator2"
     "ssec:simstudy"
     "fig:simlogreg"
     "ssec:fdr_control"

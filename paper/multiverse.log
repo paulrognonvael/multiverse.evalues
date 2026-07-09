@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.2.14)  8 JUL 2026 15:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.2.14)  9 JUL 2026 08:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -713,55 +713,55 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9]
-<images/sim.logreg.paper.beta0.png, id=210, 170.5572pt x 170.5572pt>
+<images/sim.logreg.paper.beta0.png, id=214, 170.5572pt x 170.5572pt>
 File: images/sim.logreg.paper.beta0.png Graphic file (type png)
 <use images/sim.logreg.paper.beta0.png>
 Package pdftex.def Info: images/sim.logreg.paper.beta0.png  used on input line 
-397.
+405.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
-<images/sim.logreg.paper.beta0.15.png, id=211, 170.5572pt x 170.5572pt>
+<images/sim.logreg.paper.beta0.15.png, id=215, 170.5572pt x 170.5572pt>
 File: images/sim.logreg.paper.beta0.15.png Graphic file (type png)
 <use images/sim.logreg.paper.beta0.15.png>
 Package pdftex.def Info: images/sim.logreg.paper.beta0.15.png  used on input li
-ne 398.
+ne 406.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
-<images/sim.logreg.paper.beta0.3.png, id=212, 170.5572pt x 170.5572pt>
+<images/sim.logreg.paper.beta0.3.png, id=216, 170.5572pt x 170.5572pt>
 File: images/sim.logreg.paper.beta0.3.png Graphic file (type png)
 <use images/sim.logreg.paper.beta0.3.png>
 Package pdftex.def Info: images/sim.logreg.paper.beta0.3.png  used on input lin
-e 400.
+e 408.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
-<images/sim.logreg.paper.beta0.5.png, id=213, 170.5572pt x 170.5572pt>
+<images/sim.logreg.paper.beta0.5.png, id=217, 170.5572pt x 170.5572pt>
 File: images/sim.logreg.paper.beta0.5.png Graphic file (type png)
 <use images/sim.logreg.paper.beta0.5.png>
 Package pdftex.def Info: images/sim.logreg.paper.beta0.5.png  used on input lin
-e 401.
+e 409.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [10
-pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.409 
-       <./images/sim.logreg.paper.beta0.png> <./images/sim.logreg.paper.beta0.1
-5.png> <./images/sim.logreg.paper.beta0.3.png> <./images/sim.logreg.paper.beta0
-.5.png>]
-
-LaTeX Warning: Reference `fig:simlinreg' on page 11 undefined on input line 410
+LaTeX Warning: Reference `fig:simlinreg' on page 10 undefined on input line 420
 .
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [11]
-LaTeX Font Info:    Calculating math sizes for size <8.03> on input line 450.
+ [10]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.446 \begin{align}
+                    <./images/sim.logreg.paper.beta0.png> <./images/sim.logreg.
+paper.beta0.15.png> <./images/sim.logreg.paper.beta0.3.png> <./images/sim.logre
+g.paper.beta0.5.png>]
+LaTeX Font Info:    Calculating math sizes for size <8.03> on input line 461.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <4.015> not available
-(Font)              size <5> substituted on input line 450.
+(Font)              size <5> substituted on input line 461.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -771,51 +771,37 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.477 
+l.483 
       ]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
 
 Package hyperref Warning: Difference (4) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 533.
+(hyperref)                than one, level fixed on input line 560.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 533--534
- []\OT1/cmr/bx/n/10.03749 Funding.[][] \OT1/cmr/m/n/10 DR was funded by grant I
-CREA Academia 2026 from
+Underfull \hbox (badness 3291) in paragraph at lines 560--561
+\OT1/cmr/m/n/10 ti-gaci^^Son(AEI)/10.13039/501100011033 /Fondo Europeo de Desar
+-rollo Regional
  []
 
 
-Underfull \hbox (badness 1824) in paragraph at lines 533--534
-\OT1/cmr/m/n/10 AGAUR, Gen-er-al-i-tat de Catalunya, and by grant PID2022-13826
-8NB-I00 by
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-Underfull \hbox (badness 4353) in paragraph at lines 533--534
-\OT1/cmr/m/n/10 Min-is-te-rio de Cien-cia e Inno-vaci^^Son (MICIN)/Agencia Espa
-~nola de Inves-ti-
- []
-
-
-Underfull \hbox (badness 6412) in paragraph at lines 533--534
-\OT1/cmr/m/n/10 gaci^^Son(AEI)/10.13039/501100011033 /Fondo Europeo de Desar-ro
-llo Regional
- []
-
+ [14]
 
 Package hyperref Warning: Difference (3) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 537.
+(hyperref)                than one, level fixed on input line 564.
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 541.
+(hyperref)                than one, level fixed on input line 568.
 
 (./multiverse.bbl
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [13]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [14{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+ [15{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Underfull \hbox (badness 10000) in paragraph at lines 352--362
 []\OT1/cmr/m/n/10 Koning, N.W.: More power by using fewer per-mu-ta-tions.
  []
@@ -832,10 +818,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 352--362
 t/article-
  []
 
-)
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [15]
+ [16])
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [17]
 (./multiverse.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -853,13 +842,13 @@ Package rerunfilecheck Info: File `multiverse.out' has not changed.
 (rerunfilecheck)             Checksum: 88D5CB663FB5CC3BEC5C1D11F930DFC8;1900.
  ) 
 Here is how much of TeX's memory you used:
- 14643 strings out of 476106
- 224143 string characters out of 5793933
+ 14647 strings out of 476106
+ 224189 string characters out of 5793933
  1940975 words of memory out of 5000000
- 36343 multiletter control sequences out of 15000+600000
+ 36345 multiletter control sequences out of 15000+600000
  587914 words of font info for 153 fonts, out of 8000000 for 9000
  69 hyphenation exceptions out of 8191
- 90i,16n,93p,937b,656s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,16n,93p,1284b,662s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texli
@@ -885,10 +874,10 @@ m/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/shar
 e/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on multiverse.pdf (15 pages, 528971 bytes).
+Output written on multiverse.pdf (17 pages, 537776 bytes).
 PDF statistics:
- 402 PDF objects out of 1000 (max. 8388607)
- 323 compressed objects within 4 object streams
- 69 named destinations out of 1000 (max. 500000)
+ 419 PDF objects out of 1000 (max. 8388607)
+ 338 compressed objects within 4 object streams
+ 71 named destinations out of 1000 (max. 500000)
  141 words of extra memory for PDF output out of 10000 (max. 10000000)
 
