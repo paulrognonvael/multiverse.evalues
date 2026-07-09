@@ -9,7 +9,7 @@ beta = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 0.75, 1)
 cov = matrix(rep(0.5,p.sim*p.sim), ncol=p.sim)
 diag(cov) = rep(1,p.sim)
 
-nb.sim = 2
+nb.sim = 100
 summary.mixt.res = data.frame()
 summary.soft.res = data.frame()
 summary.bf.res = data.frame()
@@ -19,7 +19,7 @@ summary.calib2.res = data.frame()
 summary.calib3.res = data.frame()
 summary.calib4.res = data.frame()
 
-for(n.sim in c(100, 250#, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000
+for(n.sim in c(100, 250, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000
                )){
   cat('\n------- n =',n.sim,'--------\n')
   softrankevalues.res= data.frame()
@@ -159,3 +159,20 @@ write.csv(summary.calib2.res,paste0('simulations/linreg/summaries.logcalib2.sim.
 write.csv(summary.calib3.res,paste0('simulations/linreg/summaries.logcalib3.sim.csv'),row.names = FALSE)
 write.csv(summary.calib4.res,paste0('simulations/linreg/summaries.logcalib4.sim.csv'),row.names = FALSE)
 
+summary.mixt.res$type='mixt'
+summary.soft.res$type='soft'
+summary.bf.res$type='bf'
+summary.p.values.res$type='pvalues'
+summary.calib1.res$type='calib1'
+summary.calib2.res$type='calib2'
+summary.calib3.res$type='calib3'
+summary.calib4.res$type='calib4'
+summary.all.res=rbind(summary.mixt.res,
+                      summary.soft.res,
+                      summary.bf.res,
+                      summary.p.values.res,
+                      summary.calib1.res,
+                      summary.calib2.res,
+                      summary.calib3.res,
+                      summary.calib4.res)
+write.csv(summary.all.res,'~/GitHub/multiverse.evalues/simulations/linreg/summaries.all.csv',row.names = FALSE)
