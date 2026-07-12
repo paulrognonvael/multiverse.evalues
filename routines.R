@@ -86,6 +86,7 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
   
   family.glm = family
   if(family.glm=='normal'){family.glm='gaussian'}
+  glm.fitfull = glm(formula=formula, data=data, family=family.glm)
   
   ## List of small models, minus 1 variable
   if(sum(is.na(vars))!=0){vars=attr(terms(formula), "term.labels")}  
@@ -140,8 +141,8 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
     hypsupp['logcalib2'] = rep(NA,length(list.modelsminus1))
     hypsupp['logcalib3'] = rep(NA,length(list.modelsminus1))
     hypsupp['logcalib4'] = rep(NA,length(list.modelsminus1))
+    
     ## MLE fit for full model
-    glm.fitfull = glm(formula=formula, data=data, family=family.glm)
     for(i in 1:length(list.modelsminus1)){
       glm.fitmin = glm(formula = list.modelsminus1[[i]], data=data, family=family.glm)
       if(family.glm=='gaussian'){
@@ -159,7 +160,7 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
   
   res = hypsupp[,-which(colnames(hypsupp)%in%c('mle.llik','marg.llik','modname'))] 
 
-  return(list(stats = res, all.res = hypsupp))
+  return(list(stats = res, all.res = hypsupp, glm.full=glm.fitfull))
 }
 
 eBH = function(evalues,hyp,level){
@@ -171,4 +172,78 @@ eBH = function(evalues,hyp,level){
                   0)
   evalues.df['rejected'] = 1:nrow(evalues.df) <= k.star
   return(evalues.df)
+}
+
+eBH.ksmall = function(evalues,hyp,level){
+  if(mean(evalues)<1/level){
+    evalues.df = data.frame(hyp=hyp,evalue=evalues)
+    evalues.df['rejected'] = rep('FALSE',nrow(evalues.df))
+  } else {
+    evalues.df = eBH(evalues,hyp,level)
+  }
+  return(evalues.df)
+}
+
+compute_cebh_discovery_set <- function(E, hyp, alpha) {
+  K <- length(E)
+  ebh_init = eBH(E ,hyp, alpha)
+  R_ebh <- ebh_init[ebh_init['rejected']==TRUE,]
+  ebh_k <- sum(ebh_init['rejected']==TRUE)
+  
+  sorted_idx <- order(E, decreasing = TRUE)
+  E_sorted <- E[sorted_idx]
+  
+  E_prefix_sum <- cumsum(E_sorted)
+  E_suffix_sum <- cumsum(rev(E_sorted))
+  
+  res_env <- new.env(hash = TRUE, parent = emptyenv())
+  
+  get_r_of_k <- function(r, k) {
+    key <- paste(r, k, sep = "_")
+    if (!exists(key, envir = res_env, inherits = FALSE)) {
+      assign(key, sum(E_sorted[(k - r + 1):k]), envir = res_env)
+    }
+    get(key, envir = res_env, inherits = FALSE)
+  }
+  
+  get_evalue_fdp <- function(k, r, m) {
+    rejected_sum <- get_r_of_k(r, k)
+    
+    nonreject_sum <- if (m > r) {
+      E_suffix_sum[m - r]
+    } else {
+      0
+    }
+    
+    evalue <- (rejected_sum + nonreject_sum) / m
+    fdp <- r / k
+    
+    list(evalue = evalue, fdp = fdp)
+  }
+  
+  check_e_safety <- function(k, r, m) {
+    vals <- get_evalue_fdp(k, r, m)
+    vals$fdp <= alpha * vals$evalue
+  }
+  
+  for (k in seq(K, ebh_k + 1, by = -1)) {
+    valid <- TRUE
+    
+    for (r in seq_len(k)) {
+      for (m in r:(r + K - k)) {
+        if (!check_e_safety(k, r, m)) {
+          valid <- FALSE
+          break
+        }
+      }
+      
+      if (!valid) break
+    }
+    
+    if (valid) {
+      return(sorted_idx[seq_len(k)])
+    }
+  }
+  
+  R_ebh
 }

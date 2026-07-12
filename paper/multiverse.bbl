@@ -62,8 +62,7 @@
 \begin{barticle}
 \bauthor{\bsnm{Semken}, \binits{C.}},
 \bauthor{\bsnm{Rossell}, \binits{D.}}:
-\batitle{Specification analysis for technology use and teenager well-being:
-  Statistical validity and a bayesian proposal}.
+\batitle{Specification analysis for technology use and teenager well-being: Statistical validity and a bayesian proposal}.
 \bjtitle{Journal of the Royal Statistical Society C}
 \bvolume{71}(\bissue{5}),
 \bfpage{1330}--\blpage{1355}
@@ -76,8 +75,7 @@
 \begin{barticle}
 \bauthor{\bsnm{Orben}, \binits{A.}},
 \bauthor{\bsnm{Przybylski}, \binits{A.K.}}:
-\batitle{The association between adolescent well-being and digital technology
-  use}.
+\batitle{The association between adolescent well-being and digital technology use}.
 \bjtitle{Nature human behaviour}
 \bvolume{3}(\bissue{2}),
 \bfpage{173}--\blpage{182}
@@ -144,8 +142,7 @@
 \bauthor{\bsnm{Chugg}, \binits{B.}},
 \bauthor{\bsnm{Ramdas}, \binits{A.}},
 \bauthor{\bsnm{Gr{\"u}nwald}, \binits{P.}}:
-\batitle{E-values as statistical evidence: A comparison to bayes factors,
-  likelihoods, and p-values}.
+\batitle{E-values as statistical evidence: A comparison to bayes factors, likelihoods, and p-values}.
 \bjtitle{arXiv}
 \bvolume{2603.24421},
 \bfpage{1}--\blpage{34}
@@ -171,8 +168,7 @@
 \begin{barticle}
 \bauthor{\bsnm{Benjamini}, \binits{Y.}},
 \bauthor{\bsnm{Hochberg}, \binits{Y.}}:
-\batitle{Controlling the false discovery rate: A practical and powerful
-  approach to multiple testing}.
+\batitle{Controlling the false discovery rate: A practical and powerful approach to multiple testing}.
 \bjtitle{Journal of the Royal Statistical Society B}
 \bvolume{57}(\bissue{1}),
 \bfpage{289}--\blpage{300}
@@ -181,13 +177,11 @@
 \endbibitem
 
 %%% 11
-\bibitem[\protect\citeauthoryear{Benjamini and
-  Yekutieli}{2001}]{benjamini:2001}
+\bibitem[\protect\citeauthoryear{Benjamini and Yekutieli}{2001}]{benjamini:2001}
 \begin{barticle}
 \bauthor{\bsnm{Benjamini}, \binits{Y.}},
 \bauthor{\bsnm{Yekutieli}, \binits{D.}}:
-\batitle{The control of the false discovery rate in multiple testing under
-  dependency}.
+\batitle{The control of the false discovery rate in multiple testing under dependency}.
 \bjtitle{The Annals of Statistics}
 \bvolume{29},
 \bfpage{1165}--\blpage{1188}
@@ -199,8 +193,7 @@
 \bibitem[\protect\citeauthoryear{Storey}{2003}]{storey:2003}
 \begin{barticle}
 \bauthor{\bsnm{Storey}, \binits{J.D.}}:
-\batitle{The positive false discovery rate: a {B}ayesian interpretation and the
-  q-value}.
+\batitle{The positive false discovery rate: a {B}ayesian interpretation and the q-value}.
 \bjtitle{The Annals of Statistics}
 \bvolume{31},
 \bfpage{2013}--\blpage{2035}
@@ -227,8 +220,7 @@
 \bibitem[\protect\citeauthoryear{Storey}{2007}]{storey:2007}
 \begin{barticle}
 \bauthor{\bsnm{Storey}, \binits{J.D.}}:
-\batitle{The optimal discovery procedure: A new approach to simultaneous
-  significance testing}.
+\batitle{The optimal discovery procedure: A new approach to simultaneous significance testing}.
 \bjtitle{Journal of the Royal Statistical Society B}
 \bvolume{69},
 \bfpage{347}--\blpage{368}
@@ -254,8 +246,7 @@
 \bibitem[\protect\citeauthoryear{Efron}{2012}]{efron:2012}
 \begin{bbook}
 \bauthor{\bsnm{Efron}, \binits{B.}}:
-\bbtitle{Large-scale Inference: Empirical {B}ayes Methods for Estimation,
-  Testing, and Prediction}
+\bbtitle{Large-scale Inference: Empirical {B}ayes Methods for Estimation, Testing, and Prediction}
 vol. \bseriesno{1}.
 \bpublisher{Cambridge University Press},
 \blocation{Cambridge, United Kingdom}
@@ -278,12 +269,25 @@ vol. \bseriesno{1}.
 \endbibitem
 
 %%% 18
+\bibitem[\protect\citeauthoryear{Koning}{2024}]{koning:2024}
+\begin{barticle}
+\bauthor{\bsnm{Koning}, \binits{N.W.}}:
+\batitle{More power by using fewer permutations}.
+\bjtitle{Biometrika}
+\bvolume{111}(\bissue{4}),
+\bfpage{1405}--\blpage{1412}
+(\byear{2024})
+\doiurl{10.1093/biomet/asae031}
+{\href{https://arxiv.org/abs/https://academic.oup.com/biomet/article-pdf/111/4/1405/60783709/asae031.pdf}{{https://academic.oup.com/biomet/article-pdf/111/4/1405/60783709/asae031.pdf}}}
+\end{barticle}
+\endbibitem
+
+%%% 19
 \bibitem[\protect\citeauthoryear{Ramdas and Manole}{2026}]{ramdas:2026}
 \begin{barticle}
 \bauthor{\bsnm{Ramdas}, \binits{A.}},
 \bauthor{\bsnm{Manole}, \binits{T.}}:
-\batitle{{Randomized and Exchangeable Improvements of Markov’s, Chebyshev’s
-  and Chernoff’s Inequalities}}.
+\batitle{{Randomized and Exchangeable Improvements of Markov’s, Chebyshev’s and Chernoff’s Inequalities}}.
 \bjtitle{Statistical Science}
 \bvolume{41}(\bissue{1}),
 \bfpage{121}--\blpage{142}
@@ -292,21 +296,19 @@ vol. \bseriesno{1}.
 \end{barticle}
 \endbibitem
 
-%%% 19
+%%% 20
 \bibitem[\protect\citeauthoryear{Zellner}{1986}]{zellner:1986}
 \begin{bchapter}
 \bauthor{\bsnm{Zellner}, \binits{A.}}:
-\bctitle{On assessing prior distributions and bayesian regression analysis with
-  g-prior distributions}.
-In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
-  Bruno de Finetti}.
+\bctitle{On assessing prior distributions and bayesian regression analysis with g-prior distributions}.
+In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of Bruno de Finetti}.
 \bpublisher{North-Holland/Elsevier},
 \blocation{Amsterdam; New York}
 (\byear{1986})
 \end{bchapter}
 \endbibitem
 
-%%% 20
+%%% 21
 \bibitem[\protect\citeauthoryear{Schwarz}{1978}]{schwarz:1978}
 \begin{barticle}
 \bauthor{\bsnm{Schwarz}, \binits{G.}}:
@@ -318,7 +320,7 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \end{barticle}
 \endbibitem
 
-%%% 21
+%%% 22
 \bibitem[\protect\citeauthoryear{Kass et~al.}{1990}]{kass:1990}
 \begin{barticle}
 \bauthor{\bsnm{Kass}, \binits{R.E.}},
@@ -332,31 +334,16 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \end{barticle}
 \endbibitem
 
-%%% 22
+%%% 23
 \bibitem[\protect\citeauthoryear{Rossell and Rubio}{2021}]{rossell:2021b}
 \begin{barticle}
 \bauthor{\bsnm{Rossell}, \binits{D.}},
 \bauthor{\bsnm{Rubio}, \binits{F.J.}}:
-\batitle{Additive {B}ayesian variable selection under censoring and
-  misspecification}.
+\batitle{Additive {B}ayesian variable selection under censoring and misspecification}.
 \bjtitle{Statistical Science}
 \bvolume{38}(\bissue{1}),
 \bfpage{13}--\blpage{29}
 (\byear{2021})
-\end{barticle}
-\endbibitem
-
-%%% 23
-\bibitem[\protect\citeauthoryear{Koning}{2024}]{koning:2024}
-\begin{barticle}
-\bauthor{\bsnm{Koning}, \binits{N.W.}}:
-\batitle{More power by using fewer permutations}.
-\bjtitle{Biometrika}
-\bvolume{111}(\bissue{4}),
-\bfpage{1405}--\blpage{1412}
-(\byear{2024})
-\doiurl{10.1093/biomet/asae031}
-{\href{https://arxiv.org/abs/https://academic.oup.com/biomet/article-pdf/111/4/1405/60783709/asae031.pdf}{{https://academic.oup.com/biomet/article-pdf/111/4/1405/60783709/asae031.pdf}}}
 \end{barticle}
 \endbibitem
 

@@ -157,7 +157,7 @@ A critical pitfall is that, when the treatments are not comparable or there is s
 For example, \cite{semken:2022} showed that SCA led \cite{orben:2019} to erroneously conclude that the association between technology use and teenager well-being was practically negligible. The reason was that the association was near-zero for some technologies such as television use, but large for others such as mobile phone use, and hence overall mild on the average.
 Another critical issue arises when the aggregate measure is obtained across multiple possible subsets of control covariates, an option that is explicitly considered in SCA.
 This is inadequate because one combines quantities that have a different statistical meaning, such as marginal and conditional associations, and hence the summary has no natural interpretation. % (on top of heterogeneity issues mentioned earlier, which may also occur across subsets of control covariates).
-For example, assessing the conditional association between salary and sex given an individual job's position, education and other characteristics has a different meaning than assessing the marginal association between salary and sex. Namely, a marginal association between sex and salary can be partially driven by people from different sexes making different career choices, whereas an association between sex and salary within people with the same job position, education and characteristics suggests salary discrimination. \paul{I think "gender" would be more appropriate than sex} \david{In a previous paper a referee complained that we used gender, and said that sex was more appropriate. To be precise, both are reasonable, sex is based on biology and gender on self-identification, and the example that we mention can be applied to either. So take your pick, I'm happy either way. :-)}
+For example, assessing the conditional association between salary and sex given an individual job's position, education and other characteristics has a different meaning than assessing the marginal association between salary and gender. Namely, a marginal association between gender and salary can be partially driven by people from different genders making different career choices, whereas an association between gender and salary within people with the same job position, education and characteristics suggests salary discrimination. \paul{I think "gender" would be more appropriate than sex} \david{In a previous paper a referee complained that we used gender, and said that sex was more appropriate. To be precise, both are reasonable, sex is based on biology and gender on self-identification, and the example that we mention can be applied to either. So take your pick, I'm happy either way. :-)} \paul{I think that in this case discrimination would be based on gender, to be precise not even self-identified gender but perceived gender, rather than biological sex. There is a bit of politics around the sex/gender wording but given the journal we will be submitting (Journal of Sociological Methods and Research), my bet would be that "gender" is preferred by reviewers.}
 See \cite{semken:2022} for an in-depth discussion of issues with SCA.
 
 In this paper we study the use of a simple and practical approach to multiplicity control in multiverse analysis based on e-values. %The approach is discussed by \cite{ramdas:2025} (Chapter 5.2), and combines ideas from likelihood ratio tests and Bayes factors.
@@ -385,40 +385,15 @@ The third and final option that we discuss here to obtain an e-variable is to us
 \end{equation}
 which uses a mixture over $k\in(0,1)$ of the calibrator function proposed in \cite{shafer:2011}, and
 \begin{equation}
-  E^{c2}(\pi_{lj})=\pi_{lj}^{1/2} -1.
+  E^{c2}(\pi_{lj})=\pi_{lj}^{-1/2} -1.
 \label{eq:calibrator2}
 \end{equation}
-\david{There must be a typo in \eqref{eq:calibrator2}. Should it be $\pi_{lj}^{-1/2}$? Else, larger p-value gives a larger e-value.}
 
 We refer to \eqref{eq:calibrator1} as the mixture calibrator and to \eqref{eq:calibrator2} as the inverse root calibrator.
 The family of p-to-e calibrators is however much richer, with no single calibrator shown to uniformly outperform all others. See \cite{ramdas:2025} (Chapter 2) for a review. In our setting one may take $\pi_{lj}$ to be the p-value of the likelihood ratio test for~\eqref{eq:test}. % with statistic~\eqref{eq:lrt}. 
 A theoretical caveat is that, outside of the Gaussian family, most implementations of the test rely on the chi-square asymptotic distribution of the likelihood ratio test. Since such a p-value is not exact for finite $n$, neither is the resulting calibrated e-value.
 %This is the case of the p-value output by R function \texttt{anova} from the \texttt{stats} package that we use in our simulations and application.
 In our simulations, such e-values controlled the type I error and FDR below the desired level, for moderately large $n$. \david{Paul: can we provide evidence somewhere (perhaps the simulation section 3.2) that this is the case? Or, in case it's not the case, then comment upon it?}
-
-
-\subsection{Simulation study}\label{ssec:simstudy}
-
-\begin{figure}[ht]
-\begin{tabular}{cc}
-         $\beta_i^*=0$& $\beta_i^*=0.15$ \\
-         \includegraphics{images/sim.logreg.paper.beta0.png}  & 
-         \includegraphics{images/sim.logreg.paper.beta0.15.png} \\
-         $\beta_i^*=0.3$& $\beta_i^*=0.5$ \\
-         \includegraphics{images/sim.logreg.paper.beta0.3.png}  & 
-         \includegraphics{images/sim.logreg.paper.beta0.5.png} \\
-\end{tabular}
-\caption{Average log e-values in logistic regression for $\beta_i^*=0$ (top left), $\beta_i^*=0.15$ (top right), $\beta_i^*=0.3$ (bottom left) and $\beta_i^*=0.5$ (bottom right) for universal mixture and soft-rank e-values, mixture (calib.c1) and inverse root p-to-e calibrators (calib.c2)}
-\label{fig:simlogreg}
-\end{figure}
-
-We assess the power of the four strategies to obtain e-values discussed in Section \ref{ssec:define_evariables}: universal mixture and soft-rank e-values and the mixture and inverse root calibrators in \eqref{eq:calibrator1}-\eqref{eq:calibrator2}.
-We run a simulation study in Gaussian linear and logistic regressions. We consider sample sizes $n$ ranging from 100 to 10,000 and 10 covariates. \david{How were the covariates generated, a zero-mean multivariate Gaussian? Are they correlated?} For each family and each sample size, we simulate 100 datasets with data-generating regression coefficients $\beta_i^*\in[0,1]$, $i=1,\ldots,10$.
-
-Figure~\ref{fig:simlogreg} plots the average log e-value over the 100 repetitions for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ in logistic regression. All considered e-variables exhibit good type 1 error control with negative or nearly null log e-values for $\beta_i^*=0$. \david{This is a statement about the mean log e-value. Type I error depends on the probability that 1/e-value is $\geq 1/\alpha$. Can we add a table showing the type I error for each $n$ and each method?} For nonzero $\beta_i^*$ and small $n$, the calibrated e-values $E^{c1}$ and $E^{c2}$ clearly dominate the universal mixture and soft-rank e-variables $E^{um}$ and $E^{sr}$, accumulating stronger evidence in favor of the alternative. For large $n$, the calibrated e-variable $E^{c2}$ became less competitive whereas the soft-rank e-variable $E^{sr}$ became more competitive, nearly matching the mixture calibrated e-variable $E^{c1}$ in some scenarios. 
-
-Figure~\ref{fig:simlinreg} plots the average log e-value over 100 repetitions for the same $\beta_i^*$ values as in Figure~\ref{fig:simlogreg} but in Gaussian linear regression. Findings are similar to that in logistic regression. In summary, out of the assessed e-variables, we recommend the mixture calibrator $E^{c1}$ to test the null hypotheses in \eqref{eq:test}, as it accrues stronger evidence for truly alternative hypotheses while appropriately controlling type 1 error. We remark that such e-values are only properly calibrated when the assumed model is correct (or approximately so), otherwise soft-rank e-variables may be preferable for being more robust to model misspecification.
-
 
 \subsection{FDR control with e-variables}
 \label{ssec:fdr_control}
@@ -453,23 +428,107 @@ $\overline{\text{e-BH}}$ controls the FDR at level $\alpha$, and rejects at leas
 A disadvantage however is that finding $R_{\bar k}$ requires order $K^3$ operations, relative to e-BH which only requires $K$ operations.
 %\david{I didn't have time to check exactly what the algorithm is, but if $K$ is not super-large in our examples perhaps it's worth trying it out? Assuming that the algorithm is simple to implement or that code is available, of course.}
 
-\section{Results}
-\label{sec:results}
+
+\subsection{Simulation study}\label{ssec:simstudy}
+
+\begin{figure}[ht]
+\begin{tabular}{cc}
+         $\beta_i^*=0$& $\beta_i^*=0.15$ \\
+         \includegraphics{images/sim.logreg.paper.beta0.png}  & 
+         \includegraphics{images/sim.logreg.paper.beta0.15.png} \\
+         $\beta_i^*=0.3$& $\beta_i^*=0.5$ \\
+         \includegraphics{images/sim.logreg.paper.beta0.3.png}  & 
+         \includegraphics{images/sim.logreg.paper.beta0.5.png} \\
+\end{tabular}
+\caption{Average log e-values in logistic regression for $\beta_i^*=0$ (top left), $\beta_i^*=0.15$ (top right), $\beta_i^*=0.3$ (bottom left) and $\beta_i^*=0.5$ (bottom right) for universal mixture and soft-rank e-values, mixture (calib.c1) and inverse root p-to-e calibrators (calib.c2)}
+\label{fig:simlogreg}
+\end{figure}
 
 \begin{table}[ht]
-\caption{Rejected hypothesis by the eBH procedure with FDR level 0.05 \david{Using the mixture calibrator e-variable?}}\label{tab1}%
-\begin{tabular}{@{}llc@{}}
-\toprule
-Outcome & Treatment (time on$\ldots$) & e-value ($E^{c1}$) \\
-\midrule
-Low self-esteem (self-assessed)    &  internet   & 37,790 \\
-Depressive symptoms (self-assessed)    & social media   & 1,851\\
-High peer problems (parent-assessed) & internet   & 757 \\ 
-Depressive symptoms (self-assessed) &  internet & 396\\
-\botrule
+\caption{Empirical $P_{\beta^*_i=0} (E \geq 1/\alpha)$ (type I error) for $E\in\{E^{um},E^{sr},E^{c1},E^{c2}\}$ and $\alpha \in \{0.01,0.05\}$ in logistic regression}\label{tabtype1logreg}%
+\begin{tabular}{ccc|cc|cc|cc}
+\hline
+n    & \multicolumn{2}{c|}{$E^{um}$} & \multicolumn{2}{c|}{$E^{sr}$}& \multicolumn{2}{c|}{$E^{c1}$} & \multicolumn{2}{c}{$E^{c2}$}\\ \hline
+     & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ \\
+100  & 0                          & 0                          & 0                          & 0                          & 0                       & 0                       & 0.01                       & 0                      \\
+500  & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\
+1500 & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\
+2000 & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\ \hline
 \end{tabular}
 \end{table}
 
+
+We assess the type I error control and power of the four strategies to obtain e-values discussed in Section \ref{ssec:define_evariables}: universal mixture and soft-rank e-values and the mixture and inverse root calibrators in \eqref{eq:calibrator1}-\eqref{eq:calibrator2}.
+We run a simulation study in Gaussian linear and logistic regressions. We consider sample sizes $n$ ranging from 100 to 10,000 and 10 covariates. The covariates were generated from a zero-mean multivariate Gaussian with pairwise covariance $0.5$. Covariates were scaled to unit sample variance. For each family and each sample size, we simulate 100 datasets with data-generating regression coefficients $\beta_i^*\in[0,1]$, $i=1,\ldots,10$.
+
+Table~\ref{tabtype1logreg} reports the empirical probability of type I error over the 100 repetitions for selected sample sizes in logistic regression. All considered e-variables exhibit good type I error control with empirical probabilities smaller or equal to the desired level. Figure~\ref{fig:simlogreg} plots the average log e-values over the 100 repetitions for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ in logistic regression. For nonzero $\beta_i^*$ and small $n$, the calibrated e-values $E^{c1}$ and $E^{c2}$ clearly dominate the universal mixture and soft-rank e-variables $E^{um}$ and $E^{sr}$, accumulating stronger evidence in favor of the alternative. For large $n$, the calibrated e-variable $E^{c2}$ became less competitive whereas the soft-rank e-variable $E^{sr}$ became more competitive, nearly matching the mixture calibrated e-variable $E^{c1}$ in some scenarios. 
+
+
+\begin{table}[ht]
+\caption{Empirical $P_{\beta^*_i=0} (E \geq 1/\alpha)$ (type I error) for $E\in\{E^{um},E^{sr},E^{c1},E^{c2}\}$ and $\alpha \in \{0.01,0.05\}$ in linear regression}\label{tabtype1linreg}%
+\begin{tabular}{ccc|cc|cc|cc}
+\hline
+n    & \multicolumn{2}{c|}{$E^{um}$} & \multicolumn{2}{c|}{$E^{sr}$}& \multicolumn{2}{c|}{$E^{c1}$} & \multicolumn{2}{c}{$E^{c2}$}\\ \hline
+     & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ \\
+100  & 0                          & 0                          & 0                          & 0                          & 0                       & 0                       & 0                       & 0                       \\
+500  & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\
+1500 & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\
+2000 & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]
+\begin{tabular}{cc}
+         $\beta_i^*=0$& $\beta_i^*=0.15$ \\
+         \includegraphics{images/sim.linreg.paper.beta0.png}  & 
+         \includegraphics{images/sim.linreg.paper.beta0.15.png} \\
+         $\beta_i^*=0.3$& $\beta_i^*=0.5$ \\
+         \includegraphics{images/sim.linreg.paper.beta0.3.png}  & 
+         \includegraphics{images/sim.linreg.paper.beta0.5.png} \\
+\end{tabular}
+\caption{Average log e-values in linear regression for $\beta_i^*=0$ (top left), $\beta_i^*=0.15$ (top right), $\beta_i^*=0.3$ (bottom left) and $\beta_i^*=0.5$ (bottom right) for universal mixture and soft-rank e-values, mixture (calib.c1) and inverse root p-to-e calibrators (calib.c2)}
+\label{fig:simlinreg}
+\end{figure}
+
+
+Table~\ref{tabtype1linreg} and Figure~\ref{fig:simlinreg} report, respectively, the empirical probability of type I error and the average log e-value for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ over the 100 repetitions in Gaussian linear regression. Findings are similar to that in logistic regression. In summary, out of the assessed e-variables, we recommend the mixture calibrator $E^{c1}$ to test the null hypotheses in \eqref{eq:test}, as it accrues stronger evidence for truly alternative hypotheses while appropriately controlling type I error. We remark that such e-values are only properly calibrated when the assumed model is correct (or approximately so), otherwise soft-rank e-variables may be preferable for being more robust to model misspecification.
+
+
+\section{Results}
+\label{sec:results}
+
+\begin{figure}[ht]
+\begin{tabular}{ccc}
+         Depressed & Low self-esteem\\
+         \includegraphics{images/plot.Ecidepressed.png}  & 
+         \includegraphics{images/plot.Eciselfesteem_lo.png} \\
+         High total difficulties & High emotional problems\\
+         \includegraphics{images/plot.Ecifebdtot_hi.png}  & 
+         \includegraphics{images/plot.Ecifebdtot_hi.png} \\
+         High conduct problems& High hyperactivity/inattention\\
+         \includegraphics{images/plot.Ecifconduct_hi.png}  & 
+         \includegraphics{images/plot.Ecifhyper_hi.png} \\
+         High peer problems & Low pro-sociality\\
+         \includegraphics{images/plot.Ecifpeer_hi.png}  & 
+         \includegraphics{images/plot.Ecifprosoc_lo.png}
+        \end{tabular}
+\caption{Estimated treatment effects by outcome under consideration and their corresponding 95\% c2-calibrated e-confidence interval.}
+\label{fig:exp.mcs}
+\end{figure}
+
+\begin{table}[ht]
+\caption{Rejected hypothesis by the refined eBH procedure with FDR level 0.05 using e-value $E^{c1}$, the corresponding estimated odds ratio, estimated effects and 95\% e-calibrated confidence intervals, and e-values.}\label{tab1}%
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+Outcome & Treatment & Odds ratio & Est. effect & 95\% conf. int. & e-value \\
+\midrule
+Low self-esteem   &  internet & 4.20 &  1.44 &(0.61,2.27) & 37,790 \\
+Depressive symptoms    & social media & 3.02 & 1.11 &(0.38,1.85)  & 1,851\\
+High peer problems & internet & 2.14  & 0.76 &(0.24,1.29)& 757 \\ 
+Depressive symptoms &  internet & 2.81 & 1.03  &(0.29,1.78) & 396\\
+\botrule
+\end{tabular}
+\end{table}
 
 We apply our multiverse analysis framework to the study of the association between technology on teenager mental well-being in the 2015 survey of the Millennium Cohort Study (MCS). The MCS is a socio-economic and health survey tracking a representative sample of children born in the UK around year 2000 throughout their life. The 2015 data that we use has a rather large sample size, $n = 11,884$ teenagers, and features several outcome measures of mental well-being, $p_x=5$ treatments measuring the use of various technologies, and $p_z=14$ control covariates.
 
@@ -485,12 +544,13 @@ The data were prepared as described in~\cite{semken:2022}. In particular, all tr
 continuous variables, normalized such that 0 means “no usage” and 1 means maximum
 reportable usage. TV usage was discretized into low, medium and high usage because its association with most outcomes was not linear (although it was monotone). The outcome variables are binary and were obtained by binning originally continuous data with validated cutoffs for abnormal behavior. See \cite{semken:2022} (Section S4) for further details on data pre-processing.
 
-Following our proposed framework, we fit a logistic regression for each outcome and compute e-values for each outcome-treatment pair and apply the eBH procedure. In particular, we used the mixture calibrator e-variable $E^{c1}$ in \eqref{eq:calibrator1}, as it exhibited the largest power in our simulations. 
-Before applying the eBH procedure, there were \david{XXX (can you please indicate)} hypothesis for which $1/E^{c1} > 20$, which controls the individual type 1 error for each hypothesis at the 0.05 level.
-Table~\ref{tab1} reports the subset of these that were rejected by the e-BH procedure, when controlling the FDR below 0.05. Alternative, less powerful, choices of e-variables in Section~\ref{ssec:define_evariables} (universal mixture, soft-rank and inverse root calibrator) lead to no rejection in this dataset after the eBH adjustment. In total, four hypotheses are rejected by our framework suggesting a significant effect of technology on teenager well-being contrary to the original study in~\cite{orben:2019}.
-\david{Can we indicate the estimated odds-ratio for each covariate in Table 1? If you have time, perhaps also the e-value based confidence interval (based on e-value inversion, these are all the null parameter values for which the e-value would not be statistically significant, before any FDR correction is applied).} Specifically, a strong internet usage was found to be significantly associated with low self-steem and depressive symptoms as self-assessed by the teenagers, and high peer problems as assessed by their parents.
+As an exploratory analysis, we plot in Figure~\ref{fig:exp.mcs} the mean treatment effects when fitting a logistic regression on each outcome against treatment and control variables. The reported 95\% confidence interval are e-confidence intervals~\cite{ramdas:2025} obtained by calibrating the standard profile confidence interval for logistic regression effects with calibrator $c2$ ($f(\pi)=\pi^{1/2}-1$). A total of 8 treatments appear significant. These intervals do not however account for the multiplicity and correlation of the hypotheses being tested.
+
+Following our proposed framework, we compute next e-values for each outcome-treatment pair and apply the refined eBH procedure. In particular, we used the mixture calibrator e-variable $E^{c1}$ in \eqref{eq:calibrator1}, as it exhibited the largest power in our simulations. 
+Before applying the eBH procedure, there were six hypotheses for which $1/E^{c1} > 20$, a thresholding which controls the individual type I error for each hypothesis at the 0.05 level.
+Table~\ref{tab1} reports the subset of these that were rejected by the refined e-BH procedure, when controlling the FDR below 0.05. Alternative, less powerful, choices of e-variables in Section~\ref{ssec:define_evariables} (universal mixture, soft-rank and inverse root calibrator) lead to no rejection in this dataset after the refined eBH adjustment. Applying $\overline{\text{e-BH}}$ instead of the refined e-BH procedure did not alter any of the results. In total, four hypotheses are rejected by our framework suggesting a significant effect of technology on teenager well-being contrary to the original study in~\cite{orben:2019}. Specifically, a strong internet usage was found to be significantly associated with low self-steem and depressive symptoms as self-assessed by the teenagers, and high peer problems as assessed by their parents.
 High social media usage was also found to be significantly associated with self-assessed depressive symptoms.
-We remark that the odds-ratio for these associations were in the range \david{can you please add?}, that is these findings are not only statistically significant but also practically relevant.
+We remark that the odds-ratio for these associations were in the range $[2,4]$ \paul{is that large?}, that is these findings are not only statistically significant but also practically relevant.
 
 
 
@@ -569,7 +629,11 @@ Not applicable.
 
 \bmhead{Data}
 
+The code is available XXXX.
+
 \bmhead{Code availability}
+
+The code is available XXXX.
 
 \bmhead{Author's contribution statements}
 
@@ -578,12 +642,11 @@ All authors contributed equally to this work.
 %If any of the sections are not relevant to your manuscript, please include the heading and write `Not applicable' for that section. 
 
 
-\begin{appendices}
+% \begin{appendices}
 
-\section{Section title of first appendix}\label{secA1}
+% \section{Section title of first appendix}\label{secA1}
 
-
-\end{appendices}
+%\end{appendices}
 
 
 \bibliography{references}% common bib file
