@@ -46,13 +46,16 @@
     "eq:lrt"
     "eq:calibrator1"
     "eq:calibrator2"
+    "ssec:fdr_control"
     "ssec:simstudy"
     "fig:simlogreg"
-    "ssec:fdr_control"
+    "tabtype1logreg"
+    "tabtype1linreg"
+    "fig:simlinreg"
     "sec:results"
+    "fig:exp.mcs"
     "tab1"
-    "sec:discussion"
-    "secA1")
+    "sec:discussion")
    (LaTeX-add-bibliographies
     "references")
    (LaTeX-add-amsthm-newtheorems
