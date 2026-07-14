@@ -393,7 +393,7 @@ We refer to \eqref{eq:calibrator1} as the mixture calibrator and to \eqref{eq:ca
 The family of p-to-e calibrators is however much richer, with no single calibrator shown to uniformly outperform all others. See \cite{ramdas:2025} (Chapter 2) for a review. In our setting one may take $\pi_{lj}$ to be the p-value of the likelihood ratio test for~\eqref{eq:test}. % with statistic~\eqref{eq:lrt}. 
 A theoretical caveat is that, outside of the Gaussian family, most implementations of the test rely on the chi-square asymptotic distribution of the likelihood ratio test. Since such a p-value is not exact for finite $n$, neither is the resulting calibrated e-value.
 %This is the case of the p-value output by R function \texttt{anova} from the \texttt{stats} package that we use in our simulations and application.
-In our simulations, such e-values controlled the type I error and FDR below the desired level, for moderately large $n$. \david{Paul: can we provide evidence somewhere (perhaps the simulation section 3.2) that this is the case? Or, in case it's not the case, then comment upon it?}
+In our simulations, such e-values controlled the type I error and FDR below the desired level, for moderately large $n$. %\david{Paul: can we provide evidence somewhere (perhaps the simulation section 3.2) that this is the case? Or, in case it's not the case, then comment upon it?}
 
 \subsection{FDR control with e-variables}
 \label{ssec:fdr_control}
@@ -445,7 +445,7 @@ A disadvantage however is that finding $R_{\bar k}$ requires order $K^3$ operati
 \end{figure}
 
 \begin{table}[ht]
-\caption{Empirical $P_{\beta^*_i=0} (E \geq 1/\alpha)$ (type I error) for $E\in\{E^{um},E^{sr},E^{c1},E^{c2}\}$ and $\alpha \in \{0.01,0.05\}$ in logistic regression}\label{tabtype1logreg}%
+\caption{Proportion of type I errors for $E\in\{E^{um},E^{sr},E^{c1},E^{c2}\}$ and $\alpha \in \{0.01,0.05\}$ in logistic regression}\label{tabtype1logreg}%
 \begin{tabular}{ccc|cc|cc|cc}
 \hline
 n    & \multicolumn{2}{c|}{$E^{um}$} & \multicolumn{2}{c|}{$E^{sr}$}& \multicolumn{2}{c|}{$E^{c1}$} & \multicolumn{2}{c}{$E^{c2}$}\\ \hline
@@ -467,7 +467,7 @@ Table~\ref{tabtype1logreg} reports the empirical probability of type I error ove
 
 
 \begin{table}[ht]
-\caption{Empirical $P_{\beta^*_i=0} (E \geq 1/\alpha)$ (type I error) for $E\in\{E^{um},E^{sr},E^{c1},E^{c2}\}$ and $\alpha \in \{0.01,0.05\}$ in linear regression}\label{tabtype1linreg}%
+\caption{Proportion of type I errors for $E\in\{E^{um},E^{sr},E^{c1},E^{c2}\}$ and $\alpha \in \{0.01,0.05\}$ in linear regression}\label{tabtype1linreg}%
 \begin{tabular}{ccc|cc|cc|cc}
 \hline
 n    & \multicolumn{2}{c|}{$E^{um}$} & \multicolumn{2}{c|}{$E^{sr}$}& \multicolumn{2}{c|}{$E^{c1}$} & \multicolumn{2}{c}{$E^{c2}$}\\ \hline
@@ -514,20 +514,20 @@ Table~\ref{tabtype1linreg} and Figure~\ref{fig:simlinreg} report, respectively, 
          \includegraphics{images/plot.Ecifpeer_hi.png}  & 
          \includegraphics{images/plot.Ecifprosoc_lo.png}
         \end{tabular}
-\caption{Estimated treatment effects by outcome under consideration and their corresponding 95\% c2-calibrated e-confidence interval.}
+\caption{Estimated treatment effects by outcome under consideration and their corresponding 95\% e-confidence interval based on $E^{c1}$.}
 \label{fig:exp.mcs}
 \end{figure}
 
 \begin{table}[ht]
-\caption{Rejected hypothesis by the refined eBH procedure with FDR level 0.05 using e-value $E^{c1}$, the corresponding estimated odds ratio, estimated effects and 95\% e-calibrated confidence intervals, and e-values.}\label{tab1}%
+\caption{Rejected hypothesis by the refined eBH procedure with FDR level 0.05 using e-value $E^{c1}$, the corresponding estimated odds ratio, 95\% e-calibrated confidence intervals, and e-values.}\label{tab1}%
 \begin{tabular}{@{}llcccc@{}}
 \toprule
-Outcome & Treatment & Odds ratio & Est. effect & 95\% conf. int. & e-value \\
+Outcome & Treatment & Odds ratio & 95\% conf. int. & e-value \\
 \midrule
-Low self-esteem   &  internet & 4.20 &  1.44 &(0.61,2.27) & 37,790 \\
-Depressive symptoms    & social media & 3.02 & 1.11 &(0.38,1.85)  & 1,851\\
-High peer problems & internet & 2.14  & 0.76 &(0.24,1.29)& 757 \\ 
-Depressive symptoms &  internet & 2.81 & 1.03  &(0.29,1.78) & 396\\
+Low self-esteem   &  internet & 4.20  &(1.72,10.39) & 37,790 \\
+Depressive symptoms    & social media & 3.02 &(1.37,6.68)  & 1,851\\
+High peer problems & internet & 2.14   &(1.21,3.79)& 757 \\ 
+Depressive symptoms &  internet & 2.81  &(1.27,6.32) & 396\\
 \botrule
 \end{tabular}
 \end{table}
@@ -546,13 +546,15 @@ The data were prepared as described in~\cite{semken:2022}. In particular, all tr
 continuous variables, normalized such that 0 means “no usage” and 1 means maximum
 reportable usage. TV usage was discretized into low, medium and high usage because its association with most outcomes was not linear (although it was monotone). The outcome variables are binary and were obtained by binning originally continuous data with validated cutoffs for abnormal behavior. See \cite{semken:2022} (Section S4) for further details on data pre-processing.
 
-As an exploratory analysis, we plot in Figure~\ref{fig:exp.mcs} the mean treatment effects when fitting a logistic regression on each outcome against treatment and control variables. The reported 95\% confidence interval are e-confidence intervals~\cite{ramdas:2025} obtained by calibrating the standard profile confidence interval for logistic regression effects with calibrator $c2$ ($f(\pi)=\pi^{1/2}-1$). A total of 8 treatments appear significant. These intervals do not however account for the multiplicity and correlation of the hypotheses being tested.
+As an exploratory analysis, we plot in Figure~\ref{fig:exp.mcs} the mean treatment effects when fitting a logistic regression on each outcome against treatment and control variables. The reported 95\% confidence interval are e-confidence intervals based on e-variable $E^{c1}$, that is, the ranges of treatment effect values for which $E^{c1}<1/0.05$~\cite{ramdas:2025}. In other words, an e-confidence interval captures the ranges of null hypothesis that are not rejected for a given level, similarly to standard confidence interval derived from test statistics. A total of 7 treatments appear significant. A more liberal approach considering standard likelihood ratio p-values individually would lead to 11 significant treatments. These e-intervals and p-values do not however account for the multiplicity and correlation of the hypotheses being tested.
 
 Following our proposed framework, we compute next e-values for each outcome-treatment pair and apply the refined eBH procedure. In particular, we used the mixture calibrator e-variable $E^{c1}$ in \eqref{eq:calibrator1}, as it exhibited the largest power in our simulations. 
 Before applying the eBH procedure, there were six hypotheses for which $1/E^{c1} > 20$, a thresholding which controls the individual type I error for each hypothesis at the 0.05 level.
 Table~\ref{tab1} reports the subset of these that were rejected by the refined e-BH procedure, when controlling the FDR below 0.05. Alternative, less powerful, choices of e-variables in Section~\ref{ssec:define_evariables} (universal mixture, soft-rank and inverse root calibrator) lead to no rejection in this dataset after the refined eBH adjustment. Applying $\overline{\text{e-BH}}$ instead of the refined e-BH procedure did not alter any of the results. In total, four hypotheses are rejected by our framework suggesting a significant effect of technology on teenager well-being contrary to the original study in~\cite{orben:2019}. Specifically, a strong internet usage was found to be significantly associated with low self-steem and depressive symptoms as self-assessed by the teenagers, and high peer problems as assessed by their parents.
 High social media usage was also found to be significantly associated with self-assessed depressive symptoms.
-We remark that the odds-ratio for these associations were in the range $[2,4]$ \paul{is that large?} \david{they're certainly not negligible, it means that the odds of something bad happening are somewhere between 2 and 4 times higher. An OR of 1.5 is already relevant, typically.}, that is these findings are not only statistically significant but also practically relevant.
+We remark that the odds-ratio for these associations were in the range $[2,4]$, 
+%\paul{is that large?} \david{they're certainly not negligible, it means that the odds of something bad happening are somewhere between 2 and 4 times higher. An OR of 1.5 is already relevant, typically.}
+that is these findings are not only statistically significant but also practically relevant.
 \david{In Table~\ref{tab1}, I guess that the confidence interval refers to the estimated coefficient not the OR correct? At first I thought that the CIs were for the OR which was then strange because they contain 0, which would mean they're not statistically significant. To avoid confusions, how about we just the OR and CI for the OR (i.e. exponentiate your current CI) and do not show the ``estimated effect'' -- it's a log-OR that's less easily interpretable anyway.}
 
 

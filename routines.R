@@ -111,7 +111,7 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
                                                                   B=5000)
     }
   }
-
+  
   if(mixtevalue){
     ## MLE log likelihood for small models
     hypsupp['mle.llik']=rep(NA,length(list.modelsminus1))
@@ -122,14 +122,14 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
     hypsupp['mixtevalue'] =  exp(full.marg.llik-hypsupp['mle.llik'])
     hypsupp['logmixtevalue'] =  full.marg.llik-hypsupp['mle.llik']
   }
-
+  
   if(BF){
     hypsupp['marg.llik'] = rep(NA,length(list.modelsminus1))
     
     ## marginal loglik for small model- zellner unit information prior
     for(i in 1:length(list.modelsminus1)){
       hypsupp$marg.llik[i] = marginalLikelihood(y=list.modelsminus1[[i]], 
-                                    data = data, family=family, priorCoef = zellnerprior())
+                                                data = data, family=family, priorCoef = zellnerprior())
     }
     hypsupp['BF'] = exp(full.marg.llik-hypsupp['marg.llik'])
     hypsupp['logBF'] = full.marg.llik-hypsupp['marg.llik']
@@ -159,9 +159,91 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
   }
   
   res = hypsupp[,-which(colnames(hypsupp)%in%c('mle.llik','marg.llik','modname'))] 
-
+  
   return(list(stats = res, all.res = hypsupp, glm.full=glm.fitfull))
 }
+
+e.conf.int = function(vars=NA, formula, data, family, level, grid.up.width = 10, grid.low.width = 10){
+  family.glm = family
+  if(family.glm=='normal'){family.glm='gaussian'}
+  glm.fitfull = glm(formula=formula, data=data, family=family.glm)
+  
+  if(sum(is.na(vars))!=0){vars=attr(terms(formula), "term.labels")}
+  
+  conf.int.vars = data.frame(var=vars, down=rep(NA,length(vars)), up=rep(NA,length(vars)))
+  for(i in 1:length(vars)){
+    var = vars[i]
+    start = confint(glm.fitfull,level=1-level,parm=var)
+    names(start) = c("low", 'up')
+    grid.up = seq(from = start[2], to = start[2]+max(grid.up.width*abs(start[1]),0.5), by = 0.01)
+    is.not.rejected.up = TRUE
+    i.up = 0
+    while(is.not.rejected.up){
+      i.up = i.up +1
+      if(i.up > length(grid.up)){is.not.rejected.up = TRUE; break}
+      loge.val= get.e.value.nonzero(grid.up[i.up], var, formula, data, family.glm, full.model=glm.fitfull)
+      if(is.na(loge.val)){
+        print('e-val is na')
+        is.not.rejected.up = TRUE; next
+      } else {
+        if(is.na(exp(loge.val))){
+          is.not.rejected.up = FALSE
+        }
+        else {
+          is.not.rejected.up = exp(loge.val) < 1/level
+        }
+      }
+      
+    }
+    
+    grid.down = seq(from = start[1], to = start[1]-max(grid.low.width*abs(start[1]),0.5), by = -0.01)
+    is.not.rejected.down = TRUE
+    i.down = 0
+    while(is.not.rejected.down){
+      i.down = i.down +1
+      if(i.down > length(grid.down)){is.not.rejected.down = TRUE; break}
+      loge.val= get.e.value.nonzero(grid.down[i.down], var, formula, data, family.glm, full.model=glm.fitfull)
+      if(is.na(loge.val)){
+        print('e-val is na')
+        is.not.rejected.down = TRUE; next
+      } else{
+        if(is.na(exp(loge.val))){
+          is.not.rejected.down = FALSE
+        }
+        else {
+          is.not.rejected.down = exp(loge.val) < 1/level
+        }
+      }
+    }
+    down = ifelse(!is.not.rejected.down,grid.down[i.down],NA)
+    up = ifelse(!is.not.rejected.up,grid.up[i.up],NA)
+    conf.int.vars[i,] = c(var, down, up)
+  }
+  return(conf.int.vars)
+}
+
+get.e.value.nonzero = function(beta0, var, formula, data, family, full.model){
+  
+  family.glm = family
+  if(family.glm=='normal'){family.glm='gaussian'}
+  
+  tt <- terms(formula)
+  response <- as.character(attr(tt, "variables"))[2]
+  terms <- attr(tt, "term.labels")
+  
+  rhs <- terms[-which(terms == var)]
+  const.model = as.formula(paste(response, "~", '1+offset(', beta0, '*', var, ') +', paste(rhs, collapse = " + ")))
+  
+  if(family.glm=='gaussian'){
+    glm.fitconst = glm(formula = const.model, data=data, family="gaussian")
+    return(logcalib1(anova(full.model,glm.fitconst)$`Pr(>F)`[2]))
+  }
+  if(family.glm=='binomial'){
+    glm.fitconst = glm(formula = const.model, data=data, family=binomial(link="logit"))
+    return(logcalib1(anova(full.model,glm.fitconst)$`Pr(>Chi)`[2]))
+  }
+}
+  
 
 eBH = function(evalues,hyp,level){
   evalues.df = data.frame(hyp=hyp,evalue=evalues)

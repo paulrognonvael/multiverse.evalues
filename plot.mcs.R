@@ -38,8 +38,8 @@ for(yvar in yvars){
   df_Eci <- coefreg.Eci %>% filter( xvar %in% x_names)
   df_Eci['point'] = coefreg %>% filter( xvar %in% x_names) %>% select(x)
   df_Eci$xvar = factor(df_Eci$xvar, 
-                      levels = c("TV", "Electronic_games", "Social_media", "Other_internet", "Own_computer"),
-                      labels =c('TV', 'Elect. games', 'Soc. media', 'Oth. internet', 'Own comp.'))
+                       levels = c("TV", "Electronic_games", "Social_media", "Other_internet", "Own_computer"),
+                       labels =c('TV', 'Elect. games', 'Soc. media', 'Oth. internet', 'Own comp.'))
   ggplot(df_Eci, aes(x = xvar, y = point)) +
     geom_point(size = 2) +
     geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2) +
