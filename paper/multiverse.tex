@@ -463,21 +463,21 @@ We run a simulation study in Gaussian linear and logistic regressions. We consid
 
 \david{If there are 0 type I errors for all methods and $n$ then no need to show the table, we can just say in the text that the there were no type I errors, to save space.}
 \david{Here and in the table caption I'd say ``proportion of type I errors'' instead of ``empirical probability''. Question: how is it possible that $E^{c2}$ rejects more null hypotheses at the $\alpha=0.01$ than at the 0.05 level? If the simulations are run on the same datasets (which would give more precise estimates when comparing methods) then this cannot possibly occur.}
-Table~\ref{tabtype1logreg} reports the empirical probability of type I error over the 100 repetitions for selected sample sizes in logistic regression. All considered e-variables exhibit good type I error control with empirical probabilities smaller or equal to the desired level. Figure~\ref{fig:simlogreg} plots the average log e-values over the 100 repetitions for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ in logistic regression. For nonzero $\beta_i^*$ and small $n$, the calibrated e-values $E^{c1}$ and $E^{c2}$ clearly dominate the universal mixture and soft-rank e-variables $E^{um}$ and $E^{sr}$, accumulating stronger evidence in favor of the alternative. For large $n$, the calibrated e-variable $E^{c2}$ became less competitive whereas the soft-rank e-variable $E^{sr}$ became more competitive, nearly matching the mixture calibrated e-variable $E^{c1}$ in some scenarios. 
+Table~\ref{tabtype1logreg} reports the proportion of type I error over the 100 repetitions for selected sample sizes in logistic regression. All considered e-variables exhibit good type I error control with proportions of type I errors smaller or equal to the desired level. Figure~\ref{fig:simlogreg} plots the average log e-values over the 100 repetitions for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ in logistic regression. For nonzero $\beta_i^*$ and small $n$, the calibrated e-values $E^{c1}$ and $E^{c2}$ clearly dominate the universal mixture and soft-rank e-variables $E^{um}$ and $E^{sr}$, accumulating stronger evidence in favor of the alternative. For large $n$, the calibrated e-variable $E^{c2}$ became less competitive whereas the soft-rank e-variable $E^{sr}$ became more competitive, nearly matching the mixture calibrated e-variable $E^{c1}$ in some scenarios. 
 
 
-\begin{table}[ht]
-\caption{Proportion of type I errors for $E\in\{E^{um},E^{sr},E^{c1},E^{c2}\}$ and $\alpha \in \{0.01,0.05\}$ in linear regression}\label{tabtype1linreg}%
-\begin{tabular}{ccc|cc|cc|cc}
-\hline
-n    & \multicolumn{2}{c|}{$E^{um}$} & \multicolumn{2}{c|}{$E^{sr}$}& \multicolumn{2}{c|}{$E^{c1}$} & \multicolumn{2}{c}{$E^{c2}$}\\ \hline
-     & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ \\
-100  & 0                          & 0                          & 0                          & 0                          & 0                       & 0                       & 0                       & 0                       \\
-500  & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\
-1500 & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\
-2000 & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\ \hline
-\end{tabular}
-\end{table}
+% \begin{table}[ht]
+% \caption{Proportion of type I errors for $E\in\{E^{um},E^{sr},E^{c1},E^{c2}\}$ and $\alpha \in \{0.01,0.05\}$ in linear regression}\label{tabtype1linreg}%
+% \begin{tabular}{ccc|cc|cc|cc}
+% \hline
+% n    & \multicolumn{2}{c|}{$E^{um}$} & \multicolumn{2}{c|}{$E^{sr}$}& \multicolumn{2}{c|}{$E^{c1}$} & \multicolumn{2}{c}{$E^{c2}$}\\ \hline
+%      & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ \\
+% 100  & 0                          & 0                          & 0                          & 0                          & 0                       & 0                       & 0                       & 0                       \\
+% 500  & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\
+% 1500 & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\
+% 2000 & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\ \hline
+% \end{tabular}
+% \end{table}
 
 \begin{figure}[ht]
 \begin{tabular}{cc}
@@ -493,7 +493,7 @@ n    & \multicolumn{2}{c|}{$E^{um}$} & \multicolumn{2}{c|}{$E^{sr}$}& \multicolu
 \end{figure}
 
 
-Table~\ref{tabtype1linreg} and Figure~\ref{fig:simlinreg} report, respectively, the empirical probability of type I error and the average log e-value for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ over the 100 repetitions in Gaussian linear regression. Findings are similar to that in logistic regression. In summary, out of the assessed e-variables, we recommend the mixture calibrator $E^{c1}$ to test the null hypotheses in \eqref{eq:test}, as it accrues stronger evidence for truly alternative hypotheses while appropriately controlling type I error. We remark that such e-values are only properly calibrated when the assumed model is correct (or approximately so), otherwise soft-rank e-variables may be preferable for being more robust to model misspecification.
+Figure~\ref{fig:simlinreg} report the average log e-value for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ over the 100 repetitions in Gaussian linear regression. There were no type I error in our simulations. Findings are then similar to that in logistic regression. In summary, out of the assessed e-variables, we recommend the mixture calibrator $E^{c1}$ to test the null hypotheses in \eqref{eq:test}, as it accrues stronger evidence for truly alternative hypotheses while appropriately controlling type I error. We remark that such e-values are only properly calibrated when the assumed model is correct (or approximately so), otherwise soft-rank e-variables may be preferable for being more robust to model misspecification.
 
 
 \section{Results}
@@ -519,7 +519,7 @@ Table~\ref{tabtype1linreg} and Figure~\ref{fig:simlinreg} report, respectively, 
 \end{figure}
 
 \begin{table}[ht]
-\caption{Rejected hypothesis by the refined eBH procedure with FDR level 0.05 using e-value $E^{c1}$, the corresponding estimated odds ratio, 95\% e-calibrated confidence intervals, and e-values.}\label{tab1}%
+\caption{Rejected hypothesis by the refined eBH procedure with FDR level 0.05 using e-value $E^{c1}$, the corresponding estimated odds ratio, 95\% e-confidence intervals, and e-values.}\label{tab1}%
 \begin{tabular}{@{}llcccc@{}}
 \toprule
 Outcome & Treatment & Odds ratio & 95\% conf. int. & e-value \\
@@ -555,7 +555,7 @@ High social media usage was also found to be significantly associated with self-
 We remark that the odds-ratio for these associations were in the range $[2,4]$, 
 %\paul{is that large?} \david{they're certainly not negligible, it means that the odds of something bad happening are somewhere between 2 and 4 times higher. An OR of 1.5 is already relevant, typically.}
 that is these findings are not only statistically significant but also practically relevant.
-\david{In Table~\ref{tab1}, I guess that the confidence interval refers to the estimated coefficient not the OR correct? At first I thought that the CIs were for the OR which was then strange because they contain 0, which would mean they're not statistically significant. To avoid confusions, how about we just the OR and CI for the OR (i.e. exponentiate your current CI) and do not show the ``estimated effect'' -- it's a log-OR that's less easily interpretable anyway.}
+%\david{In Table~\ref{tab1}, I guess that the confidence interval refers to the estimated coefficient not the OR correct? At first I thought that the CIs were for the OR which was then strange because they contain 0, which would mean they're not statistically significant. To avoid confusions, how about we just the OR and CI for the OR (i.e. exponentiate your current CI) and do not show the ``estimated effect'' -- it's a log-OR that's less easily interpretable anyway.}
 
 
 %\section{Tables}\label{sec5}
@@ -633,11 +633,11 @@ Not applicable.
 
 \bmhead{Data}
 
-The code is available XXXX.
+The data is available at \href{https://github.com/paulrognonvael/multiverse.evalues}.
 
 \bmhead{Code availability}
 
-The code is available XXXX.
+The code is available at \href{https://github.com/paulrognonvael/multiverse.evalues}.
 
 \bmhead{Author's contribution statements}
 
