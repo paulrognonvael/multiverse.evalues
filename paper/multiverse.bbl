@@ -62,7 +62,8 @@
 \begin{barticle}
 \bauthor{\bsnm{Semken}, \binits{C.}},
 \bauthor{\bsnm{Rossell}, \binits{D.}}:
-\batitle{Specification analysis for technology use and teenager well-being: Statistical validity and a bayesian proposal}.
+\batitle{Specification analysis for technology use and teenager well-being:
+  Statistical validity and a bayesian proposal}.
 \bjtitle{Journal of the Royal Statistical Society C}
 \bvolume{71}(\bissue{5}),
 \bfpage{1330}--\blpage{1355}
@@ -75,7 +76,8 @@
 \begin{barticle}
 \bauthor{\bsnm{Orben}, \binits{A.}},
 \bauthor{\bsnm{Przybylski}, \binits{A.K.}}:
-\batitle{The association between adolescent well-being and digital technology use}.
+\batitle{The association between adolescent well-being and digital technology
+  use}.
 \bjtitle{Nature human behaviour}
 \bvolume{3}(\bissue{2}),
 \bfpage{173}--\blpage{182}
@@ -142,7 +144,8 @@
 \bauthor{\bsnm{Chugg}, \binits{B.}},
 \bauthor{\bsnm{Ramdas}, \binits{A.}},
 \bauthor{\bsnm{Gr{\"u}nwald}, \binits{P.}}:
-\batitle{E-values as statistical evidence: A comparison to bayes factors, likelihoods, and p-values}.
+\batitle{E-values as statistical evidence: A comparison to bayes factors,
+  likelihoods, and p-values}.
 \bjtitle{arXiv}
 \bvolume{2603.24421},
 \bfpage{1}--\blpage{34}
@@ -168,7 +171,8 @@
 \begin{barticle}
 \bauthor{\bsnm{Benjamini}, \binits{Y.}},
 \bauthor{\bsnm{Hochberg}, \binits{Y.}}:
-\batitle{Controlling the false discovery rate: A practical and powerful approach to multiple testing}.
+\batitle{Controlling the false discovery rate: A practical and powerful
+  approach to multiple testing}.
 \bjtitle{Journal of the Royal Statistical Society B}
 \bvolume{57}(\bissue{1}),
 \bfpage{289}--\blpage{300}
@@ -177,11 +181,13 @@
 \endbibitem
 
 %%% 11
-\bibitem[\protect\citeauthoryear{Benjamini and Yekutieli}{2001}]{benjamini:2001}
+\bibitem[\protect\citeauthoryear{Benjamini and
+  Yekutieli}{2001}]{benjamini:2001}
 \begin{barticle}
 \bauthor{\bsnm{Benjamini}, \binits{Y.}},
 \bauthor{\bsnm{Yekutieli}, \binits{D.}}:
-\batitle{The control of the false discovery rate in multiple testing under dependency}.
+\batitle{The control of the false discovery rate in multiple testing under
+  dependency}.
 \bjtitle{The Annals of Statistics}
 \bvolume{29},
 \bfpage{1165}--\blpage{1188}
@@ -193,7 +199,8 @@
 \bibitem[\protect\citeauthoryear{Storey}{2003}]{storey:2003}
 \begin{barticle}
 \bauthor{\bsnm{Storey}, \binits{J.D.}}:
-\batitle{The positive false discovery rate: a {B}ayesian interpretation and the q-value}.
+\batitle{The positive false discovery rate: a {B}ayesian interpretation and the
+  q-value}.
 \bjtitle{The Annals of Statistics}
 \bvolume{31},
 \bfpage{2013}--\blpage{2035}
@@ -220,7 +227,8 @@
 \bibitem[\protect\citeauthoryear{Storey}{2007}]{storey:2007}
 \begin{barticle}
 \bauthor{\bsnm{Storey}, \binits{J.D.}}:
-\batitle{The optimal discovery procedure: A new approach to simultaneous significance testing}.
+\batitle{The optimal discovery procedure: A new approach to simultaneous
+  significance testing}.
 \bjtitle{Journal of the Royal Statistical Society B}
 \bvolume{69},
 \bfpage{347}--\blpage{368}
@@ -246,7 +254,8 @@
 \bibitem[\protect\citeauthoryear{Efron}{2012}]{efron:2012}
 \begin{bbook}
 \bauthor{\bsnm{Efron}, \binits{B.}}:
-\bbtitle{Large-scale Inference: Empirical {B}ayes Methods for Estimation, Testing, and Prediction}
+\bbtitle{Large-scale Inference: Empirical {B}ayes Methods for Estimation,
+  Testing, and Prediction}
 vol. \bseriesno{1}.
 \bpublisher{Cambridge University Press},
 \blocation{Cambridge, United Kingdom}
@@ -287,7 +296,8 @@ vol. \bseriesno{1}.
 \begin{barticle}
 \bauthor{\bsnm{Ramdas}, \binits{A.}},
 \bauthor{\bsnm{Manole}, \binits{T.}}:
-\batitle{{Randomized and Exchangeable Improvements of Markov’s, Chebyshev’s and Chernoff’s Inequalities}}.
+\batitle{{Randomized and Exchangeable Improvements of Markov’s, Chebyshev’s
+  and Chernoff’s Inequalities}}.
 \bjtitle{Statistical Science}
 \bvolume{41}(\bissue{1}),
 \bfpage{121}--\blpage{142}
@@ -300,8 +310,10 @@ vol. \bseriesno{1}.
 \bibitem[\protect\citeauthoryear{Zellner}{1986}]{zellner:1986}
 \begin{bchapter}
 \bauthor{\bsnm{Zellner}, \binits{A.}}:
-\bctitle{On assessing prior distributions and bayesian regression analysis with g-prior distributions}.
-In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of Bruno de Finetti}.
+\bctitle{On assessing prior distributions and bayesian regression analysis with
+  g-prior distributions}.
+In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
+  Bruno de Finetti}.
 \bpublisher{North-Holland/Elsevier},
 \blocation{Amsterdam; New York}
 (\byear{1986})
@@ -339,7 +351,8 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of Brun
 \begin{barticle}
 \bauthor{\bsnm{Rossell}, \binits{D.}},
 \bauthor{\bsnm{Rubio}, \binits{F.J.}}:
-\batitle{Additive {B}ayesian variable selection under censoring and misspecification}.
+\batitle{Additive {B}ayesian variable selection under censoring and
+  misspecification}.
 \bjtitle{Statistical Science}
 \bvolume{38}(\bissue{1}),
 \bfpage{13}--\blpage{29}

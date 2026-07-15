@@ -6,7 +6,7 @@
    (TeX-add-to-alist 'LaTeX-provided-class-options
                      '(("sn-jnl" "pdflatex" "sn-mathphys-num")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
-                     '(("graphicx" "") ("multirow" "") ("amsmath" "") ("amssymb" "") ("amsfonts" "") ("amsthm" "") ("mathrsfs" "") ("appendix" "title") ("xcolor" "") ("textcomp" "") ("manyfoot" "") ("booktabs" "") ("algorithm" "") ("algorithmicx" "") ("algpseudocode" "") ("listings" "")))
+                     '(("graphicx" "") ("multirow" "") ("amsmath" "") ("amssymb" "") ("amsfonts" "") ("amsthm" "") ("mathrsfs" "") ("appendix" "title") ("xcolor" "") ("textcomp" "") ("manyfoot" "") ("booktabs" "") ("algorithm" "") ("algorithmicx" "") ("algpseudocode" "") ("listings" "") ("hyperref" "")))
    (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
@@ -29,7 +29,8 @@
     "algorithm"
     "algorithmicx"
     "algpseudocode"
-    "listings")
+    "listings"
+    "hyperref")
    (TeX-add-symbols
     '("paul" 1)
     '("david" 1))
@@ -46,12 +47,11 @@
     "eq:lrt"
     "eq:calibrator1"
     "eq:calibrator2"
-    "ssec:fdr_control"
     "ssec:simstudy"
     "fig:simlogreg"
     "tabtype1logreg"
-    "tabtype1linreg"
     "fig:simlinreg"
+    "ssec:fdr_control"
     "sec:results"
     "fig:exp.mcs"
     "tab1"
