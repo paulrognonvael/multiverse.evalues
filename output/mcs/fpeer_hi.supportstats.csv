@@ -1,1 +1,6 @@
-""
+"var","logcalib1","logcalib3","logmixtevalue","logsoftevalue","anov.pvalue","yvar","hyp"
+"TV",-0.0262309924242697,0.321674888855003,-86.7495675158711,-8.84558329841658,0.176624871514126,"High peer problems (parent)","TVXHigh peer problems (parent)"
+"Electronic_games",1.16638600461541,1.88927864976575,-84.8269194543254,-6.84571819569995,0.0172467124315218,"High peer problems (parent)","Electronic_gamesXHigh peer problems (parent)"
+"Social_media",1.94155011109898,2.58410341076329,-83.7088253621091,-6.10239765445608,0.00492362282199813,"High peer problems (parent)","Social_mediaXHigh peer problems (parent)"
+"Other_internet",6.62907137855992,5.75524476763084,-77.9030432711052,-0.158286222477491,9.96121211896707e-06,"High peer problems (parent)","Other_internetXHigh peer problems (parent)"
+"Own_computer",-0.646099170023042,-2.62767039184785,-87.6490283716944,-9.85195729733017,0.869782502410792,"High peer problems (parent)","Own_computerXHigh peer problems (parent)"

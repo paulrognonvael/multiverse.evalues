@@ -1,1 +1,6 @@
-""
+"var","logcalib1","logcalib3","logmixtevalue","logsoftevalue","anov.pvalue","yvar","hyp"
+"TV",-0.225860506421587,-0.128046067416127,-105.000931698734,-8.97870366745047,0.282989794061628,"Depressed (adolescent)","TVXDepressed (adolescent)"
+"Electronic_games",1.46181274064385,2.16880944771647,-102.305283042529,-6.71461426758406,0.0105240078139749,"Depressed (adolescent)","Electronic_gamesXDepressed (adolescent)"
+"Social_media",7.52362019180093,6.29283846581149,-94.7913069027634,0.821980149599338,3.40804235606294e-06,"Depressed (adolescent)","Social_mediaXDepressed (adolescent)"
+"Other_internet",5.98177831753835,5.35915238724632,-96.5702930070574,-0.432905692279629,2.19291777100836e-05,"Depressed (adolescent)","Other_internetXDepressed (adolescent)"
+"Own_computer",-0.00277693482359881,0.367188273651203,-104.62450828436,-8.82573494379211,0.16746150608913,"Depressed (adolescent)","Own_computerXDepressed (adolescent)"

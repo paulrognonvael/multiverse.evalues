@@ -55,6 +55,7 @@
 \usepackage{algorithmicx}%
 \usepackage{algpseudocode}%
 \usepackage{listings}%
+\usepackage{hyperref}%
 %%%%
 
 %%%%%=============================================================================%%%%
@@ -383,7 +384,7 @@ The third and final option that we discuss here to obtain an e-variable is to us
   E^{c1}(\pi_{lj})=\int_0^1 \kappa \pi_{lj}^{\kappa-1} \mathrm{~d} \kappa=\frac{1-\pi_{lj}+\pi_{lj} \log \pi_{lj}}{\pi_{lj}(\log \pi_{lj})^2},
 \label{eq:calibrator1}
 \end{equation}
-which uses a mixture over $k\in(0,1)$ of the calibrator function proposed in \cite{shafer:2011}, and
+which uses a mixture over $\kappa\in(0,1)$ of the calibrator function proposed in \cite{shafer:2011}, and
 \begin{equation}
   E^{c2}(\pi_{lj})=\pi_{lj}^{-1/2} -1.
 \label{eq:calibrator2}
@@ -393,7 +394,7 @@ We refer to \eqref{eq:calibrator1} as the mixture calibrator and to \eqref{eq:ca
 The family of p-to-e calibrators is however much richer, with no single calibrator shown to uniformly outperform all others. See \cite{ramdas:2025} (Chapter 2) for a review. In our setting one may take $\pi_{lj}$ to be the p-value of the likelihood ratio test for~\eqref{eq:test}. % with statistic~\eqref{eq:lrt}. 
 A theoretical caveat is that, outside of the Gaussian family, most implementations of the test rely on the chi-square asymptotic distribution of the likelihood ratio test. Since such a p-value is not exact for finite $n$, neither is the resulting calibrated e-value.
 %This is the case of the p-value output by R function \texttt{anova} from the \texttt{stats} package that we use in our simulations and application.
-In our simulations, such e-values controlled the type I error and FDR below the desired level, for moderately large $n$. %\david{Paul: can we provide evidence somewhere (perhaps the simulation section 3.2) that this is the case? Or, in case it's not the case, then comment upon it?}
+In our simulations, such e-values controlled the type I error below the desired level, for moderately large $n$. %\david{Paul: can we provide evidence somewhere (perhaps the simulation section 3.2) that this is the case? Or, in case it's not the case, then comment upon it?}
 
 \subsection{FDR control with e-variables}
 \label{ssec:fdr_control}
@@ -450,19 +451,18 @@ A disadvantage however is that finding $R_{\bar k}$ requires order $K^3$ operati
 \hline
 n    & \multicolumn{2}{c|}{$E^{um}$} & \multicolumn{2}{c|}{$E^{sr}$}& \multicolumn{2}{c|}{$E^{c1}$} & \multicolumn{2}{c}{$E^{c2}$}\\ \hline
      & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ & $\alpha=1\%$ & $\alpha=5\%$ \\
-100  & 0                          & 0                          & 0                          & 0                          & 0                       & 0                       & 0.01                       & 0                      \\
-500  & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\
-1500 & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\
+100  & 0                          & 0                          & 0                          & 0                          & 0                       & 0.01                       & 0                      & 0.01                      \\
+500  & 0                          & 0                          & 0                          & 0                          & 0                          & 0.01                          & 0                          & 0.01                          \\
+1500 & 0                          & 0                          & 0                          & 0                          & 0                          & 0.01                          & 0                          & 0.01                          \\
 2000 & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          & 0                          \\ \hline
 \end{tabular}
 \end{table}
 
 
-We assess the type I error control and power of the four strategies to obtain e-values discussed in Section \ref{ssec:define_evariables}: universal mixture and soft-rank e-values and the mixture and inverse root calibrators in \eqref{eq:calibrator1}-\eqref{eq:calibrator2}.
-We run a simulation study in Gaussian linear and logistic regressions. We consider sample sizes $n$ ranging from 100 to 10,000 and 10 covariates. The covariates were generated from a zero-mean multivariate Gaussian with pairwise covariance $0.5$. Covariates were scaled to unit sample variance. For each family and each sample size, we simulate 100 datasets with data-generating regression coefficients $\beta_i^*\in[0,1]$, $i=1,\ldots,10$.
+We assess the type I error control and power of the four strategies to obtain e-values discussed in Section \ref{ssec:define_evariables}: universal mixture and soft-rank e-values and the mixture and inverse root calibrators in \eqref{eq:calibrator1}-\eqref{eq:calibrator2}. We run a simulation study in Gaussian linear and logistic regressions. We consider sample sizes $n$ ranging from 100 to 10,000 and 10 covariates. The covariates were generated from a zero-mean multivariate Gaussian with pairwise covariance $0.5$. Covariates were scaled to unit sample variance. For each family and each sample size, we simulate 100 datasets with data-generating regression coefficients $\beta_i^*\in[0,1]$, $i=1,\ldots,10$.
 
-\david{If there are 0 type I errors for all methods and $n$ then no need to show the table, we can just say in the text that the there were no type I errors, to save space.}
-\david{Here and in the table caption I'd say ``proportion of type I errors'' instead of ``empirical probability''. Question: how is it possible that $E^{c2}$ rejects more null hypotheses at the $\alpha=0.01$ than at the 0.05 level? If the simulations are run on the same datasets (which would give more precise estimates when comparing methods) then this cannot possibly occur.}
+%\david{If there are 0 type I errors for all methods and $n$ then no need to show the table, we can just say in the text that the there were no type I errors, to save space.}
+%\david{Here and in the table caption I'd say ``proportion of type I errors'' instead of ``empirical probability''. Question: how is it possible that $E^{c2}$ rejects more null hypotheses at the $\alpha=0.01$ than at the 0.05 level? If the simulations are run on the same datasets (which would give more precise estimates when comparing methods) then this cannot possibly occur.}
 Table~\ref{tabtype1logreg} reports the proportion of type I error over the 100 repetitions for selected sample sizes in logistic regression. All considered e-variables exhibit good type I error control with proportions of type I errors smaller or equal to the desired level. Figure~\ref{fig:simlogreg} plots the average log e-values over the 100 repetitions for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ in logistic regression. For nonzero $\beta_i^*$ and small $n$, the calibrated e-values $E^{c1}$ and $E^{c2}$ clearly dominate the universal mixture and soft-rank e-variables $E^{um}$ and $E^{sr}$, accumulating stronger evidence in favor of the alternative. For large $n$, the calibrated e-variable $E^{c2}$ became less competitive whereas the soft-rank e-variable $E^{sr}$ became more competitive, nearly matching the mixture calibrated e-variable $E^{c1}$ in some scenarios. 
 
 
@@ -493,7 +493,7 @@ Table~\ref{tabtype1logreg} reports the proportion of type I error over the 100 r
 \end{figure}
 
 
-Figure~\ref{fig:simlinreg} report the average log e-value for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ over the 100 repetitions in Gaussian linear regression. There were no type I error in our simulations. Findings are then similar to that in logistic regression. In summary, out of the assessed e-variables, we recommend the mixture calibrator $E^{c1}$ to test the null hypotheses in \eqref{eq:test}, as it accrues stronger evidence for truly alternative hypotheses while appropriately controlling type I error. We remark that such e-values are only properly calibrated when the assumed model is correct (or approximately so), otherwise soft-rank e-variables may be preferable for being more robust to model misspecification.
+Figure~\ref{fig:simlinreg} report the average log e-value for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ over the 100 repetitions in Gaussian linear regression. Findings are similar to that in logistic regression. There were also no type I error in our linear regressions simulations for selected samples sizes $n\in\{100, 500, 1500, 2000\}$. In summary, out of the assessed e-variables, we recommend the mixture calibrator $E^{c1}$ to test the null hypotheses in \eqref{eq:test}, as it accrues stronger evidence for truly alternative hypotheses while appropriately controlling type I error. We remark that such e-values are only properly calibrated when the assumed model is correct (or approximately so), otherwise soft-rank e-variables may be preferable for being more robust to model misspecification.
 
 
 \section{Results}
@@ -519,7 +519,7 @@ Figure~\ref{fig:simlinreg} report the average log e-value for $\beta_i^*\in \{0,
 \end{figure}
 
 \begin{table}[ht]
-\caption{Rejected hypothesis by the refined eBH procedure with FDR level 0.05 using e-value $E^{c1}$, the corresponding estimated odds ratio, 95\% e-confidence intervals, and e-values.}\label{tab1}%
+\caption{Rejected hypothesis by the refined eBH procedure with FDR level 0.05 using e-variable $E^{c1}$, the corresponding estimated odds ratio, 95\% e-confidence intervals, and e-values.}\label{tab1}%
 \begin{tabular}{@{}llcccc@{}}
 \toprule
 Outcome & Treatment & Odds ratio & 95\% conf. int. & e-value \\
@@ -546,15 +546,15 @@ The data were prepared as described in~\cite{semken:2022}. In particular, all tr
 continuous variables, normalized such that 0 means “no usage” and 1 means maximum
 reportable usage. TV usage was discretized into low, medium and high usage because its association with most outcomes was not linear (although it was monotone). The outcome variables are binary and were obtained by binning originally continuous data with validated cutoffs for abnormal behavior. See \cite{semken:2022} (Section S4) for further details on data pre-processing.
 
-As an exploratory analysis, we plot in Figure~\ref{fig:exp.mcs} the mean treatment effects when fitting a logistic regression on each outcome against treatment and control variables. The reported 95\% confidence interval are e-confidence intervals based on e-variable $E^{c1}$, that is, the ranges of treatment effect values for which $E^{c1}<1/0.05$~\cite{ramdas:2025}. In other words, an e-confidence interval captures the ranges of null hypothesis that are not rejected for a given level, similarly to standard confidence interval derived from test statistics. A total of 7 treatments appear significant. A more liberal approach considering standard likelihood ratio p-values individually would lead to 11 significant treatments. These e-intervals and p-values do not however account for the multiplicity and correlation of the hypotheses being tested.
+As an exploratory analysis, we plot in Figure~\ref{fig:exp.mcs} the mean treatment effects when fitting a logistic regression on each outcome against treatment and control variables. The reported 95\% confidence interval are e-confidence intervals based on e-variable $E^{c1}$, that is, the ranges of treatment effect values for which $E^{c1}<1/0.05$~\cite{ramdas:2025}. In other words, an e-confidence interval captures the ranges of null hypothesis that are not rejected for a given level, similarly to standard confidence interval derived from test statistics. A total of 7 treatments appear significant based on e-confidence intervals. A more liberal approach considering standard likelihood ratio p-values individually and a 5\% cutoff would lead to 12 significant treatments. These e-intervals and p-values do not however account for the multiplicity and correlation of the hypotheses being tested.
 
 Following our proposed framework, we compute next e-values for each outcome-treatment pair and apply the refined eBH procedure. In particular, we used the mixture calibrator e-variable $E^{c1}$ in \eqref{eq:calibrator1}, as it exhibited the largest power in our simulations. 
 Before applying the eBH procedure, there were six hypotheses for which $1/E^{c1} > 20$, a thresholding which controls the individual type I error for each hypothesis at the 0.05 level.
-Table~\ref{tab1} reports the subset of these that were rejected by the refined e-BH procedure, when controlling the FDR below 0.05. Alternative, less powerful, choices of e-variables in Section~\ref{ssec:define_evariables} (universal mixture, soft-rank and inverse root calibrator) lead to no rejection in this dataset after the refined eBH adjustment. Applying $\overline{\text{e-BH}}$ instead of the refined e-BH procedure did not alter any of the results. In total, four hypotheses are rejected by our framework suggesting a significant effect of technology on teenager well-being contrary to the original study in~\cite{orben:2019}. Specifically, a strong internet usage was found to be significantly associated with low self-steem and depressive symptoms as self-assessed by the teenagers, and high peer problems as assessed by their parents.
+Table~\ref{tab1} reports the subset of these that were rejected by the refined e-BH procedure, when controlling the FDR below 0.05. Using the inverse root e-variable lead to the same conclusions albeit with smaller e-values. Alternative, less powerful, choices of e-variables in Section~\ref{ssec:define_evariables} (universal mixture, soft-rank) lead to no rejection in this dataset after the refined eBH adjustment. Applying $\overline{\text{e-BH}}$ instead of the refined e-BH procedure did not alter any of the results. In total, four hypotheses are rejected by our framework suggesting a significant effect of technology on teenager well-being contrary to the original study in~\cite{orben:2019}. Specifically, a strong internet usage was found to be significantly associated with low self-esteem and depressive symptoms as self-assessed by the teenagers, and high peer problems as assessed by their parents.
 High social media usage was also found to be significantly associated with self-assessed depressive symptoms.
 We remark that the odds-ratio for these associations were in the range $[2,4]$, 
 %\paul{is that large?} \david{they're certainly not negligible, it means that the odds of something bad happening are somewhere between 2 and 4 times higher. An OR of 1.5 is already relevant, typically.}
-that is these findings are not only statistically significant but also practically relevant.
+that is these findings are then not only statistically significant but also practically relevant.
 %\david{In Table~\ref{tab1}, I guess that the confidence interval refers to the estimated coefficient not the OR correct? At first I thought that the CIs were for the OR which was then strange because they contain 0, which would mean they're not statistically significant. To avoid confusions, how about we just the OR and CI for the OR (i.e. exponentiate your current CI) and do not show the ``estimated effect'' -- it's a log-OR that's less easily interpretable anyway.}
 
 
@@ -633,11 +633,11 @@ Not applicable.
 
 \bmhead{Data}
 
-The data is available at \href{https://github.com/paulrognonvael/multiverse.evalues}.
+The data is available on the \href{https://github.com/paulrognonvael/multiverse.evalues}{dedicated Github repository}.
 
 \bmhead{Code availability}
 
-The code is available at \href{https://github.com/paulrognonvael/multiverse.evalues}.
+The code is available on the \href{https://github.com/paulrognonvael/multiverse.evalues}{dedicated Github repository}.
 
 \bmhead{Author's contribution statements}
 

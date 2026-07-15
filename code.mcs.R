@@ -36,7 +36,7 @@ for (idy in 1:length(yvars)){
   ###### computing raw universal mixture evalue
   supp = hypsupp(formula=my.formula, data=datareg, family='binomial', vars=x_names, 
                  softrank=TRUE, mixtevalue=TRUE, BF=TRUE, p.to.e=TRUE)
-  res = supp$stats[,c('var','logcalib1','logcalib2','logmixtevalue','logsoftevalue','anov.pvalue')]
+  res = supp$stats[,c('var','logcalib1','logcalib3','logmixtevalue','logsoftevalue','anov.pvalue')]
   res['yvar'] = yname
   res['hyp'] = sprintf(paste0('%sX',yname),res$var)
   write.csv(res,paste0('output/mcs/',yvar,'.supportstats.csv'), row.names=FALSE)
@@ -95,7 +95,7 @@ for (idy in 1:length(yvars)){
 }
 
 #### Computing eBH corrected e-values for all outcomes ####
-for(meth in c('logcalib1','logcalib2','logmixtevalue','logsoftevalue')){
+for(meth in c('logcalib1','logcalib3','logmixtevalue','logsoftevalue')){
   mcs_evalues.hyptotest = mcs_all.evalues[mcs_all.evalues$hyp%in% hyptotest,]
   mcs_all.eBH = eBH.ksmall(exp(mcs_evalues.hyptotest[,meth]),mcs_evalues.hyptotest[,'hyp'],0.05)
   mcs_all.eBH['outcome'] = sapply(strsplit(mcs_all.eBH$hyp,'X'), function(x) x[[2]])

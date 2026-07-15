@@ -1,1 +1,6 @@
-""
+"var","logcalib1","logcalib3","logmixtevalue","logsoftevalue","anov.pvalue","yvar","hyp"
+"TV",-0.642429628234374,-2.5507438634166,-82.7753498556599,-10.2468543657088,0.860485306089057,"High emotional problems (parent)","TVXHigh emotional problems (parent)"
+"Electronic_games",-0.456571744853559,-0.919477432124904,-82.5749214867378,-9.81473562616607,0.511132936355566,"High emotional problems (parent)","Electronic_gamesXHigh emotional problems (parent)"
+"Social_media",-0.224584087714026,-0.124712257720846,-82.2123399499742,-9.16824021317169,0.28210727487584,"High emotional problems (parent)","Social_mediaXHigh emotional problems (parent)"
+"Other_internet",1.37222141805483,2.08631570798288,-79.6496954686299,-6.79059506810405,0.0121956670088862,"High emotional problems (parent)","Other_internetXHigh emotional problems (parent)"
+"Own_computer",0.0087394960640238,0.389102138902209,-81.8184594258828,-8.62624173059577,0.163162241041391,"High emotional problems (parent)","Own_computerXHigh emotional problems (parent)"

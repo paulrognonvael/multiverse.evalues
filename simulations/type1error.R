@@ -1,11 +1,20 @@
 library(readr)
-
+source('~/GitHub/multiverse.evalues/routines.R')
 type1error.funct = function(n,eval,reg){
   data = read_csv(paste0("~/GitHub/multiverse.evalues/simulations/",reg,"/",eval,".sim.n",n,'.csv'))
   error005 = sum(exp(data$A) > 1/0.05)/nrow(data)
   error001 = sum(exp(data$A) > 1/0.01)/nrow(data)
   return(list(e005=error005,e001=error001))
 }
+
+# FDR.funct = function(n,eval,reg){
+#   data = read_csv(paste0("~/GitHub/multiverse.evalues/simulations/",reg,"/",eval,".sim.n",n,'.csv'))
+#   eBH005 = eBH.ksmall(exp(data$A),1:nrow(data),0.05)
+#   FDR005 = 
+#   eBH001=eBH.ksmall(exp(data$A),1:nrow(data),0.01)
+#   return(list(e005=error005,e001=error001,eBH005=eBH005,eBH001=eBH001))
+# }
+
 
 #### Logistic regression ####
 type1erro.logreg.df = data.frame()

@@ -1,1 +1,6 @@
-""
+"var","logcalib1","logcalib3","logmixtevalue","logsoftevalue","anov.pvalue","yvar","hyp"
+"TV",0.216687040318676,0.744876686058996,-89.6073160757333,-8.2955618050752,0.103644506321095,"High total difficulties (parent)","TVXHigh total difficulties (parent)"
+"Electronic_games",3.60705378838661,3.82398489450017,-84.789549969888,-3.59535061873903,0.000456838418021633,"High total difficulties (parent)","Electronic_gamesXHigh total difficulties (parent)"
+"Social_media",2.09550736864457,2.70973225232466,-86.76528098624,-5.67178661244322,0.003893949050508,"High total difficulties (parent)","Social_mediaXHigh total difficulties (parent)"
+"Other_internet",-0.592482044281154,-1.84048629981669,-90.8786052284702,-9.70565016418357,0.744779720389032,"High total difficulties (parent)","Other_internetXHigh total difficulties (parent)"
+"Own_computer",-0.680251091983744,-3.93892359587063,-90.9304653982069,-9.90651760618792,0.962170007258329,"High total difficulties (parent)","Own_computerXHigh total difficulties (parent)"

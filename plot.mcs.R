@@ -4,7 +4,7 @@ library(tidyverse)
 setwd("~/GitHub/multiverse.evalues/")
 mcs = new.env()
 load('data/mcs.Rdata', mcs)
-
+attach(mcs)
 x_names =  c("TV", "Electronic_games", "Social_media", "Other_internet", "Own_computer")
 
 for(yvar in yvars){
@@ -34,7 +34,7 @@ for(yvar in yvars){
   
   ## e-confidence interval
   coefreg.Eci = read_csv(paste0('output/mcs/',yvar,'.fullEconfint005.csv'))
-  colnames(coefreg.Eci) = c('xvar','lower','upper')
+  colnames(coefreg.Eci) = c('id','xvar','lower','upper')
   df_Eci <- coefreg.Eci %>% filter( xvar %in% x_names)
   df_Eci['point'] = coefreg %>% filter( xvar %in% x_names) %>% select(x)
   df_Eci$xvar = factor(df_Eci$xvar, 

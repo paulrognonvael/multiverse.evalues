@@ -243,7 +243,7 @@ get.e.value.nonzero = function(beta0, var, formula, data, family, full.model){
     return(logcalib1(anova(full.model,glm.fitconst)$`Pr(>Chi)`[2]))
   }
 }
-  
+
 
 eBH = function(evalues,hyp,level){
   evalues.df = data.frame(hyp=hyp,evalue=evalues)
