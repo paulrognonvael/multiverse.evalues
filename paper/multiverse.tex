@@ -181,7 +181,7 @@ Further related work includes the optimal discovery procedure of~\cite{storey:20
 An advantage of e-values over these methods are that they provide a finite-$n$ FDR control that does not require estimating nuisance parameters, and which holds regardless of the number of tests being performed and of the dependence structure between the multiple tests. This is relevant in multiverse analysis, where typically tests cannot be assumed independent.
 Another advantage of e-values for multiverse analysis is that they are more composable, for example they can be multiplied or averaged across independent datasets (corresponding to subpopulations where a treatment effect is tested, for example) to obtain valid e-values.
 A main limitation of e-values relative to methods based on p-values, q-values and empirical Bayes is that the latter usually have a higher statistical power, provided that their assumptions hold. 
-Therefore, e-values are most appropriate for datasets where one has relatively large sample sizes. Otherwise, while FDR control is ensured, one may obtain few statistically significant findings. In this paper, we consider several strategies to obtain e-values and compare their power via simulation studies that mimic common sample sizes and problem dimensions encountered in multiverse analysis within the Social Sciences. Our findings suggest that simple p-to-e calibration rules, which convert a p-value into an e-value, attain higher statistical power than generic strategies such as universal e-values \citep{wasserman:2020} and soft-rank e-values \citep{koning:2024}. 
+Therefore, e-values are most appropriate for datasets where one has relatively large sample sizes. Otherwise, while FDR control is ensured, one may obtain few statistically significant findings. In this paper, we consider several strategies to obtain e-values and compare their power via simulation studies that mimic common sample sizes and problem dimensions encountered in multiverse analysis within the Social Sciences. Our findings suggest that simple p-to-e calibration rules, which convert a p-value into an e-value, attain higher statistical power than generic strategies such as universal e-values \citep{wasserman:2020} and soft-rank e-values \citep{koning:2023}. 
 
 
 The paper is structured as follows. In Section~\ref{sec:framework} we introduce notation and lay out a generalized linear model framework for treatment effect estimation within the context of a multiverse analysis.
@@ -361,7 +361,7 @@ where $\| \cdot \|^2$ is the squared Euclidean norm, $d=\mbox{dim}(\theta^{(l)})
 Outside of linear regression numerical integration methods must be used and, as long as the number of outcomes $L$ is not too large, this can also be done quickly (and in parallel).
 One may approximate $q_l$ using Laplace approximations, which is very fast as it requires a single optimization exercise for each outcome, and is very accurate as $n$ grows (\cite{kass:1990}, \cite{rossell:2021b} Lemma S3).
 
-A second possible strategy is to use soft-rank e-variables \citep{koning:2024}. 
+A second possible strategy is to use soft-rank e-variables \citep{koning:2023}. 
 These are typically based on permutation exercises akin to those used to obtain permutation-based p-values, therefore they are more computationally-intensive but as a positive aspect they are more reliable when our statistical model in \eqref{eq:outcome_equation} is misspecified (e.g., covariate effects are truly non-linear, errors are heteroskedastic, etc.).
 Let $T_0 \geq 0$ be a test statistic for the null hypothesis of interest, and let $T_1,\ldots,T_B$ be the realization of $B$ test statistics that are exchangeable with $T_0$ under the null. The soft-rank e-variable is 
 \begin{align}
@@ -622,6 +622,9 @@ In conclusion, our results suggest that e-variables can be a useful complement t
 
 
 \section*{Declarations}
+
+The authors thank Christoph Semken for sharing the data and scripts for the teenager well-being example.
+
 
 \bmhead{Funding}
 

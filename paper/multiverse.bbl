@@ -278,16 +278,15 @@ vol. \bseriesno{1}.
 \endbibitem
 
 %%% 18
-\bibitem[\protect\citeauthoryear{Koning}{2024}]{koning:2024}
+\bibitem[\protect\citeauthoryear{Koning}{2023}]{koning:2023}
 \begin{barticle}
 \bauthor{\bsnm{Koning}, \binits{N.W.}}:
-\batitle{More power by using fewer permutations}.
-\bjtitle{Biometrika}
-\bvolume{111}(\bissue{4}),
-\bfpage{1405}--\blpage{1412}
-(\byear{2024})
-\doiurl{10.1093/biomet/asae031}
-{\href{https://arxiv.org/abs/https://academic.oup.com/biomet/article-pdf/111/4/1405/60783709/asae031.pdf}{{https://academic.oup.com/biomet/article-pdf/111/4/1405/60783709/asae031.pdf}}}
+\batitle{Measuring evidence against exchangeability and group invariance with
+  e-values}.
+\bjtitle{arXiV}
+\bvolume{2310.01153},
+\bfpage{1}--\blpage{45}
+(\byear{2023})
 \end{barticle}
 \endbibitem
 
