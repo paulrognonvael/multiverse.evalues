@@ -1,0 +1,44 @@
+\begin{thebibliography}{6}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Allcott et~al.(2020)Allcott, Braghieri, Eichmeyer, and
+  Gentzkow]{allcott:2020}
+H.~Allcott, L.~Braghieri, S.~Eichmeyer, and M.~Gentzkow.
+\newblock The welfare effects of social media.
+\newblock \emph{American Economic Review}, 110:\penalty0 629--676, 2020.
+
+\bibitem[Allcott et~al.(2022)Allcott, Gentzkow, and Song]{allcott:2022}
+H.~Allcott, M.~Gentzkow, and L.~Song.
+\newblock Digital addiction.
+\newblock \emph{American Economic Review}, 112:\penalty0 2424--2463, 2022.
+
+\bibitem[Benjamini and Yekutieli(2001)]{benjamini:2001}
+Y.~Benjamini and D.~Yekutieli.
+\newblock The control of the false discovery rate in multiple testing under
+  dependency.
+\newblock \emph{The Annals of Statistics}, 29:\penalty0 1165--1188, 2001.
+
+\bibitem[Braghieri et~al.(2022)Braghieri, Levy, and Makarin]{braghieri:2022}
+L.~Braghieri, R.~Levy, and A.~Makarin.
+\newblock Social media and mental health.
+\newblock \emph{London: Centre for Economic Policy Research. {CEPR} Discussion
+  Paper}, 17252, 2022.
+
+\bibitem[Orben and Przybylski(2019)]{orben:2019}
+Amy Orben and Andrew~K Przybylski.
+\newblock The association between adolescent well-being and digital technology
+  use.
+\newblock \emph{Nature human behaviour}, 3\penalty0 (2):\penalty0 173--182,
+  2019.
+
+\bibitem[Valkenburg et~al.(2022)Valkenburg, Meier, and Beyens]{valkenburg:2022}
+P.M. Valkenburg, A.~Meier, and I.~Beyens.
+\newblock Social media use and its impact on adolescent mental health: an
+  umbrella review of the evidence.
+\newblock \emph{Current Opinion in Psychology}, 44:\penalty0 58--68, 2022.
+
+\end{thebibliography}

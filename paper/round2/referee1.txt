@@ -1,0 +1,20 @@
+Major comments:
+
+1.      I have a feeling that the weighted sum-to-zero coding in Section 2 is incorrect. As defined, gik = ρk for observations in subpopulation k and −(1 − ρk) otherwise, so the column sum is nkρk − (n − nk)(1 − ρk) = n(ρk² − (1 − ρk)²) = n(2ρk − 1), which is zero only when ρk = 1/2. The claim that Σi gik = 0, and hence the identity that βj(l) equals the average effect fails. The intended coding is presumably gik = 1 − ρk for observations in subpopulation k and −ρk otherwise, which does sum to zero. The subsequent expression for βjk(l) must be corrected accordingly. Please verify whether the code implements the stated or the corrected coding.
+
+2.      The simulations never evaluate the multiverse setting the paper is motivated by. There is no simulation with L outcomes and px treatments, correlated tests, a mix of null and non-null hypotheses, and e-BH applied to the ensemble.
+
+3.      The obvious p-value-based competitor is missing. Benjamini-Yekutieli also controls FDR under arbitrary dependence and requires no nuisance parameter estimation. The paper compares e-value strategies only against each other. A comparison of e-BH against BY is needed
+
+4.      Type I error assessment (as in Table 1) is based on 100 repetitions, which gives a Monte Carlo standard error of roughly 0.02 at α = 0.05. At least 1000 repetitions are needed for the type I error rows.
+
+5.      This framework is described in terms of treatments and average treatment effects, and the derivative of the link-transformed mean is called an ATE, but (a) in the logistic case this is a conditional log-odds coefficient, not an ATE in the usual causal sense, and (b) the MCS application is observational, with the authors themselves describing findings as associations in the abstract.
+
+
+Minor comments:
+
+1.      The prior on σ² is written IG(a/2, l/2) and the marginal likelihood ratio formula contains la/2 and (l + ‖y‖² − …) collide with the outcome index. Please use a second hyperparameter.
+
+2.      The sentence defining H̄l ("and by H̄l the set where none of H̄l holds") is circular, please revise.
+
+3.      The refined e-BH paragraph switches to θlj = 0 for the joint null; elsewhere effects are β. 

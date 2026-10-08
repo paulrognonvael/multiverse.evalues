@@ -6,11 +6,45 @@ load('data/mcs.Rdata', mcs)
 set.seed(35)
 
 library(stringr)
+library(tidyverse)
 
 attach(mcs)
 names(yvars) 
 names(cvars)
 x_names
+
+
+################################################################################
+#           REPORT MISSING OBSERVATIONS                                        #
+################################################################################
+
+cat(nrow(data), "observations")
+
+x_names =  c("TV", "Electronic_games", "Social_media", "Other_internet", "Own_computer")
+
+nrow(data) - colSums(is.na(data[yvars]))  # observations reporting the outcome variables
+colSums(is.na(data[x_vars])) # missings in treatment variables
+colSums(is.na(data[cvars]))  # missings in control variables
+
+sum(rowSums(is.na(data[c(x_vars,cvars)])) == 0) # observations with no missings in treatments nor controls
+
+sum(rowSums(is.na(data[x_vars])) > 0)  # individuals missing at least one treatment
+sum(rowSums(is.na(data[cvars])) > 0)  # individuals missing at least one control
+
+
+outcome.reported = complete.obs = integer(length(yvars))
+for (idy in 1:length(yvars)) {
+  yvar = yvars[idy]; yname = names(yvars)[idy]
+  datareg = na.omit(data[c(yvar, x_vars, cvars)])
+  outcome.reported[idy] = nrow(data) - sum(is.na(data[yvar]))
+  complete.obs[idy] = nrow(datareg)
+}
+
+nmiss = data.frame(variable = names(yvars), outcome.reported, complete.obs) |>
+  mutate(perc.complete.obs = round(100 * complete.obs / outcome.reported, 1))
+
+xtable::xtable(nmiss[,1:3])
+
 
 ################################################################################
 #           eBH-corrected universal mixture evalue - mcs data                  #
@@ -26,6 +60,7 @@ for (idy in 1:length(yvars)){
   yvar = yvars[idy]; yname = names(yvars)[idy]
   cat('Analysing outcome:',yname,'\n')
   datareg = na.omit(data[c(yvar, x_vars, cvars)])
+  
   datareg[datareg[cvars[names(cvars)=='Father']]==2,]=0
   names(datareg) = c('y', x_names, names(cvars))
   

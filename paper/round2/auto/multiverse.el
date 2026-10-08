@@ -1,0 +1,76 @@
+;; -*- lexical-binding: t; -*-
+
+(TeX-add-style-hook
+ "multiverse"
+ (lambda ()
+   (TeX-add-to-alist 'LaTeX-provided-class-options
+                     '(("sn-jnl" "pdflatex" "sn-mathphys-num")))
+   (TeX-add-to-alist 'LaTeX-provided-package-options
+                     '(("graphicx" "") ("multirow" "") ("amsmath" "") ("amssymb" "") ("amsfonts" "") ("amsthm" "") ("mathrsfs" "") ("appendix" "title") ("xcolor" "") ("textcomp" "") ("manyfoot" "") ("booktabs" "") ("algorithm" "") ("algorithmicx" "") ("algpseudocode" "") ("listings" "") ("hyperref" "")))
+   (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "href")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
+   (TeX-run-style-hooks
+    "latex2e"
+    "sn-jnl"
+    "sn-jnl10"
+    "graphicx"
+    "multirow"
+    "amsmath"
+    "amssymb"
+    "amsfonts"
+    "amsthm"
+    "mathrsfs"
+    "appendix"
+    "xcolor"
+    "textcomp"
+    "manyfoot"
+    "booktabs"
+    "algorithm"
+    "algorithmicx"
+    "algpseudocode"
+    "listings"
+    "hyperref")
+   (TeX-add-symbols
+    '("paul" 1)
+    '("david" 1))
+   (LaTeX-add-labels
+    "sec:intro"
+    "sec:framework"
+    "eq:outcome_equation"
+    "eq:test"
+    "sec:evalues"
+    "def:evariable"
+    "ssec:define_evariables"
+    "eq:univ_evalue_mixture"
+    "eq:uip"
+    "eq:lrt"
+    "eq:calibrator1"
+    "eq:calibrator2"
+    "ssec:simstudy"
+    "fig:simlogreg"
+    "tabtype1logreg"
+    "fig:simlinreg"
+    "ssec:fdr_control"
+    "sec:teenager"
+    "tab:missings"
+    "fig:exp.mcs"
+    "tab1"
+    "sec:discussion")
+   (LaTeX-add-bibliographies
+    "../references")
+   (LaTeX-add-amsthm-newtheorems
+    "theorem"
+    "proposition"
+    "example"
+    "remark"
+    "definition"))
+ :latex)
+

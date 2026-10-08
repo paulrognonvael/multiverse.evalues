@@ -1,0 +1,357 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage[numbers]{natbib}
+
+
+% Page layout
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% Formatting for the response block
+\newcommand{\reply}{\vspace{0.3cm} \noindent \textbf{Response:} {\it }}
+
+\title{\textbf{Response to Reviewers}}
+\date{}
+
+
+\newcommand{\david}[1]{{\small{\color{blue} \sf $\heartsuit$ [David: #1]}}}
+\newcommand{\paul}[1]{{\small{\color{green} \sf $\spadesuit$ Paul: #1}}}
+
+
+\newcommand{\bgamma}{\bm{\gamma}}
+\newcommand{\bGamma}{\bm{\Gamma}}
+\newcommand{\bpi}{\bm{\pi}}
+\newcommand{\btheta}{\bm{\theta}}
+\newcommand{\bomega}{\bm{\omega}}
+
+
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\T}{\mathcal{T}}
+
+
+\newcommand{\bx}{\bm{x}}
+\newcommand{\by}{\bm{y}}
+\newcommand{\bz}{\bm{z}}
+
+
+\newcommand{\bA}{\bm{A}}
+\newcommand{\bD}{\bm{D}}
+\newcommand{\bP}{\bm{P}}
+\newcommand{\bU}{\bm{U}}
+\newcommand{\bV}{\bm{V}}
+\newcommand{\bX}{\bm{X}}
+\newcommand{\bZ}{\bm{Z}}
+
+
+
+\begin{document}
+
+\maketitle
+
+\noindent We thank the editor and referees for the positive feedback and constructive comments. We carefully considered all points raised and revised the manuscript accordingly. We feel that the paper has improved in completeness and clarity as a result, and thank the Editor and Referees for that.
+For your convenience, the updated text in the manuscript is highlighted in blue. A point-by-point reply to all the raised issues follows.
+
+
+% =============================================================================
+% EDITOR
+% =============================================================================
+\section*{Reply to the Editor}
+
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Editor:} Reviewers have now commented on your paper. You will see that they are advising that you revise your manuscript. If you are prepared to undertake the work required, I would be pleased to reconsider my decision. Please in order to accept the manuscript for the special issue, I ask authors to check thoroughly points raised by Reviewer 1, in particular points 1. and 2.
+
+    \reply We have revised the manuscript along the directions suggested by the referees (and, in particular, Points 1-2 raised by Referee 1), please see below for our reply. Thank you for the opportunity to revise the manuscript.
+
+
+
+\end{enumerate}
+
+
+% =============================================================================
+% REFEREE 1
+% =============================================================================
+
+\section*{Reply to Referee 1}
+
+Thank you for taking a careful look at our work, and for your suggestions on how to improve it. Please find a point-by-point reply below.
+
+\subsection*{Major comments}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Comment:} I have a feeling that the weighted sum-to-zero coding in Section 2 is incorrect. As defined, $g_{ik} = \rho_k$ for observations in subpopulation $k$ and $-(1 - \rho_k)$ otherwise, so the column sum is $n_k\rho_k - (n - n_k)(1 - \rho_k) = n(\rho_k^2 - (1 - \rho_k)^2) = n(2\rho_k - 1)$, which is zero only when $\rho_k = 1/2$. The claim that $\sum_i g_{ik} = 0$, and hence the identity that $\beta_j^{(l)}$ equals the average effect fails. The intended coding is presumably $g_{ik} = 1 - \rho_k$ for observations in subpopulation $k$ and $-\rho_k$ otherwise, which does sum to zero. The subsequent expression for $\beta_{jk}^{(l)}$ must be corrected accordingly. Please verify whether the code implements the stated or the corrected coding.
+    
+    \reply 
+Thank you for pointing out this important issue, this was an oversight on our end when writing the paper. Indeed, to guarantee that $\sum_{i=1}^n g_{ik}=0$ the coding should be $g_{ik}= 1 - \rho_k$ for individuals in subpopulation $k$ and $g_{ik}= -\rho_k$ otherwise. Then, letting $n_k$ be the number of observations coming from subpopulation $k$ and $\rho_k = n_k/n$ be the corresponding proportion, 
+\begin{align}
+ \sum_{i=1}^n g_{ik}= n_k (1-\rho_k) + (n - n_k) (- \rho_k)= n_k \frac{n - n_k}{n} - (n-n_k) \frac{n_k}{n} = 0.
+\nonumber
+\end{align}
+We corrected the paper accordingly. We also checked that there were no errors in the code and that our previous results were correct (which was the case). 
+
+\vspace{0.5cm}
+
+    \item \textbf{Comment:} The simulations never evaluate the multiverse setting the paper is motivated by. There is no simulation with $L$ outcomes and $p_x$ treatments, correlated tests, a mix of null and non-null hypotheses, and e-BH applied to the ensemble.
+    
+    \reply The simulation study in our previous submission included $p_x=10$ covariates, with a mix of null and non-null hypotheses (corresponding to $\beta_i^*=0$ and $\beta_i^* = 0.15, 0.3, 0.5$). Since covariate values were generated from a correlated multivariate Gaussian, the corresponding point estimates $\hat{\beta}_i$ were also correlated, inducing a correlation between the tests being performed. This being said, we agree that it is interesting to consider a further simulation setup that mimics a real-life multiverse setting. To address your concern, we added a new simulation study inspired by the teenager well-being MCS dataset to which we later apply our multiverse framework.
+
+The new simulation study features 8 outcomes, 5 treatments and 14 control covariates, exactly as in the MCS data.
+The values of the treatments and controls are set to the same values as in the MCS data,
+so that the covariate correlation structure and the dependence between tests in our simulations match those of the MCS data.
+Since there are 8,430 individuals reporting the value of all treatments and controls in the MCS data, in our simulation we set $n=8,430$.
+We then set generate values for each outcome from a linear regression model where some of the data-generating $\beta_i^*=0$ and some $\beta_i^* \neq 0$.
+
+\david{Paul, can we extend the simulation study in these directions?}
+
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} The obvious p-value-based competitor is missing. Benjamini-Yekutieli also controls FDR under arbitrary dependence and requires no nuisance parameter estimation. The paper compares e-value strategies only against each other. A comparison of e-BH against BY is needed.
+    
+    \reply Thank you, we agree that discussing the relative merits of BY and e-value strategies is intereseting, as well as adding it as an alternative strategy. As you mentioned, P-values that are corrected via the Benjamini-Yekutieli method \cite{benjamini:2001} control the FDR under arbitrary dependence. Hence, in the common offline setting where one observes all the data at once and performs the hypothesis tests only once on that data, the comparison between e-values and BY boils down to their relative power.
+
+On one hand, e-values are typically more conservative than P-values, therefore one may expect BY to have higher power if the number of tests being performed is small or moderate, as in that case the BY correction is mild. On the other hand, the BY correction becomes more severe as the number of tests $K$ grows. Specifically, recall that BY uses the following threshold for the $k^{th}$ ordered P-value
+\begin{align}
+ \alpha \frac{k}{K c(K)}
+\nonumber
+\end{align}
+where $c(K)= \sum_{i=1}^K 1/i \approx \log(K) + \gamma + 1/K$, is the harmonic number associated to $K$ and $\gamma \approx 0.557$ the Euler-Mascheroni constant. As $K$ grows, the BY threshold becomes more stringent. In contrast, the e-value based e-BH procedure effectively uses $e_{[k]} k/ K$ as its e-value, which avoids the $\log (K)$ scaling.
+
+There are settings however where e-values bring distinct advantages, beyond purely power considerations. For example, e-values can be used in online settings where data are collected sequentially, and where the decision to continue collecting data can depend on previously observed e-values. e-values can also be convenient in settings where one wishes to define new tests that combine evidence across tests, for example to aggregate evidence on the effect of a treatment across similar outcomes. This is because one may define e-values for the new tests by taking the product or the average of the e-values for the individual tests, whereas aggregating P-values can be more involved.
+
+To address your concern and explore these issues we added this discussion to the section where FDR control with e-values is discussed, and we also added BY to our experiments. 
+To be clear, we are not taking a stand where we argue that e-values are necessarily preferrable to BY. The purpose of our paper was to assess the relative merits and shortcomings of e-values for multiverse analyses. In our previous submission we had already identified that e-values can lead to fairly low statistical power, and we had focused our comparisons on which e-value methods might work best. We appreciate your suggestion to add BY to give a broader perspective, and we believe that the paper has improved significantly because of it.
+
+\david{Paul, can we add BY-adjusted P-values? As explained they should work worse than BY if we're doing only a few tests, and possibly better if we're doing many tests, so perhaps we could illustrate that?}
+
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} Type I error assessment (as in Table 1) is based on 100 repetitions, which gives a Monte Carlo standard error of roughly 0.02 at $\alpha = 0.05$. At least 1000 repetitions are needed for the type I error rows.
+    
+    \reply \david{Can we use 1000 repetitions?}
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} This framework is described in terms of treatments and average treatment effects, and the derivative of the link-transformed mean is called an ATE, but (a) in the logistic case this is a conditional log-odds coefficient, not an ATE in the usual causal sense, and (b) the MCS application is observational, with the authors themselves describing findings as associations in the abstract.
+    
+    \reply \david{Clarify ATE nomenclature and add a note that we do not mean treatment effects in a causal inference sense (unless the usual assumptions for causal inference are met).}
+
+    \vspace{0.5cm}
+\end{enumerate}
+
+
+\subsection*{Minor comments}
+
+\begin{enumerate}
+    \item \textbf{Comment:} The prior on $\sigma^2$ is written $IG(a/2, l/2)$ and the marginal likelihood ratio formula contains $l^{a/2}$ and $(l + \|y\|^2 - \dots)$ collide with the outcome index. Please use a second hyperparameter.
+    
+    \reply Thank you for spotting this. We updated the notation to $IG(a/2, b/2)$.
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} The sentence defining $\bar{H}_l$ (``and by $\bar{H}_l$ the set where none of $\bar{H}_l$ holds'') is circular, please revise.
+    
+    \reply Thank you. We updated the text to: We denote by $\mathcal{H}_{lj}$ the set of probability distributions such that $H_{lj}$ holds, and by $\overline{\mathcal{H}}_l$ the set where \color{blue} none of the $H_{lj}$'s hold (that is, $\overline{\mathcal{H}}_l$ is the complement of $\bigcup_{j=1}^{p_x} \mathcal{H}_{lj}$). \color{black}
+
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} The refined e-BH paragraph switches to $\theta_{lj} = 0$ for the joint null; elsewhere effects are $\beta$.
+    
+    \reply Thank you, we updated the paragraph to $\beta_{lj}=0$.
+
+    \vspace{0.5cm}
+\end{enumerate}
+
+
+
+% =============================================================================
+% REFEREE 2
+% =============================================================================
+\section*{Reply to Referee 2}
+
+\textbf{Comment:} The paper presents a comparison of multiverse analysis under different approaches (universal e-values, soft-rank e-values, and p-to-e calibration). This is performed through simulation studies and a real data application. Overall, I find the paper very interesting and well-written, but I have some comments that may help improve the presentation of the paper. Specific
+comments are provided below.
+
+\reply Thank you for your positive feedback and for the suggestions to help improve the manuscript and its presentation. Please find below a point-by-point reply.
+
+\subsection*{Abstract}
+
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Comment:} It may be worth clarifying that the comparison of the different approaches is performed through a simulation study. 
+
+\reply Done, thank you.
+
+\vspace{0.5cm}
+
+\item \textbf{Comment:} It may also be worth specifying the calibrator that produces the best performance.
+
+\reply Done, we added a mention that the mixture p-to-e calibrator performed best in our experiments.
+
+\vspace{0.5cm}
+
+\end{enumerate}
+
+
+\subsection*{Section 1}
+
+\begin{enumerate}[leftmargin=*]
+
+\item \textbf{Comment:} Some references (or at least a representative one) regarding the applications mentioned
+in the first paragraph would be welcomed.
+
+\reply
+
+\vspace{0.5cm}
+
+
+
+\item \textbf{Comment:} Similarly, in the second paragraph, some reference on multiverse analysis would be particularly welcomed, as this is not necessarily a mainstream topic.
+<
+\reply
+
+\vspace{0.5cm}
+
+
+\item \textbf{Comment:} The critique of Specification Curve Analysis (SCA) feels a bit heavy-handed. Perhaps the authors could consider briefly acknowledging situations where SCA is valid or widely accepted before detailing its pitfalls.
+
+\reply \david{Acknowledge merits of SCA}
+
+\end{enumerate}
+
+
+\subsection*{Section 2}
+
+\begin{enumerate}[leftmargin=*]
+
+\item \textbf{Commment:} Page 5. The subpopulation-encoding notation ($g_{ik}$) relies on a specific weighted sum-to-zero constraint. It would be useful for the authors to include a brief, intuitive explanation of how this constraint behaves in practice, as the current mathematical definition is quite dense.
+
+\reply
+
+\vspace{0.5cm}
+
+
+\item \textbf{Comment:} Page 5. Could you please clarify if the definition of treatment effect in terms of the derivative of $F\circ\mathbb{F}$ is mainstream or a specialized definition for your paper? Marginal effects are often defined in terms of the derivative of $\mathbb{E}$ (Ai and Norton 2003) instead, which accounts for the scale induced by the link function. Of course, this does not affect linear regression, but it induces a difference for other GLMs.
+
+\reply \david{Clarify the definition of the effect and comparison with marginal effects / Ai and Norton (2003)}
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} Page 6. The authors state control covariate effects ($\eta_z$) are always assumed non-zero, in contrast to SCA's subset approach. Could you please briefly justify why including all controls is universally preferable here, as over-controlling (e.g., inducing collider bias) can sometimes be a risk in observational multiverse data? Would a DAG or other tool help understand when this strategy is safe?
+
+    \reply \david{Justify the choice to retain all control covariates, acknowledge the assumption that no colliders are included as covariates, add a reference to valid control sets and optimal control sets which explains how to define good control covariates if one knows the DAG behind the causal mechanism.}
+
+
+\end{enumerate}
+
+
+
+\subsection*{Section 3}
+
+\begin{enumerate}[leftmargin=*]
+
+\item \textbf{Comment:} Some references on e-values would be welcomed at the beginning of this section.
+
+\reply
+
+\vspace{0.5cm}
+
+    \item \textbf{Comment:} Page 8. Should the prior (4) be conditional on $\sigma^2$? It may also be worth clarifying that Zellner's prior allows for a unit information prior interpretation in the context of linear regression, while for other GLMs it may be needed to use a variance of the type $W^T M(\beta) Z$, in line with the Fisher information matrix associated with other GLMs. The choice $W^T W$ looks quite reasonable to me, especially to avoid diluting the main message of the paper, but a brief discussion may be welcome.
+
+    \reply 
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} Page 9. It may be worth mentioning that model misspecification in GLMs may also involve misspecifying the link (e.g., in binary regression).
+
+    \reply 
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} I wonder if the simulation study would be better placed as a separate section.
+
+    \reply 
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} The simulation study utilizes 10 covariates drawn from a multivariate Gaussian with a uniform pairwise covariance of 0.5. Could the authors discuss this specific covariance structure? Is this moderate-to-high level of collinearity representative of typical Social Science datasets?
+
+    \reply \david{Paul, perhaps we can consider setting covariate correlations to mimic those encountered in the teenager study. This would be an interesting setting whether to assess if BY-adjusted P-values do the job for correlation structures that are representative of social sciences applications.}
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} In Table 1, the Type I error is exactly 0 for many sample sizes at both the 1\% and 5\% levels across multiple e-variables. Could the authors dedicate a sentence to discussing whether these e-variables are too conservative in finite samples, and how that impacts the false negative rate? Or is this an effect of the number of Monte Carlo iterations?
+
+    \reply \david{This will be partially addressed by increasing the number of simulations. But add a comment to clarify this nevertheless.}
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} Please report (general) computing times to give the reader an idea of the different computational costs, which are previously mentioned.
+
+    \reply \david{Paul, can we please add computation times?}
+
+
+\end{enumerate}
+
+
+\subsection*{Section 4}
+
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Comment:} I wonder if the title of this section could be made more informative, in line with the real data application.
+
+\reply Thank you for the suggestion. We updated the section's title to ``Teenager mental well-being and technology use''. 
+
+\vspace{0.5cm}
+
+    \item \textbf{Comment:} Were there any missing values in the data set? If so, how were they handled?
+
+    \reply This is an interesting point. There indeed are missing values in the data. Our analysis focuses only on complete observations, and therefore our findings should be interpreted as being conditional on this completely observed population. We added a remark to the paper and also a table on the number of observations and of complete observations for each outcome (reproduced below, for your convenience). These were mostly due to missings in the controls, with 3,446 individuals having a missing in at least 1 control and only 376 having a missing in a treatment.
+We also added a note that one could consider several strategies to handle the missing data and view them as a data analytic choice within the multiverse analysis, and that while interesting such comparisons are beyond our scope.
+
+\begin{center}
+\begin{tabular}{lrr} \hline
+  & Outcome reported & Complete observations \\ \hline
+ Depressed (adolescent) & 11200 & 8351 \\ 
+ Low self-esteem (adolescent) & 11165 & 8311 \\ 
+ High total difficulties (parent) & 11471 & 8238 \\ 
+ High emotional problems (parent) & 11486 & 8240 \\ 
+ High conduct problems (parent) & 11488 & 8243 \\ 
+ High hyperactivity/inattention (parent) & 11481 & 8243 \\ 
+ High peer problems (parent) & 11491 & 8244 \\ 
+ Low pro-sociality (parent) & 11489 & 8243 \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+
+    \vspace{0.5cm}
+
+    \item \textbf{Comment:} The authors report different conclusions to the original studies. A slightly more extensive discussion on why that is the case would be welcomed.
+
+    \reply Thank you for the suggestion. We added the following discussion to the paper.
+
+\color{blue}
+The main reason why our findings differ from the original study in \cite{orben:2019} is that the latter used Specification Curve Analysis to estimate a median treatment effect across all outcomes and treatments (as well as also across all possible control covariate configurations). As shown in Figure \ref{fig:exp.mcs} there is significant heterogeneity of the effects across outcomes and treatments. For example, the point estimate for the association between high TV usage and most outcomes was negative (suggesting that TV usage might be associated with lower chances of poor mental well-being), whereas for social media and internet use the estimates were positive for self-assessed outcomes like depression and low self-steem and negative for parent-assessed outcomes like high peer problems and low pro-sociality. The median of these heterogeneous effects is close to 0, which led \cite{orben:2019} to conclude that the association between mental well-being and technology use was too small to warrant policy change. We argue that in the presence of strong treatment effect heterogeneity, summaries such as the median can mask the presence of important individual treatment effects.
+We remark that there are observational studies \cite{valkenburg:2022}, randomized controlled trials \cite{allcott:2020,allcott:2022} and natural experiments \cite{braghieri:2022} indicating that there is a negative effect of social media on self-reported mental well-being, aligning with our findings.
+
+\color{black}
+
+    \vspace{0.5cm}
+\end{enumerate}
+
+
+
+\bibliographystyle{plainnat}
+\bibliography{../references}
+
+
+\end{document}
