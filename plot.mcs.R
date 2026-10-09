@@ -1,7 +1,7 @@
 library(tidyverse)
 
 ### Loading data
-setwd("~/GitHub/multiverse.evalues/")
+setwd("~/github/multiverse.evalues/")
 mcs = new.env()
 load('data/mcs.Rdata', mcs)
 attach(mcs)
@@ -53,3 +53,5 @@ for(yvar in yvars){
           axis.title = element_text(size=8))
   ggsave(paste0('output/mcs/plot.Eci',yvar,'.png'), width =60, height = 60, units='mm')
 }
+
+

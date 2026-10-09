@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.2.14)  7 OCT 2026 16:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.2.14)  9 OCT 2026 16:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -787,7 +787,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.478 \begin{align}
+l.481 \begin{align}
                    ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -796,122 +796,135 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.495 \begin{align}
-                    <../images/sim.linreg.paper.beta0.png> <../images/sim.linre
-g.paper.beta0.15.png> <../images/sim.linreg.paper.beta0.3.png> <../images/sim.l
-inreg.paper.beta0.5.png>]
-<../images/plot.Ecidepressed.png, id=245, 170.5572pt x 170.5572pt>
+l.490 A
+        slight refinement of e-BH, which only has a practical effect when $K...
+ <../images/sim.linreg.paper.beta0.png> <../images/sim.linreg.paper.beta0.15.pn
+g> <../images/sim.linreg.paper.beta0.3.png> <../images/sim.linreg.paper.beta0.5
+.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14]
+<../images/plot.Ecidepressed.png, id=257, 170.5572pt x 170.5572pt>
 File: ../images/plot.Ecidepressed.png Graphic file (type png)
 <use ../images/plot.Ecidepressed.png>
-Package pdftex.def Info: ../images/plot.Ecidepressed.png  used on input line 53
-4.
+Package pdftex.def Info: ../images/plot.Ecidepressed.png  used on input line 57
+6.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
-<../images/plot.Eciselfesteem_lo.png, id=246, 170.5572pt x 170.5572pt>
+<../images/plot.Eciselfesteem_lo.png, id=258, 170.5572pt x 170.5572pt>
 File: ../images/plot.Eciselfesteem_lo.png Graphic file (type png)
 <use ../images/plot.Eciselfesteem_lo.png>
 Package pdftex.def Info: ../images/plot.Eciselfesteem_lo.png  used on input lin
-e 535.
+e 577.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
-<../images/plot.Ecifebdtot_hi.png, id=247, 170.5572pt x 170.5572pt>
+<../images/plot.Ecifebdtot_hi.png, id=259, 170.5572pt x 170.5572pt>
 File: ../images/plot.Ecifebdtot_hi.png Graphic file (type png)
 <use ../images/plot.Ecifebdtot_hi.png>
 Package pdftex.def Info: ../images/plot.Ecifebdtot_hi.png  used on input line 5
-37.
+79.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
 File: ../images/plot.Ecifebdtot_hi.png Graphic file (type png)
 <use ../images/plot.Ecifebdtot_hi.png>
 Package pdftex.def Info: ../images/plot.Ecifebdtot_hi.png  used on input line 5
-38.
+80.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
-<../images/plot.Ecifconduct_hi.png, id=248, 170.5572pt x 170.5572pt>
+<../images/plot.Ecifconduct_hi.png, id=260, 170.5572pt x 170.5572pt>
 File: ../images/plot.Ecifconduct_hi.png Graphic file (type png)
 <use ../images/plot.Ecifconduct_hi.png>
 Package pdftex.def Info: ../images/plot.Ecifconduct_hi.png  used on input line 
-540.
+582.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
-<../images/plot.Ecifhyper_hi.png, id=249, 170.5572pt x 170.5572pt>
+<../images/plot.Ecifhyper_hi.png, id=261, 170.5572pt x 170.5572pt>
 File: ../images/plot.Ecifhyper_hi.png Graphic file (type png)
 <use ../images/plot.Ecifhyper_hi.png>
-Package pdftex.def Info: ../images/plot.Ecifhyper_hi.png  used on input line 54
-1.
+Package pdftex.def Info: ../images/plot.Ecifhyper_hi.png  used on input line 58
+3.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
-<../images/plot.Ecifpeer_hi.png, id=250, 170.5572pt x 170.5572pt>
+<../images/plot.Ecifpeer_hi.png, id=262, 170.5572pt x 170.5572pt>
 File: ../images/plot.Ecifpeer_hi.png Graphic file (type png)
 <use ../images/plot.Ecifpeer_hi.png>
-Package pdftex.def Info: ../images/plot.Ecifpeer_hi.png  used on input line 543
+Package pdftex.def Info: ../images/plot.Ecifpeer_hi.png  used on input line 585
 .
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
-<../images/plot.Ecifprosoc_lo.png, id=251, 170.5572pt x 170.5572pt>
+<../images/plot.Ecifprosoc_lo.png, id=263, 170.5572pt x 170.5572pt>
 File: ../images/plot.Ecifprosoc_lo.png Graphic file (type png)
 <use ../images/plot.Ecifprosoc_lo.png>
 Package pdftex.def Info: ../images/plot.Ecifprosoc_lo.png  used on input line 5
-44.
+86.
 (pdftex.def)             Requested size: 170.55678pt x 170.55678pt.
 
 
-LaTeX Warning: Float too large for page by 210.91637pt on input line 548.
+LaTeX Warning: Float too large for page by 210.91637pt on input line 590.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [13
+ [15
 pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.568 
-      ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [14
+l.619 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.581 
+l.619 
       ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [15]
+ [16]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [16]
+ [17
+pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.668 
+      ]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [18]
 
 Package hyperref Warning: Difference (4) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 665.
+(hyperref)                than one, level fixed on input line 738.
 
 
-Underfull \hbox (badness 3291) in paragraph at lines 665--666
+Underfull \hbox (badness 3291) in paragraph at lines 738--739
 \OT1/cmr/m/n/10 ti-gaci^^Son(AEI)/10.13039/501100011033 /Fondo Europeo de Desar
 -rollo Regional
  []
 
 
 Package hyperref Warning: Difference (3) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 669.
+(hyperref)                than one, level fixed on input line 742.
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 673.
+(hyperref)                than one, level fixed on input line 746.
 
 (./multiverse.bbl
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [17]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [18{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}])
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [19]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [20
+ [20{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}])
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [21]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.701 \end{document}
+l.774 \end{document}
                      <../images/plot.Ecidepressed.png> <../images/plot.Eciselfe
 steem_lo.png> <../images/plot.Ecifebdtot_hi.png> <../images/plot.Ecifconduct_hi
 .png> <../images/plot.Ecifhyper_hi.png> <../images/plot.Ecifpeer_hi.png> <../im
@@ -929,13 +942,13 @@ Package rerunfilecheck Info: File `multiverse.out' has not changed.
 (rerunfilecheck)             Checksum: 9926CC0087E12BDED46967EC0E751FE3;1892.
  ) 
 Here is how much of TeX's memory you used:
- 14743 strings out of 476106
- 227721 string characters out of 5793933
+ 14747 strings out of 476106
+ 227763 string characters out of 5793933
  1942975 words of memory out of 5000000
- 36432 multiletter control sequences out of 15000+600000
+ 36433 multiletter control sequences out of 15000+600000
  587608 words of font info for 152 fonts, out of 8000000 for 9000
  69 hyphenation exceptions out of 8191
- 90i,16n,93p,1311b,660s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,16n,93p,1378b,652s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texli
@@ -962,10 +975,10 @@ sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/
 fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on multiverse.pdf (20 pages, 919644 bytes).
+Output written on multiverse.pdf (22 pages, 929361 bytes).
 PDF statistics:
- 461 PDF objects out of 1000 (max. 8388607)
- 364 compressed objects within 4 object streams
- 81 named destinations out of 1000 (max. 500000)
+ 479 PDF objects out of 1000 (max. 8388607)
+ 380 compressed objects within 4 object streams
+ 84 named destinations out of 1000 (max. 500000)
  188 words of extra memory for PDF output out of 10000 (max. 10000000)
 

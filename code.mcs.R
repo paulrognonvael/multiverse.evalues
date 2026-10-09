@@ -1,5 +1,5 @@
 ### Loading data
-setwd("~/GitHub/multiverse.evalues/")
+setwd("~/github/multiverse.evalues/")
 source('routines.R')
 mcs = new.env()
 load('data/mcs.Rdata', mcs)
@@ -142,3 +142,69 @@ for(meth in c('logcalib1','logcalib3','logmixtevalue','logsoftevalue')){
 }
 detach(mcs)
 save.image('output/mcs/env.image.Rdata')
+
+
+
+
+# Final table with significant results (including Benjamini-Yekutieli adjusted P-values)
+
+## Import P-values, point estimates and 95% intervals for all (outcome, treatment) combinations
+supportstats = vector("list", length(yvars))
+names(supportstats) = yvars
+for (yvar in yvars) {
+  
+  pvals= read_csv(paste0('output/mcs/',yvar,'.supportstats.csv')) |>
+    rename(xvar = var, pvalue = anov.pvalue) |>
+    select(yvar, xvar, pvalue)
+  
+  coefreg = read_csv(paste0('output/mcs/',yvar,'.fullcoef.csv'))
+  colnames(coefreg) = c('xvar', 'logOR')
+  
+  coefreg.ci = read_csv(paste0('output/mcs/',yvar,'.fullEconfintodds005.csv'))[,-1]
+  colnames(coefreg.ci) = c('xvar','lower','upper')
+  
+  coefreg = merge(coefreg, coefreg.ci, by='xvar') |>
+    filter(xvar %in% c("TV", "Electronic_games", "Social_media", "Other_internet", "Own_computer"))
+  
+  supportstats[[yvar]] = merge(pvals, coefreg, by='xvar')
+  
+}
+
+supportstats = do.call(rbind, supportstats) |>
+  mutate(pvalue.BY= p.adjust(pvalue, method='BY')) |>
+  select(yvar, everything()) |>
+  rename(Outcome = yvar, Treatment = xvar)
+
+supportstats = mutate(supportstats, OR= exp(logOR), CI = paste0("(", round(lower,2), ",", round(upper, 2), ")")) |>
+  select(Outcome, Treatment, OR, CI, pvalue, pvalue.BY)
+
+filter(supportstats, pvalue.BY < 0.05)
+
+## Merge p-values with e-values into a single data.frame
+
+library(eClosure) # closed e-BH procedure
+
+evalues = read_csv(paste0('output/mcs/all.eBH005logcalib1.csv')) |>
+  rename(Outcome = outcome, Treatment = var) |>
+  select(Outcome, Treatment, everything()) |>
+  arrange(desc(evalue))
+
+k_bar <- closedeBH(evalues$evalue, alpha = 0.05) # Size of the largest rejection set k_bar
+evalues <- mutate(evalues, closed_eBH= 1:nrow(evalues) <= k_bar)
+
+
+tab = merge(evalues, supportstats, by=c('Outcome', 'Treatment')) |>
+  arrange(desc(evalue)) |>
+  select(Outcome, Treatment, OR, CI, evalue, pvalue.BY, pvalue, closed_eBH)
+
+filter(tab, closed_eBH | pvalue.BY < 0.05)  # tests rejected either by closed e-BH or by BY
+
+
+group_by(tab, Treatment) |>
+  summarize(evalue = mean(evalue))
+
+group_by(tab, Treatment) |>
+  summarize(min_pvalue= min(pvalue), number_outcomes=n()) |>
+  mutate(reject_Bonferroni = min_pvalue * number_outcomes < 0.05)
+
+

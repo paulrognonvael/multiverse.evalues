@@ -114,19 +114,48 @@ We then set generate values for each outcome from a linear regression model wher
 
     \item \textbf{Comment:} The obvious p-value-based competitor is missing. Benjamini-Yekutieli also controls FDR under arbitrary dependence and requires no nuisance parameter estimation. The paper compares e-value strategies only against each other. A comparison of e-BH against BY is needed.
     
-    \reply Thank you, we agree that discussing the relative merits of BY and e-value strategies is intereseting, as well as adding it as an alternative strategy. As you mentioned, P-values that are corrected via the Benjamini-Yekutieli method \cite{benjamini:2001} control the FDR under arbitrary dependence. Hence, in the common offline setting where one observes all the data at once and performs the hypothesis tests only once on that data, the comparison between e-values and BY boils down to their relative power.
+    \reply Thank you for pointing this out, we agree that a deeper discussion of the relative merits of BY and e-value strategies was needed, as well as adding BY as an alternative strategy. Following your suggestion, we added BY to our numerical experiments. We also added the following discussion comparing FDR control with BY to that with e-variables.
 
-On one hand, e-values are typically more conservative than P-values, therefore one may expect BY to have higher power if the number of tests being performed is small or moderate, as in that case the BY correction is mild. On the other hand, the BY correction becomes more severe as the number of tests $K$ grows. Specifically, recall that BY uses the following threshold for the $k^{th}$ ordered P-value
+Given that both procedures control the FDR under arbitrary dependence, one aspect to consider are their respective powers.
+For the particular case of the e-BH procedure, \cite{wang_ruodu:2022} showed that e-BH can have higher power than BY in certain settings and lower on others, depending on how the e-variables are obtained and on their distribution.
+To gain some intuition, denote by $K$ the total number of tests, by $P_{[k]}$ the $k^{th}$ ordered P-value and by $E_{[k]}$ the $k^{th}$ ordered e-variable.
+Recall that BY uses the threshold 
 \begin{align}
- \alpha \frac{k}{K c(K)}
+P_{[k]} \leq \frac{\alpha k}{K c(K)}
 \nonumber
 \end{align}
-where $c(K)= \sum_{i=1}^K 1/i \approx \log(K) + \gamma + 1/K$, is the harmonic number associated to $K$ and $\gamma \approx 0.557$ the Euler-Mascheroni constant. As $K$ grows, the BY threshold becomes more stringent. In contrast, the e-value based e-BH procedure effectively uses $e_{[k]} k/ K$ as its e-value, which avoids the $\log (K)$ scaling.
+where $c(K)= \sum_{i=1}^K 1/i \approx \ln(K) + 0.577$ is the $K^{th}$ harmonic number. % and $\gamma \approx 0.577$ the Euler-Mascheroni constant. 
+In contrast, e-BH sets the threshold
+\begin{align}
+\frac{1}{E_{[k]}} \leq \frac{\alpha k}{K}.
+\nonumber
+\end{align}
 
-There are settings however where e-values bring distinct advantages, beyond purely power considerations. For example, e-values can be used in online settings where data are collected sequentially, and where the decision to continue collecting data can depend on previously observed e-values. e-values can also be convenient in settings where one wishes to define new tests that combine evidence across tests, for example to aggregate evidence on the effect of a treatment across similar outcomes. This is because one may define e-values for the new tests by taking the product or the average of the e-values for the individual tests, whereas aggregating P-values can be more involved.
+There are therefore two issues driving how these two thresholds behave. 
+First, as pointed out by \cite{wang_ruodu:2022}, e-BHs avoid the $\ln(K)$ term in the denominator, hence its power scales better as $K$ grows. 
+Second, for any fixed $K$ the relative powers depend on the magnitude of $1/E_{[k]}$ versus that of $P_{[k]}$. For example, for the mixture calibrator e-variable (which has a fairly competitive power in our experiments), we have that
+\begin{align}
+ E_{[k]}= \frac{1 - P_{[k]} + P_{[k]} \ln(P_{[k]})}{P_{[k]} (\ln P_{[k]})^2},
+\nonumber
+\end{align}
+where the right-hand side converges to $1/[P_{[k]} (\ln P_{[k]})^2$ as $P_{[k]} \to 0$. Hence and roughly speaking, for small $P_{[k]}$, applying e-BH to the mixture calibrator implies a threshold
+\begin{align}
+ P_{[k]} (\ln P_{[k]})^2 \leq \frac{\alpha k}{K}.
+\nonumber
+\end{align}
+Therefore, if $(\ln P_{[k]})^2 > \ln(K) + 0.577$ then BY has higher power for rejecting these hypotheses, and otherwise e-BH has higher power. Note however that, because of the step-up nature of e-BH and BY, the hypotheses that are actually rejected are driven by the largest e-variable and smallest P-value (respectively) satisfying the threshold. That is, the power of these procedures is not by the most extreme e-variables / P-values.
 
-To address your concern and explore these issues we added this discussion to the section where FDR control with e-values is discussed, and we also added BY to our experiments. 
-To be clear, we are not taking a stand where we argue that e-values are necessarily preferrable to BY. The purpose of our paper was to assess the relative merits and shortcomings of e-values for multiverse analyses. In our previous submission we had already identified that e-values can lead to fairly low statistical power, and we had focused our comparisons on which e-value methods might work best. We appreciate your suggestion to add BY to give a broader perspective, and we believe that the paper has improved significantly because of it.
+We also remark hat e-BH is not the most powerful FDR controlling procedure for e-variables. For example, the closed e-BH procedure discussed in our paper has strictly higher power than e-BH, but we discuss e-BH here as it leads to more tractable expressions that provide some insights.
+
+
+Another consideration is that, beyond power comparisons, there are situations where e-variables can have appealing properties.
+One such property that can be relevant for multiverse analysis is evidence aggregation over various hypotheses. Suppose that one considers a set $A$ of related hypotheses (such as the effect of a treatment on multiple related outcomes), one can obtain an overall e-variable $E_A$ by aggregating the e-variables from the individual hypotheses. A simple such choice is defining the overall e-variable as the average (or weighted average) of the e-variables for the individual hypotheses. If all the hypotheses in $A$ are true, then $\mathbb E[E_A] = \sum_{k \in A} \mathbb E[E_{[k]}] / |A| \leq 1$. This can be used to test the intersection null hypothesis, that is that all null hypotheses in $A$ are true.
+
+Another property, albeit less relevant to standard multiverse applications, is the anytime validity of e-variables. This is useful in sequential settings where one decides to continue or stop experimentation based on the data that was observed so far, in a manner that was not pre-defined in advance. In such settings, P-values cannot be calibrated to control type I error, whereas e-variables continue to be valid, provided that they are constructed to satisfy certain martingale properties. Although we are not aware of applications that have made such uses for multiverse analysis, one could consider a setting where a multiverse analysis is conducted using an available dataset, and based on those findings one decides to gather additional data to gain more information on some of the specific treatments or outcomes. Assuming the additional data to be independent from the previous data, one easily define e-variables that combine the evidence across both datasets, for example by taking the products of the e-variables obtained in each set. As a word of caution however, a repeated application of e-variable multiplicity adjustments does not guarantee FDR control. For example, applying e-BH once all data has been obtained controls the FDR, but applying e-BH for the first dataset and for the combined dataset does not control the FDR.
+
+
+
+
 
 \david{Paul, can we add BY-adjusted P-values? As explained they should work worse than BY if we're doing only a few tests, and possibly better if we're doing many tests, so perhaps we could illustrate that?}
 
