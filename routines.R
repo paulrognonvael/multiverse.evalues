@@ -77,8 +77,49 @@ logcalib4 = function(p){
 }
 
 
+logcalib1_logp = function(log_p) {
+  # p = exp(log_p)
+  # Numerically stable equivalent formulas:
+  # If log_p is highly negative (p -> 0), the numerator approaches 1.
+  # We use log1p or algebraic expansions to robustly handle when p is close to 1 or 0.
+  
+  terme_log_p <- log_p
+  terme_p <- exp(log_p)
+  
+  # log(1 - p + p*log(p)) - log(p) - 2*log(|log(p)|)
+  # To prevent issues when p = 0, we use the expanded log form directly:
+  log_num <- log(1 - terme_p + terme_p * terme_log_p)
+  log_den <- terme_log_p + 2 * log(abs(terme_log_p))
+  
+  return(log_num - log_den)
+}
+
+# Calibrator 2
+logcalib2_logp = function(log_p) {
+  # log(2 * (1 - p)) = log(2) + log(1 - exp(log_p))
+  # We use -expm1(log_p) which accurately evaluates 1 - exp(log_p) without cancellation errors
+  return(log(2) + log(-expm1(log_p)))
+}
+
+# Calibrator 3
+logcalib3_logp = function(log_p) {
+  # Computes log(p^(-1/2) - 1) = log(exp(-0.5 * log_p) - 1)
+  # Since log1mexp(x) = log(1 - exp(-x)), we have
+  # x + log1mexp(x) = log(exp(x) * (1 - exp(-x))) = log(exp(x) - 1)
+  x = -0.5 * log_p
+  return(x + Rmpfr::log1mexp(x))   # x + log(1 - exp(-x))
+}
+
+
+# Calibrator 4
+logcalib4_logp = function(log_p) {
+  return(log(abs(log_p))) # log(-log(p)) is the log of abs(log_p)
+}
+
+
+
 hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FALSE, BF=FALSE, 
-                   p.to.e=FALSE){
+                   p.to.e=FALSE, logpvalue=FALSE){
   if(!require(modelSelection)){
     install.packages("modelSelection")
     library(modelSelection)
@@ -146,19 +187,43 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
     for(i in 1:length(list.modelsminus1)){
       glm.fitmin = glm(formula = list.modelsminus1[[i]], data=data, family=family.glm)
       if(family.glm=='gaussian'){
-        hypsupp$anov.pvalue[i]=anova(glm.fitfull,glm.fitmin)$`Pr(>F)`[2]        
+        res_anova  <- anova(glm.fitfull, glm.fitmin)
+        if (logpvalue) {
+          F_stat  <- res_anova$F[2]
+          df1     <- abs(res_anova$Df[2])
+          df2     <- res_anova$`Resid. Df`[2]
+          hypsupp$anov.logpvalue[i] <- pf(F_stat, df1 = df1, df2 = df2, lower.tail = FALSE, log.p = TRUE)          
+        } else {
+          hypsupp$anov.pvalue[i]= res_anova$`Pr(>F)`[2]
+        }
       }
       if(family.glm=='binomial'){
-        hypsupp$anov.pvalue[i]=anova(glm.fitfull,glm.fitmin)$`Pr(>Chi)`[2]        
+        res_anova = anova(glm.fitfull,glm.fitmin)
+        if (logpvalue) {
+          dev_diff <- abs(res_anova$Deviance[2])
+          df_diff  <- abs(res_anova$Df[2])
+          hypsupp$anov.logpvalue[i] <- pchisq(dev_diff, df = df_diff, lower.tail = FALSE, log.p = TRUE)
+        } else {
+          hypsupp$anov.pvalue[i]= res_anova$`Pr(>Chi)`[2]        
+        }
       }
-      hypsupp$logcalib1[i] = logcalib1(hypsupp$anov.pvalue[i])
-      hypsupp$logcalib2[i] = logcalib2(hypsupp$anov.pvalue[i])
-      hypsupp$logcalib3[i] = logcalib3(hypsupp$anov.pvalue[i])
-      hypsupp$logcalib4[i] = logcalib4(hypsupp$anov.pvalue[i])
+      if (logpvalue) {
+        hypsupp$logcalib1[i] = logcalib1_logp(hypsupp$anov.logpvalue[i])
+        hypsupp$logcalib2[i] = logcalib2_logp(hypsupp$anov.logpvalue[i])
+        hypsupp$logcalib3[i] = logcalib3_logp(hypsupp$anov.logpvalue[i])
+        hypsupp$logcalib4[i] = logcalib4_logp(hypsupp$anov.logpvalue[i])
+        
+      } else {
+        hypsupp$logcalib1[i] = logcalib1(hypsupp$anov.pvalue[i])
+        hypsupp$logcalib2[i] = logcalib2(hypsupp$anov.pvalue[i])
+        hypsupp$logcalib3[i] = logcalib3(hypsupp$anov.pvalue[i])
+        hypsupp$logcalib4[i] = logcalib4(hypsupp$anov.pvalue[i])
+      }
     }
   }
   
   res = hypsupp[,-which(colnames(hypsupp)%in%c('mle.llik','marg.llik','modname'))] 
+  if (logpvalue) res$anov.pvalue = exp(res$anov.logpvalue)
   
   return(list(stats = res, all.res = hypsupp, glm.full=glm.fitfull))
 }

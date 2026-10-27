@@ -47,8 +47,9 @@ xtable::xtable(nmiss[,1:3])
 
 
 ################################################################################
-#           eBH-corrected universal mixture evalue - mcs data                  #
+#           Obtain calibrated mixture evalues on MCS data                      #
 ################################################################################
+
 #### Loading data ####
 #### Computing raw and eBH corrected e-values for individual outcomes ####
 mcs_ind.evalues = list(); mcs_ind.eBH = list(); mcs_loglik = list()
@@ -180,7 +181,7 @@ supportstats = mutate(supportstats, OR= exp(logOR), CI = paste0("(", round(lower
 
 filter(supportstats, pvalue.BY < 0.05)
 
-## Merge p-values with e-values into a single data.frame
+## Obtain adjusted e-values and merge them with p-values into a single data.frame
 
 library(eClosure) # closed e-BH procedure
 
@@ -208,3 +209,56 @@ group_by(tab, Treatment) |>
   mutate(reject_Bonferroni = min_pvalue * number_outcomes < 0.05)
 
 
+
+
+################################################################################
+##  COMBINE EVIDENCE WITH THAT FROM TWENGE ET AL 2017
+################################################################################
+
+p2e.mix <- function(p) (1 - p + p * log(p)) / (p * (log(p)^2))  # p-to-e mixture calibrator
+
+# Function to convert partial correlation r to exact p-value and calibrated e-value
+r_to_p_e <- function(r, n, k = 5) {
+  df <- n - 2 - k
+  t_stat <- r * sqrt(df / (1 - r^2))
+  p_val <- 2 * pt(abs(t_stat), df = df, lower.tail = FALSE)
+  e_val <- p2e.mix(p_val)
+  return(data.frame(r = r, n = n, df = df, t_stat = t_stat, p_val = p_val, e_val = e_val))
+}
+
+
+# Dataset. Monitoring the Future (MtF): Depressive Symptoms (Table 2)
+# Controls: sex, race, SES, grade, region (k = 5 for overall; k = 4 for stratified)
+
+evalues.mtf <- rbind(
+  data.frame(Dataset = "MtF", Outcome = "Depressed (adolescent)", Treatment = "Social_media",  evalue.mtf=r_to_p_e(r = 0.03, n = 77487, k = 5)$e_val
+), 
+  data.frame(Dataset = "MtF", Outcome = "Depressed (adolescent)", Treatment = "TV",  evalue.mtf=r_to_p_e(r = 0.02, n = 77487, k = 5)$e_val))
+
+#  data.frame(Dataset = "MtF", Outcome = "Depressive Symptoms", Group = "Girls", Treatment = "Social Media",      r_to_p_e(r = 0.06, n = 37830, k = 4)),
+#  data.frame(Dataset = "MtF", Outcome = "Depressive Symptoms", Group = "Girls", Treatment = "TV Viewing",        r_to_p_e(r = 0.03, n = 37830, k = 4)),
+#  data.frame(Dataset = "MtF", Outcome = "Depressive Symptoms", Group = "Boys",  Treatment = "Social Media",      r_to_p_e(r = 0.01, n = 36291, k = 4)),
+#  data.frame(Dataset = "MtF", Outcome = "Depressive Symptoms", Group = "Boys",  Treatment = "TV Viewing",        r_to_p_e(r = 0.02, n = 36291, k = 4)) 
+
+
+# Dataset. Youth Risk Behavior Surveillance System (YRBSS): Suicide-Related Risk (Table 2)
+# Controls: sex, race, grade (k = 3 for overall; k = 2 for stratified)
+#yrbss <- rbind(
+#  data.frame(Dataset = "YRBSS", Outcome = "Suicide-Related Risk", Treatment = "Electronic Device", evalue=r_to_p_e(r = 0.13, n = 59115, k = 3)),
+#  data.frame(Dataset = "YRBSS", Outcome = "Suicide-Related Risk", Treatment = "TV",  evalue=r_to_p_e(r = 0.02, n = 59115, k = 3)))
+
+#  data.frame(Dataset = "YRBSS", Outcome = "Suicide-Related Risk", Group = "Girls", Treatment = "Electronic Device", r_to_p_e(r = 0.14, n = 29500, k = 2)),
+#  data.frame(Dataset = "YRBSS", Outcome = "Suicide-Related Risk", Group = "Girls", Treatment = "TV Viewing",        r_to_p_e(r = 0.02, n = 29500, k = 2)),
+#  data.frame(Dataset = "YRBSS", Outcome = "Suicide-Related Risk", Group = "Boys",  Treatment = "Electronic Device", r_to_p_e(r = 0.12, n = 29500, k = 2)),
+#  data.frame(Dataset = "YRBSS", Outcome = "Suicide-Related Risk", Group = "Boys",  Treatment = "TV Viewing",        r_to_p_e(r = 0.03, n = 29500, k = 2)) 
+
+
+evalues.mcs = read_csv(paste0('output/mcs/all.eBH005logcalib1.csv')) |>
+  rename(Outcome = outcome, Treatment = var, evalue.mcs = evalue) |>
+  select(Outcome, Treatment, evalue.mcs) |>
+  arrange(desc(evalue.mcs))
+
+evalues.all = left_join(evalues.mtf, evalues.mcs, by= join_by(Outcome, Treatment)) |>
+  mutate(evalue = evalue.mtf * evalue.mcs)
+
+evalues.all

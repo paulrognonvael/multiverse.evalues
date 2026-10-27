@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{28}
+\begin{thebibliography}{30}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -376,6 +376,42 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \endbibitem
 
 %%% 25
+\bibitem[\protect\citeauthoryear{Miech et~al.}{2025}]{mtfstudy:2025}
+\begin{botherref}
+\oauthor{\bsnm{Miech}, \binits{R.A.}},
+\oauthor{\bsnm{Johnston}, \binits{L.D.}},
+\oauthor{\bsnm{O'Malley}, \binits{P.M.}},
+\oauthor{\bsnm{Bachman}, \binits{J.G.}},
+\oauthor{\bsnm{Schulenberg}, \binits{J.E.}},
+\oauthor{\bsnm{Patrick}, \binits{M.E.}}:
+Monitoring the future national survey results on drug use, 1975--2024:
+  Secondary school students.
+Monograph,
+Institute for Social Research, The University of Michigan,
+Ann Arbor, MI
+(2025).
+\url{https://monitoringthefuture.org}
+\end{botherref}
+\endbibitem
+
+%%% 26
+\bibitem[\protect\citeauthoryear{Twenge et~al.}{2018}]{twenge:2018}
+\begin{barticle}
+\bauthor{\bsnm{Twenge}, \binits{J.M.}},
+\bauthor{\bsnm{Joiner}, \binits{T.E.}},
+\bauthor{\bsnm{Rogers}, \binits{M.L.}},
+\bauthor{\bsnm{Martin}, \binits{G.N.}}:
+\batitle{Increases in depressive symptoms, suicide-related outcomes, and
+  suicide rates among {US} adolescents after 2010 and links to increased new
+  media screen time}.
+\bjtitle{Clinical psychological science}
+\bvolume{6}(\bissue{1}),
+\bfpage{3}--\blpage{17}
+(\byear{2018})
+\end{barticle}
+\endbibitem
+
+%%% 27
 \bibitem[\protect\citeauthoryear{Valkenburg et~al.}{2022}]{valkenburg:2022}
 \begin{barticle}
 \bauthor{\bsnm{Valkenburg}, \binits{P.M.}},
@@ -390,7 +426,7 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \end{barticle}
 \endbibitem
 
-%%% 26
+%%% 28
 \bibitem[\protect\citeauthoryear{Allcott et~al.}{2020}]{allcott:2020}
 \begin{barticle}
 \bauthor{\bsnm{Allcott}, \binits{H.}},
@@ -405,7 +441,7 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \end{barticle}
 \endbibitem
 
-%%% 27
+%%% 29
 \bibitem[\protect\citeauthoryear{Allcott et~al.}{2022}]{allcott:2022}
 \begin{barticle}
 \bauthor{\bsnm{Allcott}, \binits{H.}},
@@ -419,7 +455,7 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \end{barticle}
 \endbibitem
 
-%%% 28
+%%% 30
 \bibitem[\protect\citeauthoryear{Braghieri et~al.}{2022}]{braghieri:2022}
 \begin{botherref}
 \oauthor{\bsnm{Braghieri}, \binits{L.}},
