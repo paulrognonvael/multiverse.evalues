@@ -98,7 +98,7 @@
 
 \begin{document}
 
-\title[e-values for multiverse analysis]{e-values for multiplicity control in multiverse analysis}
+\title[e-values for multiverse analysis]{\color{blue} The role of e-values in multiverse analysis \color{black}}
 
 %%=============================================================%%
 %% GivenName	-> \fnm{Joergen W.}
@@ -121,10 +121,11 @@
 \affil[3]{\orgdiv{Data Science Center}, \orgname{Barcelona School of Economics}, \orgaddress{\street{Ram\'on Trias Fargas 25}, \city{Barcelona}, \postcode{08005}, \country{Spain}}}
 
 
-\abstract{Multiverse analysis refers to a common situation where one wishes to assess the association between multiple possible treatment definitions and multiple possible outcome definitions, potentially within multiple sub-populations, among other possible analysis specifications. Multiverse analysis is a useful exploratory tool to assess heterogeneity across the considered specifications, but it is sometimes also used to assess statistical significance. Then, it is critical to acknowledge that multiple comparisons are being performed, and to ensure a valid statistical control of false positive findings. 
-We study the use of e-values within generalized linear models as a tool to control the false discovery rate regardless of the dependence structure of the multiple analyses being performed, while accounting for confounding covariates. 
-We compare \color{blue} via simulations \color{black} the performance of several approaches: universal e-values, soft-rank e-values, and p-to-e calibration. We find that, for problem characteristics typically encountered in multiverse analyses, \color{blue} a mixture-based \color{black} p-to-e calibration significantly outperforms the other two approaches in terms of statistical power, but said power may be moderate unless the sample size or effect sizes are large enough. 
-An application studying the association between teenager technology use and mental well-being reveals association between depression, low self-steem and peer problems with internet and social media usage.}
+\abstract{Multiverse analysis refers to a situation where one wishes to assess the association between multiple possible treatment definitions and multiple possible outcome definitions, potentially within multiple sub-populations, among other possible analysis specifications. The multiverse is a useful exploratory tool to assess heterogeneity across the considered specifications, but it is sometimes also used to assess statistical significance. Then, it is critical to ensure the \color{blue} statistical validity \color{black} of the findings. 
+We study the use of e-values within generalized linear models as a \color{blue} hypothesis testing tool for such multiverse analyses. E-values allow one to control the false discovery rate (FDR) across multiple tests, and to flexibly combine evidence across hypotheses and across datasets. \color{black}
+We compare \color{blue} via simulations \color{black} the performance of several approaches: universal e-values, soft-rank e-values, and p-to-e calibration. We find that, for problem characteristics typically encountered in multiverse analyses, \color{blue} a mixture-based and an inverse-root based \color{black} p-to-e calibration significantly outperform the other two approaches in statistical power.
+Said power is however moderate unless the sample size or effect sizes are large enough, \color{blue} and slightly lower than when using Benjamini-Yekutieli adjusted p-values. Hence, e-values bring limited benefits purely for FDR control, their main asset being aggregating evidence over hypotheses or over datasets. We illustrate these features in an  \color{black}
+application studying the association between teenager technology use and mental well-being, where we find an association between depression, low self-steem and peer problems with internet, social media \color{blue} and television use. \color{black}}
 
 \keywords{multiverse analysis, e-value, multiple testing, false discovery rate}
 
@@ -139,53 +140,68 @@ An application studying the association between teenager technology use and ment
 
 
 There are many applications where one wants to assess the effect of multiple treatments on multiple outcomes, potentially also separately within multiple sub-populations.
-A prominent example in the Social Sciences occurs when one has multiple outcomes that can be conceivably thought of as measuring related underlying characteristics, such as different measures of psychological well-being, several measures of economic activity, or several measures of radicalization in social media usage.
-Similarly, the multiple treatments may refer to using various types of technology, realizing various economic interventions, or exposure to various social media unradicalization campaigns.
+A prominent example in the Social Sciences occurs when one has multiple outcomes that measure related underlying characteristics, such as different measures of psychological well-being \citep{orben:2019}, several measures of economic activity \citep{banerjee_abhijit:2015}, or several measures of radicalization in social media usage \citep{bail:2018}.
+Similarly, the multiple treatments may refer to using various types of technology, realizing various anti-poverty interventions, or exposure to various social media unradicalization campaigns.
 It may also be natural to wish to assess treatment effects within sub-populations, for example defined by gender and age groups, economic regions, or social media user backgrounds.
-Beyond the Social Sciences, similar situations arise in other fields. In Biomedicine one may study the effect of non-identical, but related, treatments on multiple measures of disease progression, in Climate Science one may study the association between multiple human-driven processes on multiple physical parameters, etc.
+Beyond the Social Sciences, similar situations arise in other fields. In Biomedicine one may study the effect of non-identical, but related, treatments on multiple measures of disease progression \citep{pocock:1987}, in Climate Science one may study the association between multiple human-driven processes on multiple physical parameters \citep{knutti:2010}, etc.
+\color{blue} Furthermore, there may also be more than one dataset that one can conceivably use. \color{black}
 
-Multiverse analysis provides a data analysis framework that considers such multiple outcome-treatment-subpopulation combinations.
-A key pitfall that it seeks to avoid is selective reporting, whereby researchers consider all treatment-outcome-subpopulation combinations and report only those where the estimated effects are larger or more statistically significant. Critically, selective reporting occurs when a researcher fails to indicate all the combinations that were considered.
-By acknowledging all such combinations, multiverse analysis serves as an excellent tool as an exploratory data analysis method that assesses the heterogeneity or the sensitivy of results across various analysis specifications.
-In some instances however, researchers may be interested in going beyond a descriptive analysis to also report some assessment of statistical significance. In such circumstances one may wish to control some measure of false discoveries, and if so it is then critical to account for the multiple comparisons when assessing the statistical significance of the findings. This is the strategy followed in this paper. To be clear, we do not argue that hypothesis testing should be preferred over descriptive analyses or confidence intervals, simply that if one wishes to test hypotheses then this should be done properly.
+Multiverse analysis \citep{steegen:2016} provides a data analysis framework to consider such multiple outcome-treatment-subpopulation\color{blue}-dataset \color{black} combinations.
+A key pitfall that it seeks to avoid is selective reporting, whereby researchers consider all treatment-outcome-subpopulation\color{blue}-dataset \color{black}  
+combinations and report only those where the estimated effects are larger or more statistically significant. Critically, selective reporting occurs when a researcher fails to indicate all the combinations that were considered.
+By acknowledging all such combinations, multiverse analysis serves as an excellent exploratory data analysis method to assess the heterogeneity of results across various analysis specifications.
+\color{blue} Further, if one observes consistent trends across comparisons (for example, a treatment having an effect on multiple outcomes) or across datasets, one may informally have stronger evidence that said treatment effects exist. \color{black}
+In some instances, researchers may be interested in going beyond a descriptive analysis to also assess statistical significance. 
+\color{blue} In this paper we investigate the use of e-values as a tool to assess significance within a multiverse analysis. \color{black}
+%In this paper we study the use of a simple approach to multiplicity control in multiverse analysis based on e-values. %The approach is discussed by \cite{ramdas:2025} (Chapter 5.2), and combines ideas from likelihood ratio tests and Bayes factors.
+E-values are an increasingly popular hypothesis testing framework that has several features relative to p-values.
+%When comparing two hypotheses, e-values accumulate evidence against the null hypothesis similarly to a Bayes factor (see \cite{kass_raftery:1995} for a review). 
+\color{blue} First, e-values are well-suited to control the false discovery rate (FDR) in multiple comparisons, and there are situations when one tests many hypotheses where they can have higher statistical power than Benjamini-Yekutieli p-value adjustments \citep{wang_ruodu:2022,benjamini:2001}. There are also settings where the power can be lower, as we discuss here. Second, e-values enable anytime-valid inference, which allows accumulating evidence across multiple datasets and making decisions sequentially, based on the evidence accumulated at any given point in time. %Universal inference e-values are a type of e-value which (as the name suggests) can be applied to any setting, including those where test statistics follow an unknown distribution and hence p-values are not applicable.
+Third, e-values allow combining evidence across hypotheses, for example on the effect of a treatment across multiple outcomes, or on its effect in multiple sub-populations. In summary, e-values give the researcher a fair amount of flexibility for testing hypothesis while preserving statistical validity, and both issues are relevant for multiverse analysis. \color{black}
+For seminal papers on e-values see \cite{vovk:2021,gruenwald:2024,chugg:2026}, and for an excellent monograph see \cite{ramdas:2025}.
+%In such circumstances one may wish to control some measure of false discoveries, and it is then critical to account for the multiple comparisons being performed. This is the strategy followed in this paper. 
+To be clear, we do not argue that hypothesis testing should be preferred over descriptive analyses or confidence intervals, simply that if one wishes to test hypotheses then this should be done properly.
 
-Before proceeding, we discuss another popular strategy: focus the analysis on some summary measure across all the comparisons being made. 
-This is the standard approach for meta-analyses in the medical literature, where one combines the evidence regarding the effect of a medical treatment (or family or related treatments) across studies (typically, randomized clinical trials). Therein, it is common to account for treatment effect heterogeneity, often driven by differences in the patient population targeted by each study.
-A notable example in the Social Sciences, where randomized trials are rare, is Specification Curve Analysis (SCA, \cite{simonsohn:2020}). By default, SCA reports the median estimated effect across treatment-outcome-subpopulations, and assesses the statistical significance of this single parameter.
-An advantage of using a single summary measure over multiple comparison adjustments is that, since no significance corrections are needed, if all treatment effects are comparable then one may have higher statistical power to detect that the summarized effect truly exists.
+Before proceeding, we discuss a popular alternative strategy to reporting all the performed comparisons: focus the analysis on some summary measure across all comparisons. 
+This is the standard approach for meta-analyses in Biomedicine, where one combines the evidence for the effect of a medical treatment (or family or related treatments) across studies (typically, randomized clinical trials). 
+Therein, it is common to account for treatment effect heterogeneity, often driven by differences in the patient population targeted by each study.
+A notable example in the Social Sciences, where randomized trials are rare, is Specification Curve Analysis (SCA, \cite{simonsohn:2020}). 
+\color{blue} SCA is a useful descriptive tool to assess whether treatment effects are heterogeneous or vary substantially across analysis specifications, or to the contrary whether they are robust to the specification. SCA can also be used for hypothesis testing: \color{black}
+by default, SCA reports the median estimated effect across treatment-outcome-subpopulations, and assesses the statistical significance of this single parameter.
+An advantage of using a single summary measure over multiple comparisons is that, since no significance corrections are needed, if all treatment effects are comparable then one may have higher statistical power to detect that the summarized effect truly exists.
 However, we urge strong caution in the sense that aggregate measures should only be used in appropriate circumstances.
 A critical pitfall is that, when the treatments are not comparable or there is significant heterogeneity in their effects, the aggregate measure may be highly misleading.
-For example, \cite{semken:2022} showed that SCA led \cite{orben:2019} to erroneously concluding that the association between technology use and teenager well-being was practically negligible. The reason was that the association was near-zero for some technologies such as television use, but large for others such as mobile phone use, and hence overall mild on the average.
+For example, \cite{semken:2022} showed that SCA led \cite{orben:2019} to erroneously concluding that the association between technology use and teenager well-being was practically negligible. The reason was that the association was near-zero for some technologies such as television use, but large for others such as mobile phones, and hence overall mild on the average.
 Another critical issue arises when the aggregate measure is obtained across multiple possible subsets of control covariates, an option that is explicitly considered in SCA.
 This is inadequate because one combines quantities that have a different statistical meaning, such as marginal and conditional associations, and hence the summary has no natural interpretation. % (on top of heterogeneity issues mentioned earlier, which may also occur across subsets of control covariates).
 For example, assessing the conditional association between salary and gender given an individual's job position, education and other characteristics has a different meaning than assessing the marginal association between salary and gender. Namely, a marginal association between gender and salary can be partially driven by people from different genders making different career choices, whereas an association between gender and salary within people with the same job position, education and characteristics suggests a possible salary discrimination. %\paul{I think "gender" would be more appropriate than sex} \david{In a previous paper a referee complained that we used gender, and said that sex was more appropriate. To be precise, both are reasonable, sex is based on biology and gender on self-identification, and the example that we mention can be applied to either. So take your pick, I'm happy either way. :-)} \paul{I think that in this case discrimination would be based on gender, to be precise not even self-identified gender but perceived gender, rather than biological sex. There is a bit of politics around the sex/gender wording but given the journal we will be submitting (Journal of Sociological Methods and Research), my bet would be that "gender" is preferred by reviewers.}
 See \cite{semken:2022} for an in-depth discussion of issues with SCA.
 
-In this paper we study the use of a simple approach to multiplicity control in multiverse analysis based on e-values. %The approach is discussed by \cite{ramdas:2025} (Chapter 5.2), and combines ideas from likelihood ratio tests and Bayes factors.
-Briefly, e-values are an increasingly popular framework for hypothesis testing that has several features relative to p-values. %\paul{should we write "p-value" since we write "e-value"?}
-When comparing two hypotheses, e-values accumulate evidence against the null hypothesis similarly to a Bayes factor (see \cite{kass_raftery:1995} for a review). Further, e-values guarantee a strict control of the type I error probability, and are particularly suited to control the false discovery rate (FDR) in multiple comparisons \citep{wang_ruodu:2022}. Although less relevant to this work, e-values also enable anytime-valid inference, a strong asset in settings where one accumulates data and makes decisions sequentially. %Universal inference e-values are a type of e-value which (as the name suggests) can be applied to any setting, including those where test statistics follow an unknown distribution and hence p-values are not applicable.
-For seminal papers on e-values see \cite{vovk:2021,gruenwald:2024,chugg:2026}, and for an excellent monograph see \cite{ramdas:2025}.
 
-We briefly review the rich literature on FDR control for multiple testing.
-\cite{benjamini:1995} proposed that, when conducting many statistical tests, one should use procedures that guarantee controlling the FDR below a user pre-specified level $\alpha$. The FDR is the expected proportion of false positives among the hypotheses that are claimed as statistically significant.
-\cite{benjamini:1995} proposed a p-value adjustment procedure that controls the FDR under the assumption that the tests are independent, and \cite{benjamini:2001} a variation that assumes that the tests follow a type of positive dependence structure.
+We briefly review the rich literature on FDR control for multiple testing \citep{benjamini:1995}.
+%\cite{benjamini:1995} proposed that, when conducting many statistical tests, one should use procedures that guarantee controlling the FDR below a user pre-specified level $\alpha$. 
+The FDR is the expected proportion of false positives among the hypotheses that are claimed as statistically significant.
+\cite{benjamini:1995} proposed a p-value adjustment procedure that controls the FDR under the assumption that the tests are independent, \color{blue} and Benjamini-Yekutieli (BY) \cite{benjamini:2001} a variation that allows an arbitrary dependence structure between the tests. \color{black}
 A large body of subsequent work extended the FDR framework in several directions.
 A prominent example are the q-values of~\cite{storey:2003}.
 Analogously to p-values controlling the expected number of false discoveries, q-values control the expected positive FDR, that is the expected fraction of false discoveries, conditional on $\geq 1$ discoveries being reported.
 % which estimates the FDR associated with each individual hypothesis using an estimate of the proportion of true null hypotheses.
 However, q-values require estimating nuisance parameters such as the proportion of true null hypotheses, and therefore do not control the FDR exactly. Further, estimating said nuisance parameters often requires simplifying assumptions such as independence between the test statistics, which rarely hold in practice.
-Another influential line of work is based on the local FDR~\citep{efron:2001}, which is embedded into an empirical Bayes framework. The local FDR can be interpreted as the posterior probability that a given hypothesis is null, given the value of the test statistic for that hypothesis. The local FDR provides a more refined, hypothesis-specific, assessment of significance than tail-area measures such as q-values. 
+Another influential line of work is based on the local FDR~\citep{efron:2001}. %, which is embedded into an empirical Bayes framework. 
+The local FDR can be interpreted as the posterior probability that a given hypothesis is null, given the value of the test statistic for that hypothesis. The local FDR provides a more refined, hypothesis-specific, assessment of significance than tail-area measures such as q-values. 
 Estimating the local FDR accurately requires the number of hypotheses being tested to be larger than is common in multiverse analyses (at least in the hundreds), assuming independence across tests, and making certain choices when estimating the global mixture distribution of the test statistics.
 Further related work includes the optimal discovery procedure of~\cite{storey:2007}, and the Bayesian discovery procedure of~\cite{guindani:2009}. See~\cite{efron:2012} for a monograph on FDR control.
 
-An advantage of e-values over these methods are that they provide a finite-$n$ FDR control that does not require estimating nuisance parameters, and which holds regardless of the number of tests being performed and of the dependence structure between the multiple tests. This is relevant in multiverse analysis, where typically tests cannot be assumed independent.
-Another advantage of e-values for multiverse analysis is that they are more composable, for example they can be multiplied or averaged across independent datasets (corresponding to subpopulations where a treatment effect is tested, for example) to obtain valid e-values.
-A main limitation of e-values relative to methods based on p-values, q-values and empirical Bayes is that the latter usually have a higher statistical power, provided that their assumptions hold. 
-Therefore, e-values are most appropriate for datasets where one has relatively large sample sizes. Otherwise, while FDR control is ensured, one may obtain few statistically significant findings. In this paper, we consider several strategies to obtain e-values and compare their power via simulation studies that mimic common sample sizes and problem dimensions encountered in multiverse analysis within the Social Sciences. Our findings suggest that simple p-to-e calibration rules, which convert a p-value into an e-value, attain higher statistical power than generic strategies such as universal e-values \citep{wasserman:2020} and soft-rank e-values \citep{koning:2023}. 
+\color{blue} Similar to BY-adjusted p-values, \color{black} e-values provide a finite-$n$ FDR control that does not require estimating nuisance parameters, and which holds regardless of the number of tests being performed and of their dependence structure. This is relevant in multiverse analysis, where tests cannot be assumed independent.
+As mentioned, another feature of e-values is that they are composable: \color{blue} they can be multiplied across independent datasets or averaged across multiple arbitrary hypotheses %(corresponding to subpopulations where a treatment effect is tested, for example) 
+to obtain valid overall measures of evidence. \color{black}
+A main limitation of e-values relative to p-values, q-values and empirical Bayes is that the latter usually have a higher statistical power, provided that their assumptions hold. 
+Therefore, e-values are most appropriate for datasets where one has relatively large sample sizes. Otherwise, while FDR control is ensured, one may obtain few statistically significant findings. In this paper, we consider several strategies to obtain e-values and compare their power via simulation studies that mimic common sample sizes and problem dimensions encountered in multiverse analysis within the Social Sciences. \color{blue} We also compare their power to BY p-value adjustment. \color{black} Our findings suggest that simple p-to-e calibration rules, which convert a p-value into an e-value, attain higher statistical power than generic strategies such as universal e-values \citep{wasserman:2020} and soft-rank e-values \citep{koning:2023}. \color{blue} They also suggest that BY adjustments attain similar and overall slightly higher power than e-value procedures, except for large multiverses testing many hypotheses. Hence, the appeal of e-values may lie more in their flexibility to accumulate evidence across hypotheses or across datasets than on FDR control. \color{black}
 
 
-The paper is structured as follows. In Section~\ref{sec:framework} we introduce notation and lay out a generalized linear model framework for treatment effect estimation within the context of a multiverse analysis.
-Section~\ref{sec:evalues} reviews e-values, discusses their use for multiplicity control, and assesses the power of several e-value methods via linear and logistic regression simulation exercises.
+The paper is structured as follows. In Section~\ref{sec:framework} we introduce notation and lay out a generalized linear model framework for treatment effect estimation within a multiverse analysis.
+Section~\ref{sec:evalues} reviews e-values, discusses their use for multiplicity control \color{blue} and to aggregate evidence across hypotheses and across datasets. \color{black}
+Section \ref{sec:simulation} assesses the power of several e-value methods \color{blue} and of BY p-value adjustments \color{black} via linear and logistic regression simulation exercises.
 Section~\ref{sec:teenager} applies our methodology to a dataset studying the association between teenager mental well-being and technology use.
 Section~\ref{sec:discussion} concludes.
 
@@ -195,8 +211,8 @@ Section~\ref{sec:discussion} concludes.
 
 
 We lay out a multiverse framework that is based on generalized linear models and closely resembles that of \cite{semken:2022} but provides FDR control guarantees through e-values.
-Consider a setting where one has $L$ outcomes, $p_x$ treatments and $p_z$ control covariates, with $n$ observations for each.
-Said observations may be potentially split across $p_g \geq 1$ subpopulations.
+Consider a setting where one has $L$ outcomes, $p_x$ treatments and $p_z$ control covariates, with $n$ observations for each. Said observations may be potentially split across $p_g \geq 1$ subpopulations.
+\color{blue} The outcomes could be recorded across multiple datasets, each with its own sample size and set of covariates, but we focus our exposition on the common $n$ and $(p_x, p_z)$ for simplicity.  \color{black}
 Let $y^{(l)} \in \mathbb{R}^n$ for $l=1,\ldots,L$ be the observed outcomes,
 $X$ the $n \times p_x$ matrix and $Z$ the $n \times p_z$ with the treatment and control covariates (respectively),
 and $G$ a $n \times p_g$ matrix enconding the subgroup information (if one is not interested in subgroups, then $G$ is omitted).
@@ -212,11 +228,11 @@ A generalized linear model for outcome $l$ assumes that
 \end{align}
 where $F$ is the link function (e.g., the identity for linear regression, or the logit for logistic regression),
 $\beta_0^{(l)} \in \mathbb{R}$ is the intercept,
-$\beta_j^{(l)} \in \mathbb{R}$ the average effect of treatment $j$ on outcome $l$,
+$\beta_j^{(l)} \in \mathbb{R}$ a global coefficient relating treatment $j$ to outcome $l$,
 $\delta_j^{(l)}$ captures subpopulation-specific effects,
 and $\eta_z^{(l)} \in \mathbb{R}^{p_z}$ and $\eta_g^{(l)} \in \mathbb{R}^{p_g}$ are coefficients associated to control covariates and subgroups respectively.
 We denote the whole parameter vector by $\theta^{(l)}= (\{ \beta_j^{(l)} \}_{j=0}^{p_x}, \{ \delta_j^{(l)} \}_{j=1}^{p_x}, \eta_z^{(l)}, \eta_g^{(l)})$.
-Importantly, to be able to interpret $\beta_j^{(l)}$ as an average treatment effect, $g_i \in \mathbb{R}^{p_g}$ must encode subpopulation information using a sum-to-zero constraint.
+Importantly, to interpret $\beta_j^{(l)}$ as an average treatment effect, $g_i \in \mathbb{R}^{p_g}$ must encode subpopulation information using a sum-to-zero constraint.
 \color{blue} Specifically, let $\rho_k=n_k/n$ where $n_k$ is the number of observations coming from subpopulation $k$, we define
 \begin{align}
   g_{ik}= \begin{cases}
@@ -225,14 +241,13 @@ Importantly, to be able to interpret $\beta_j^{(l)}$ as an average treatment eff
     \end{cases}
 \nonumber
 \end{align}
-for $k=1,\ldots,p_g$, which implies that %$\sum_{i=1}^n g_{ik}=0$.
+for $k=1,\ldots,p_g$, which implies that 
 \begin{align}
  \sum_{i=1}^n g_{ik}= n_k (1-\rho_k) + (n - n_k) (- \rho_k)= n_k \frac{n - n_k}{n} - (n-n_k) \frac{n_k}{n} = 0.
 \nonumber
 \end{align}
-\color{black}
-
-We define the effect of treatment $j$ on outcome $l$ for individual $i$ in subpopulation $k$ as
+Intuitively, our coding ensures that the $g_{ik}$'s are orthogonal to the intercept, which as shown below allows to interpret $\beta_j^{(l)}$ as an average measure of association and the terms $g_i^T \delta_j^{(l)}$ as deviations from that average. Specifically,
+\color{black} we define the effect of treatment $j$ on outcome $l$ for individual $i$ in subpopulation $k$ as
 \begin{align}
 \beta_{jk}^{(l)}=  \frac{\partial}{\partial x_{ij}} F(\mathbb E (y_i^{(l)} \mid x_i, z_i, g_i)) 
 = \beta_j^{(l)} + g_i^T \delta_j^{(l)}
@@ -246,6 +261,24 @@ The corresponding average treatment effect (ATE) across all individuals is
 \nonumber
 \end{align}
 
+\color{blue} 
+We remark that we use the treatment effect nomenclature without any pretension that it represents a causal effect. Rather, $\beta_j^{(l)}$ measures conditional association between treatment $j$ and outcome $l$, given control covariates. For example, in our teenager application we find associations between mental well-being and technology use, but we do not claim said associations to be necessarily causal. For $\beta_j^{(l)}$ to identify a causal effect from our framework, further assumptions are needed (see \cite{hernan:2010}, Chapter 15, for example). First, that the outcome equation \eqref{eq:outcome_equation} specifies correctly the relation between the covariates and the mean of the outcome. Second, that there are no unmeasured confounders.
+
+In the causal inference literature it is common to use the following alternative definition for the treatment effect
+\begin{align}
+ \frac{\partial}{\partial x_{ij}} \mathbb E (y_i^{(l)} \mid x_i, z_i, g_i)
+= (F^{-1})' (x_i, z_i, g_i) [ \beta_j^{(l)} + g_i^T \delta_j^{(l)} ],
+\nonumber
+\end{align}
+so that the effect depends on the individual's covariate values $(x_i, z_i)$. The ATE is then
+\begin{align}
+\beta_j^{(l)} \frac{1}{n} \sum_{i=1}^n (F^{-1})' (x_i, z_i, g_i).
+\nonumber
+\end{align}
+Hence the ATE is 0 when $\beta_j^{(l)}=0$, and the effect in a subpopulation is 0 when $\beta_j^{(l)} + g_i^T \delta_j^{(l)}=0$,
+leading to the same hypothesis tests as our earlier definition.
+\color{black}
+
 We consider a multiverse analysis where one is interested in estimating the ATEs $\beta_j^{(l)}$ for $l=1,\ldots,L$ and $j=1,\ldots,p_x$,
 and performing the corresponding $L p_x$ hypothesis tests
 \begin{align}\label{eq:test}
@@ -257,20 +290,35 @@ H_{lj}: &\beta_j^{(l)}= 0, \beta_{j'}^{(l)} \neq 0 \mbox{ for } j' \neq j
 That is, the null hypothesis $H_{lj}$ is that treatment $j$ has zero effect on outcome $l$, without any restrictions on the remaining treatment effects.
 And there is a global alternative hypothesis $\overline{H}_l$, shared across all treatments, that all treatment effects are non-zero.
 We denote by $\mathcal{H}_{lj}$ the set of probability distributions such that $H_{lj}$ holds, and by $\overline{\mathcal{H}}_l$ the set where \color{blue} none of the $H_{lj}$'s hold (that is, $\overline{\mathcal{H}}_l$ is the complement of $\bigcup_{j=1}^{p_x} \mathcal{H}_{lj}$). \color{black}
-In the event that one is also interested in testing the effect within subpopulations, there are $L p_x p_g$ further tests corresponding to $H_{ljk}: \beta_{jk}^{(l)}=0$ for  $l=1,\ldots,L$, $j=1,\ldots,p$ and $k=1,\ldots,p_g$.
+If one is also interested in testing the effect within subpopulations, there are $L p_x p_g$ further tests corresponding to $H_{ljk}: \beta_{jk}^{(l)}=0$ for  $l=1,\ldots,L$, $j=1,\ldots,p$ and $k=1,\ldots,p_g$.
 To ease notation we drop the subscript $k$ in the exposition below, that is we describe the case where there are no subpopulations, but our framework remains readily applicable when sub-populations are also of interest.
 
 Although not stated explicitly, none of the remaining parameters in $\theta^{(l)}$ are assumed to be zero, neither under the null nor the alternative.
 In particular, the control covariates effects $\eta_z$ are always assumed to be non-zero.
-This is contrast to SCA \citep{simonsohn:2020} or its Bayesian counterpart \citep{semken:2022}, where one also considers covariate subsets.
-As discussed in Section~\ref{sec:intro}, SCA computes a median over subsets of control covariates that has no statistical interpretation. Its Bayesian counterpart computes a weighted average where weights are given by posterior model probabilities, which as $n \to \infty$ converges to performing inference under a model that includes only the controls that have non-zero effects.
-While this implies an asymptotic gain in statistical power, one does not obtain strict type I error control for finite $n$.
-Hence our strategy here of including all controls, as an alternative that is more conservative but strictly controls false positives.
+This is contrast to SCA \citep{simonsohn:2020}, %or its Bayesian counterpart \citep{semken:2022}, 
+%where one also considers covariate subsets.
+which as discussed in Section~\ref{sec:intro} computes a median over subsets of control covariates that has no statistical interpretation. 
+%Its Bayesian counterpart computes a weighted average where weights are given by posterior model probabilities, which as $n \to \infty$ converges to performing inference under a model that includes only the controls that have non-zero effects.
+%While this implies an asymptotic gain in statistical power, one does not obtain strict type I error control for finite $n$.
+%Hence our strategy here of including all controls, as an alternative that is more conservative but strictly controls false positives.
+\color{blue}
+Importantly, our strategy assumes that the controls are a so-called valid adjustment set \citep{henckel:2022}, that is
+that one has excluded colliders and mediators that would lead to identifying a different treatment effect than what one is interested in.
+Under such assumption, the main issue is that some of the controls may not be needed because they truly have no effect on the outcome, given the other covariates. Such controls are called instruments in causal inference.
+Since including instruments in the outcome equation can lead to substantial variance inflation (for example, see \cite{papaspiliopoulos:2026}), one may attempt to exclude them, as was done in the Bayesian SCA of \cite{semken:2022}.
+Specifically, \color{black} Bayesian SCA computes a weighted average where weights are given by posterior model probabilities, which as $n \to \infty$ converges to performing inference under a model that includes only the controls that have non-zero effects (under mild conditions).
+\color{blue} While such an strategy leads to power gains as $n \to \infty$, for finite $n$ one can make mistakes in removing controls that are truly associated to the outcome (called confounders in causal inference), and hence one does not get exact type I error control. To avoid these issues, here we include all controls, guaranteeing that no confounders are omitted.
+
+In the rare situation where one knows the causal mechanism linking the treatment and outcome, specified by a directed acyclic graph, \cite{henckel:2022} showed how to obtain the optimal set of control covariates. %, which in particular excludes instruments and colliders. 
+Briefly, one should only include as controls the parents of outcome and the parents of any mediators, excluding mediators and descendants of mediators.
+By doing so, one avoids the mentioned variance inflation issues, as well as biases due to colliders and mediators.
+These considerations notwithstanding, we reiterate that our framework need not be framed within causal inference. Rather, it is a strategy to study conditional associations (as we do in the teenager application).
+\color{black}
 
 
 Given the potentially large number of multiple tests being conducted, it is important to assess statistical significance in a way such that some measure of false positives is controlled.
 Specifically, we consider the FDR \citep{benjamini:1995}. Let $\gamma_{lj}= \mbox{I}(\beta_j^{(l)} \neq 0)$ be the indicator that the null hypothesis $H_{lj}$ does not hold, let $\hat{\gamma}_{lj} = 1$ if we reject $H_{lj}$ and $\hat{\gamma}_{lj}=0$ otherwise. 
-Then the number of false positive is $\sum_{l,j} \gamma_{lj} \hat{\gamma}_{lj}$, the number of rejected null hypotheses is $\sum_{l,j} \hat{\gamma}_{lj}$, and $\mbox{FDR}= \mathbb E(\mbox{FDP})$, where 
+Then the number of false positives is $\sum_{l,j} \gamma_{lj} \hat{\gamma}_{lj}$, the number of rejected null hypotheses is $\sum_{l,j} \hat{\gamma}_{lj}$, and $\mbox{FDR}= \mathbb E(\mbox{FDP})$, where 
 \begin{align}
  \mbox{FDP}= \begin{cases}
 \frac{\sum_{l,j} \gamma_{lj} \hat{\gamma}_{lj}}{\sum_{l,j} \hat{\gamma}_{lj}} \mbox{, if } \sum_{l,j} \hat{\gamma}_{lj} > 0
@@ -288,7 +336,8 @@ If one is interested in testing subpopulation effects $\beta_{jk}^{(l)}$, then t
 \section{e-values}
 \label{sec:evalues}
 
-E-values provide a framework to assess statistical significance that allows controlling the FDR, regardless of the dependence structure between the tests being performed.
+\color{blue} E-values \citep{vovk:2021,gruenwald:2024,chugg:2026,ramdas:2025} measure evidence against null hypotheses, and allow one to combine evidence across hypotheses and across datasets, while controlling type I errors and the FDR, \color{black}
+regardless of the dependence structure between the tests.
 Formally, an e-value is the realization of a random variable called an e-variable, whose defining property is that its expectation under the null hypothesis is $\leq 1$.
 
 \begin{definition}
@@ -306,26 +355,32 @@ By Markov's inequality, if one rejects $H_{lj}$ when $E_{lj} \geq 1/\alpha$, the
 \end{align}
 for any $P \in \mathcal{H}_{lj}$.
 
+\color{blue}
+If $E_{lj}$ and $E_{l'j'}$ are e-variables for the null hypotheses $H_{lj}$ and $H_{l'j'}$, then $(E_{lj} + E_{l'j})/2$ (or any weighted average) is an e-variable under the joint null hypothesis that both $(H_{lj}, H_{l'j'})$ hold. This allows obtaining an aggregate measure of evidence against a set of null hypotheses, for example that a given treatment has no effect on any of the outcomes.
+Further, if $E_{lj}$ and $E_{lj}'$ are e-variables obtained in two independent datasets, or in two independent subpopulations, then $E_{lj} E_{lj}'$ is an e-variable. The anytime-validity property of e-values guarantees that one can decide whether to observe $E_{lj}'$ or not after having observed $E_{lj}$: regardless, $E_{lj} E_{lj}'$ remains a valid e-variable, since $\mathbb E [E_{lj} E_{l'j'}] = \mathbb E[ E_{lj} ] \mathbb E [E_{l'j'}] \leq 1$.
+
+\color{black}
+
 In Section~\ref{ssec:define_evariables} we review some strategies to define e-variables,
-and Section~\ref{ssec:fdr_control} reviews e-value-based procedures for FDR control.
+and in Section~\ref{ssec:fdr_control} methods for FDR control.
 
 
 
 \subsection{Defining e-variables}
 \label{ssec:define_evariables}
 
-There are many ways to define valid e-variables. While the Markov inequality guarantees type I error control for all e-variables, their statistical power may vary greatly. Efforts have been made to define e-variables that accumulate evidence against the null as fast as possible. Such optimality is usually defined in terms of maximizing $\mathbb E_Q [\log E_{lj}]$, where $Q \in \overline{\mathcal{H}}_l$ is a distribution within the alternative hypothesis. 
+There are many ways to define valid e-variables. While the Markov inequality guarantees type I error control for all e-variables, their statistical power may vary greatly. Efforts have been made to define e-variables that accumulate evidence against the null as fast as possible. Such optimality is usually defined in terms of maximizing $\mathbb E_Q [\ln E_{lj}]$, where $Q \in \overline{\mathcal{H}}_l$ is a distribution within the alternative hypothesis. 
 One possible definition of optimality is the so-called numeraire (\cite{ramdas:2025}, Chapter 6), an e-variable $E_{lj}^*$ that is defined by $E_{lj}/E_{lj}^*$ having expectation $\leq 1$ under the alternative, where $E_{lj}$ is any other e-variable. 
 Another possible definition by \cite{gruenwald:2024} uses a worst-case optimality criterion called GROW.
-When testing a point null hypothesis versus a point null alternative, both definitions return the likelihood-ratio test as the optimal e-variable. This is of course not applicable to our setting, where the null hypothesis $\mathcal{H}_{lj}$ contains infinitely many distributions indexed by $\theta^{(l)}$, and so does the alternative $\overline{\mathcal{H}}_l$.
-In such more general settings, obtaining either the numeraire or the GROW-optimal e-variable is related to so-called reverse information projections (RIP), and it is a highly non-trivial task.
+When testing a point null hypothesis versus a point null alternative, both definitions return the likelihood-ratio test as the optimal e-variable. This is not applicable to our setting, where the null hypothesis $\mathcal{H}_{lj}$ contains infinitely many distributions indexed by $\theta^{(l)}$, and so does the alternative $\overline{\mathcal{H}}_l$.
+In such more general settings, obtaining either the numeraire or the GROW-optimal e-variable is related to so-called reverse information projections (RIP), and it is a challenging task.
 
-We review next some practical alternatives applicable to our generalized linear model framework~\eqref{eq:outcome_equation}:
+We review next some practical alternatives applicable to our generalized linear model \eqref{eq:outcome_equation}:
 universal mixture e-variables, soft-rank e-variables and p-to-e calibration.
-Universal inference is a framework introduced by \cite{wasserman:2020} %The approach is practical, in that it is easy to implement and can be used in arbitrarily complex settings, the downside being that its power is dominated by that of the numeraire (\cite{ramdas:2025}, Chapter 6.5). 
+Universal inference \citep{wasserman:2020} is a framework  %The approach is practical, in that it is easy to implement and can be used in arbitrarily complex settings, the downside being that its power is dominated by that of the numeraire (\cite{ramdas:2025}, Chapter 6.5). 
 %The original approach of \cite{wasserman:2020} uses split likelihood-ratio e-variables. 
-where one splits the observed data $y^{(l)}=(y_0^{(l)},y_1^{(l)})$, and $y_0^{(l)}$ is assumed independent from $y_1^{(l)}$. One then obtains the maximum likelihood estimate (MLE) for the density function under the null $\hat{p}_{lj} \in \mathcal{H}_{lj}$ using only $y_0^{(l)}$, that under the alternative $\hat{q}_l$ using only $y_1^{(l)}$, and the split likelihood-ratio e-variable proposed in \cite{ramdas:2026} is defined as $E_{lj}= \hat{q}_l(y_0^{(l)}) / \hat{p}_{lj}(y_0^{(l)})$.
-Universal mixture e-variables are a variation discussed in \cite{ramdas:2025} (Chapter 5.2) that avoids using arbitrary data splits (as well as assuming independence) by considering a hybrid of frequentist and Bayesian hypothesis tests.
+where one splits the observed data $y^{(l)}=(y_0^{(l)},y_1^{(l)})$, and $y_0^{(l)}$ is assumed independent from $y_1^{(l)}$. One then obtains the maximum likelihood estimate (MLE) for the density function under the null $\hat{p}_{lj} \in \mathcal{H}_{lj}$ using only $y_0^{(l)}$, that under the alternative $\hat{q}_l$ using only $y_1^{(l)}$, and the split likelihood-ratio e-variable is defined as $E_{lj}= \hat{q}_l(y_0^{(l)}) / \hat{p}_{lj}(y_0^{(l)})$ \citep{ramdas:2026}.
+Universal mixture e-variables are a variation discussed in \cite{ramdas:2025} (Chapter 5.2) that avoids using arbitrary data splits and assuming independence, by considering a hybrid of frequentist and Bayesian hypothesis tests.
 Specifically, let $\hat{p}_{lj} \in \mathcal{H}_{lj}$ be the MLE under the null, now using the full data $y^{(l)}$. Define
 \begin{align}
 E^{um}_{lj}= \frac{q_l(y^{(l)})}{\hat{p}_{lj}(y^{(l)})},
@@ -336,9 +391,9 @@ where
  q_l(y)= \int p(y \mid \theta^{(l)}) p(\theta^{(l)} \mid \overline{H}_l) d\theta_l
 \nonumber
 \end{align}
-is the marginal (or integrated) likelihood with respect to a prior density $p(\theta_j^{(l)} \mid \overline{H}_l)$ that places full support on the alternative %, that is such that $P(y \mid \theta_{lj}) \not\in \mathcal{H}_{lj}$ with prior probability 1  
+is the marginal likelihood with respect to a prior density $p(\theta^{(l)} \mid \overline{H}_l)$ that places full support on the alternative %, that is such that $P(y \mid \theta_{lj}) \not\in \mathcal{H}_{lj}$ with prior probability 1  
 (i.e., such that the prior probability that $\theta_j^{(l)} \neq 0$ is 1).
-It is easy to show that $E_{lj}$ is an e-variable for any choice of $p(\theta_j^{(l)} \mid \overline{H}_l)$.
+$E_{lj}$ is an e-variable for any choice of $p(\theta_j^{(l)} \mid \overline{H}_l)$.
 Since $\hat{p}_{lj}$ is the MLE under $\mathcal{H}_{jl}$, by definition we have that $p(y^{(l)}) \leq \hat{p}_{lj}(y^{(l)})$ for any $P \in \mathcal{H}_{lj}$, therefore
 \begin{align}
  \mathbb E_{P} \left( E_{lj} \right)=
@@ -346,15 +401,16 @@ Since $\hat{p}_{lj}$ is the MLE under $\mathcal{H}_{jl}$, by definition we have 
 \leq \int \frac{q_l(y^{(l)})}{p(y^{(l)})} p(y^{(l)}) dy^{(l)}= \int q_l(y^{(l)}) dy^{(l)}= 1.
 \nonumber
 \end{align}
-In our framework~\eqref{eq:outcome_equation}, to avoid subjectivity in the choice of $p(\theta_j^{(l)})$, one may consider Zellner's unit information prior \citep{zellner:1986}, a classical default that has tight connections to the Bayesian information criterion \citep{schwarz:1978}.
-Specifically, let $W=(X, Z, G)$ be the design matrix associated to the regression equation in~\eqref{eq:outcome_equation} (if subpopulations are of interest, then the interaction terms $GX$ are also included in $W$).
+In our framework~\eqref{eq:outcome_equation}, one may consider Zellner's unit information prior \citep{zellner:1986}, a classical default with tight connections to the Bayesian information criterion \citep{schwarz:1978}.
+Specifically, let $W=(X, Z)$ be the design matrix associated to the regression equation in~\eqref{eq:outcome_equation} (if subpopulations are of interest, then subgroups $G$ and interaction terms $GX$ are also included in $W$).
 Zellner's unit information prior is
 \begin{align}
-\theta_j^{(l)} \sim N(0, n \sigma_l^2 (W^T W)^{-1}),
+p(\theta^{(l)} \color{blue} \mid \sigma_l^2, \overline{H}_l) \color{black} = N(\theta^{(l)}; 0, n \sigma_l^2 (W^T W)^{-1}),
 \label{eq:uip}
 \end{align}
 where $\sigma_l^2 > 0$ is the GLM dispersion parameter associated to $y^{(l)}$.
-This choice assumes that $W^T W$ is invertible, as is the case in our examples here, otherwise an alternative default is to replace $W^TW$ by $\mbox{diag}(W^T W)$. Expression~\eqref{eq:univ_evalue_mixture} requires obtaining an MLE for the $L p_x$ alternative hypotheses, which can be done efficiently and in parallel using any suitable optimization algorithm.
+\color{blue} For some models such as logistic or Poisson regression $\sigma_l=1$ is fixed, while in others such as linear regression it is unknown and one must also set a prior on it, for example a minimally informative $\sigma_l^2 \sim \mbox{InvGamma}(0.01/2, 0.01/2)$. The interpretation that \eqref{eq:uip} contains as much Fisher information as a sample of size 1 only holds exactly in linear regression. For other GLMs the Fisher information is $W^T D(\theta_0) W$, where $D(\theta_0)$ is a diagonal matrix that depends on the data-generating $\theta_0$. Given that $\theta_0$ is unknown, we use $W^T W$ as a simple proxy. Another simple alternative is to use $W^T D(0) W$ \citep{sabanes:2011}. \color{black}
+Our choice assumes that $W^T W$ is invertible, as is the case in our examples here, otherwise an alternative default is to replace $W^TW$ by $\mbox{diag}(W^T W)$. Expression~\eqref{eq:univ_evalue_mixture} requires obtaining an MLE for the $L p_x$ alternative hypotheses, which can be done efficiently and in parallel using any suitable optimization algorithm.
 It also requires obtaining $L$ marginal likelihoods $q_l(y)$, one for each outcome.
 In the linear regression case where $y^{(l)} \sim N(W \theta^{(l)}, \sigma_l^2 I)$, $q_l$ has a closed-form.
 Specifically, if one sets an inverse Gamma prior $\sigma_l^2 \sim \mbox{IG}(a/2,\color{blue} b/2 \color{black})$, then
@@ -369,10 +425,10 @@ Outside of linear regression numerical integration methods must be used and, as 
 One may approximate $q_l$ using Laplace approximations, which is very fast as it requires a single optimization exercise for each outcome, and is very accurate as $n$ grows (\cite{kass:1990}, \cite{rossell:2021b} Lemma S3).
 
 A second possible strategy is to use soft-rank e-variables \citep{koning:2023}. 
-These are typically based on permutation exercises akin to those used to obtain permutation-based p-values, therefore they are more computationally-intensive but as a positive aspect they are more reliable when our statistical model in \eqref{eq:outcome_equation} is misspecified (e.g., covariate effects are truly non-linear, errors are heteroskedastic, etc.).
+These are typically based on permutation exercises akin to those used to obtain permutation-based p-values, therefore they are more computationally-intensive but as a positive aspect they are more reliable when our statistical model in \eqref{eq:outcome_equation} is misspecified (e.g., covariate effects are truly non-linear, errors are heteroskedastic, \color{blue} or the link function is misspecified\color{black}).
 Let $T_0 \geq 0$ be a test statistic for the null hypothesis of interest, and let $T_1,\ldots,T_B$ be the realization of $B$ test statistics that are exchangeable with $T_0$ under the null. The soft-rank e-variable is 
 \begin{align}
-  E^{sr} \,=\,\frac{(B+1)T_0}{\sum_{b=0}^{B}T_b}.
+  E^{sr} \,=\,\frac{B T_0}{\sum_{b=1}^{B}T_b}.
 \end{align}
 %The assumed exchangeability guarantees that $E^{sr}$ is indeed an e-variable. 
 In generalized linear models, %~\eqref{eq:outcome_equation}, 
@@ -384,11 +440,11 @@ where recall that $\hat{p}_{lj}$ is the MLE for the density function under the n
 The exchangeable likelihood ratio test statistics $T_1,\ldots,T_B$ can be obtained using permutations. 
 Let $y^{(l,b)}$ be a permuted version of $y^{(l)}$ such that the null hypothesis $H_{lj}$ holds, and define
 \[T_b=\frac{\hat{q}^{b}_l(y^{(l,b)})}{ \hat{p}^b_{lj}(y^{(l,b)})}\] 
-where $\hat{p}^b_{lj}$ are the MLEs under the null and alternative hypotheses respectively, computed on the permuted dataset $b$. We remark that although we denote permutations by $y^{(l,b)}$ for simplicity, permutations actually typically affect covariate values rather than the outcome. For example, in our simulations, permutation are obtained by first regressing the treatment of interest on all other covariates, permuting the residuals from such regression, and defining a synthetic treatment given by the expected value given other covariates plus a permuted residual. In such a permutation exercise, the outcome is conditionally independent from the treatment given other covariates, and therefore $T_0$ is exchangeable with $T_1,\ldots,T_B$ when $H_{lj}$ holds.
+where $\hat{p}^b_{lj}$ are the MLEs under the null and alternative hypotheses respectively, computed on the permuted dataset $b$. We remark that although we denote permutations by $y^{(l,b)}$ for simplicity, permutations actually typically affect covariate values rather than the outcome. For example, in our simulations, permutations are obtained by first regressing the treatment of interest on all other covariates, permuting the residuals from such regression, and defining a synthetic treatment given by the expected value given other covariates plus a permuted residual. In such a permutation exercise, the outcome is conditionally independent from the treatment given other covariates, and therefore $T_0$ is exchangeable with $T_1,\ldots,T_B$ when $H_{lj}$ holds.
 
 The third and final option that we discuss here to obtain an e-variable is to use so-called p-to-e calibrators \cite{ramdas:2025}, which convert p-values into e-values. Let $\pi_{lj}$ be a p-value for the null hypothesis $H_{lj}$ in \eqref{eq:test}, two popular calibrators are
 \begin{equation}
-  E^{c1}(\pi_{lj})=\int_0^1 \kappa \pi_{lj}^{\kappa-1} \mathrm{~d} \kappa=\frac{1-\pi_{lj}+\pi_{lj} \log \pi_{lj}}{\pi_{lj}(\log \pi_{lj})^2},
+  E^{c1}(\pi_{lj})=\int_0^1 \kappa \pi_{lj}^{\kappa-1} \mathrm{~d} \kappa=\frac{1-\pi_{lj}+\pi_{lj} \ln \pi_{lj}}{\pi_{lj}(\ln \pi_{lj})^2},
 \label{eq:calibrator1}
 \end{equation}
 which uses a mixture over $\kappa\in(0,1)$ of the calibrator function proposed in \cite{shafer:2011}, and
@@ -398,10 +454,10 @@ which uses a mixture over $\kappa\in(0,1)$ of the calibrator function proposed i
 \end{equation}
 
 We refer to \eqref{eq:calibrator1} as the mixture calibrator and to \eqref{eq:calibrator2} as the inverse root calibrator.
-The family of p-to-e calibrators is much richer, with no single calibrator shown to uniformly outperform all others. See \cite{ramdas:2025} (Chapter 2) for a review. In our setting one may take $\pi_{lj}$ to be the likelihood ratio test p-value for~\eqref{eq:test}. % with statistic~\eqref{eq:lrt}. 
+The family of p-to-e calibrators is much richer, with no single calibrator shown to uniformly outperform all others. See \cite{ramdas:2025} (Chapter 2) for a review. In our setting we may take $\pi_{lj}$ to be the likelihood ratio test p-value for~\eqref{eq:test}. % with statistic~\eqref{eq:lrt}. 
 A theoretical caveat is that, outside of the Gaussian family, most implementations of the test rely on the chi-square asymptotic distribution of the likelihood ratio test. Since such a p-value is not exact for finite $n$, neither is the resulting calibrated e-value.
 %This is the case of the p-value output by R function \texttt{anova} from the \texttt{stats} package that we use in our simulations and application.
-However, in our simulations such e-values controlled the type I error adequately, already for moderately large $n$.
+However, in our simulations such e-values controlled the type I error adequately, for moderately large $n$.
 
 
 
@@ -409,14 +465,14 @@ However, in our simulations such e-values controlled the type I error adequately
 \label{ssec:fdr_control}
 
 \color{blue}
-In this section we first review strategies to control the FDR with e-variables, and next compare them with the Benjamini-Yekutieli (BY) P-value adjustment procedure \citep{benjamini:2001}, which also controls FDR under arbitrary dependences between the tests.
+In this section we first review strategies to control the FDR with e-variables, and next compare them with BY p-value adjustment \citep{benjamini:2001}, which also controls FDR under arbitrary dependences between the tests.
 \color{black}
-For e-variables, a simple strategy to control the FDR below any user-specified $\alpha$ is the e-BH procedure of \cite{wang_ruodu:2022}. An alternative is to use the closed e-BH procedure (\cite{ramdas:2025}, Chapter 9.6), denoted by $\overline{\text{e-BH}}$, which strictly dominates e-BH in terms of power at the cost of the method being slighly more involved.
+For e-variables, a simple strategy to control the FDR below any user-specified $\alpha$ is the e-BH procedure of \cite{wang_ruodu:2022}. An alternative that strictly dominates e-BH in terms of power is the closed e-BH procedure (\cite{ramdas:2025}, Chapter 9.6), denoted by $\overline{\text{e-BH}}$, albeit the method and computations are slightly more involved.
 The e-BH procedure proceeds as follows.
 Let $e_{lj}$ be the e-value, that is the observed value of the e-variable $E_{lj}$, for $l=1,\ldots,L$ and $j=1,\ldots,p_x$, and let $K= L p_x$ be the number of hypotheses being tested.
 Let $e_{[k]}$ be the $k^{th}$ order statistic of $e_{lj}$ across all $(l,j)$, sorted from largest to smallest. The e-BH procedure at level $\alpha$ rejects all hypotheses with the $k^*$ largest e-values, where
 \begin{align}
- k^*= \max \left\{ k \in \{1, \ldots, L p_x \} : \frac{k e_{[k]}}{L p_x} \geq \frac{1}{\alpha}  \right\},
+ k^*= \max \left\{ k \in \{1, \ldots, L p_x \} : \frac{k e_{[k]}}{K p_x} \geq \frac{1}{\alpha}  \right\},
 \nonumber
 \end{align}
 with the convention that $\max \emptyset = 0$.
@@ -435,48 +491,50 @@ $\bar k= \max \{k \geq 0: R_k \in C_\alpha \}$ and
 \end{align}
 where $\mbox{FDP}_A(R)= |A \cap R|/\max\{|R|, 1\}$ is the false discovery proportion associated to rejecting the hypotheses in $R$, if $A$ were the subset of truly null hypotheses.
 In words, $R_{\bar k}$ is such that the average of the e-values over any other subset $A$ exceeds $\mbox{FDP}_A(R)/\alpha$.
-$\overline{\text{e-BH}}$ controls the FDR at level $\alpha$, and rejects at least as many hypothesis as the refined e-BH procedure.
-A disadvantage however is that finding $R_{\bar k}$ requires order $K^3$ operations, relative to e-BH which only requires $K$ operations.
+$\overline{\text{e-BH}}$ %controls the FDR at level $\alpha$, and 
+rejects at least as many hypothesis as e-BH.
+However, finding $R_{\bar k}$ requires order $K^3$ operations, whereas e-BH only requires $K$ operations.
 
 
 \color{blue}
-We now compare these procedures with BY, which is based on P-values rather than e-variables.
-If one is solely interested in FDR control, whether e-variable procedures are preferable to BY or not depends entirely on their respective statistical powers.
+We now compare these procedures with BY, which is based on p-values rather than e-variables.
+If one is solely interested in FDR control, whether e-variable procedures are preferable to BY or not depends entirely on their statistical power.
 Current evidence suggests that no approach uniformly dominates the other.
 For example, \cite{wang_ruodu:2022} showed that e-BH can have higher power than BY in certain settings and lower on others, depending on how the e-variables are obtained and on their distribution.
-To gain some intuition, denote by $K$ the total number of tests, by $P_{[k]}$ the $k^{th}$ ordered P-value and by $E_{[k]}$ the $k^{th}$ ordered e-variable.
-Recall that BY uses the threshold 
+To gain some intuition, let $\pi_{[k]}$ be the $k^{th}$ ordered p-value.
+BY rejects the largest $k$ such that
 \begin{align}
-P_{[k]} \leq \frac{\alpha k}{K c(K)}
+\pi_{[k]} \leq \frac{\alpha k}{K c(K)}
 \nonumber
 \end{align}
 where $c(K)= \sum_{i=1}^K 1/i \approx \ln(K) + 0.577$ is the $K^{th}$ harmonic number. % and $\gamma \approx 0.577$ the Euler-Mascheroni constant. 
-In contrast, e-BH sets the threshold
-\begin{align}
-\frac{1}{E_{[k]}} \leq \frac{\alpha k}{K}.
-\nonumber
-\end{align}
+In contrast, e-BH rejects the largest $k$ such that
+$
+(1 / e_{[k]}) \leq \alpha k/ K.
+$
 
-There are therefore two issues driving how these two thresholds behave. 
+There are therefore two issues driving how these two procedures behave. 
 First, as pointed out by \cite{wang_ruodu:2022}, e-BH avoids the $\ln(K)$ term in the denominator, hence the threshold scales better as $K$ grows. 
-Second, for any fixed $K$ the relative powers depend on the magnitude of $1/E_{[k]}$ versus that of $P_{[k]}$. For example, for the mixture calibrator e-variable (which has a fairly competitive power in our experiments), we have that
+Second, for any fixed $K$ the relative powers depend on the magnitude of $1/e_{[k]}$ versus that of $\pi_{[k]}$. For example, for the mixture calibrator e-variable (which had a fairly competitive power in our experiments), we have
 \begin{align}
- E_{[k]}= \frac{1 - P_{[k]} + P_{[k]} \ln(P_{[k]})}{P_{[k]} (\ln P_{[k]})^2},
+\lim_{\pi_{[k]} \to 0} e_{[k]}= \lim_{\pi_{[k]} \to 0} \frac{1 - \pi_{[k]} + \pi_{[k]} \ln(\pi_{[k]})}{\pi_{[k]} (\ln \pi_{[k]})^2}
+= \frac{1}{\pi_{[k]} (\ln \pi_{[k]})^2}.
 \nonumber
 \end{align}
-where the right-hand side converges to $1/[P_{[k]} (\ln P_{[k]})^2$ as $P_{[k]} \to 0$. Hence and roughly speaking, for small $P_{[k]}$, applying e-BH to the mixture calibrator implies a threshold
+Hence and roughly speaking, for small $\pi_{[k]}$, applying e-BH to the mixture calibrator seeks the largest $k$ such that
 \begin{align}
- P_{[k]} (\ln P_{[k]})^2 \leq \frac{\alpha k}{K}.
+ \pi_{[k]} (\ln \pi_{[k]})^2 \leq \frac{\alpha k}{K}.
 \nonumber
 \end{align}
-Therefore, if $(\ln P_{[k]})^2 > \ln(K) + 0.577$ then one expects BY to be less conservative than e-BH, and otherwise e-BH should be less conservative. Note however that, because of the step-up nature of e-BH and BY, the hypotheses that are actually rejected are driven by the largest e-variable and smallest P-value (respectively) satisfying the threshold. That is, the power of these procedures is not by the most extreme e-variables / P-values.
-Recall also e-BH is not the most powerful FDR controlling procedure for e-variables, for the closed e-BH procedure discussed above has higher power. The reason for discussing e-BH here is that it leads to more tractable expressions that provide some insights.
+Therefore, if $(\ln \pi_{[k]})^2 > \ln(K) + 0.577$ then one expects BY to have higher power than e-BH, and otherwise e-BH to have higher power. Note however that the rejected hypotheses are driven by the largest $k$ satisfying these thresholds, hence the power of these procedures is not driven by the most extreme e-variables / p-values.
+Recall also closed e-BH has higher power than e-BH, though in our experiments both delivered almost identical results. 
 
 
-Another consideration is that, beyond power comparisons, there are situations where e-variables can have appealing properties.
-One such property that can be relevant for multiverse analysis is evidence aggregation over various hypotheses. Suppose that one considers a set $A$ of related hypotheses (such as the effect of a treatment on multiple related outcomes), one can obtain an overall e-variable $E_A$ by aggregating the e-variables from the individual hypotheses. A simple such choice is defining the overall e-variable as the average (or weighted average) of the e-variables for the individual hypotheses. If all the hypotheses in $A$ are true, then $\mathbb E[E_A] = \sum_{k \in A} \mathbb E[E_{[k]}] / |A| \leq 1$. This can be used to test the intersection null hypothesis, that is that all null hypotheses in $A$ are true.
+%Another consideration is that, beyond power comparisons, there are situations where e-variables can have appealing properties. One such property that can be relevant for multiverse analysis is evidence aggregation over various hypotheses. Suppose that one considers a set $A$ of related hypotheses (such as the effect of a treatment on multiple related outcomes), one can obtain an overall e-variable $E_A$ by aggregating the e-variables from the individual hypotheses. A simple such choice is defining the overall e-variable as the average (or weighted average) of the e-variables for the individual hypotheses. If all the hypotheses in $A$ are true, then $\mathbb E[E_A] = \sum_{k \in A} \mathbb E[E_{[k]}] / |A| \leq 1$. This can be used to test the intersection null hypothesis, that is that all null hypotheses in $A$ are true.
 
-Another property, albeit less relevant to standard multiverse applications, is the anytime validity of e-variables. This is useful in sequential settings where one decides to continue or stop experimentation based on the data that was observed so far, in a manner that was not pre-defined in advance. In such settings, P-values cannot be calibrated to control type I error, whereas e-variables continue to be valid, provided that they are constructed to satisfy certain martingale properties. Although we are not aware of applications that have made such uses for multiverse analysis, one could consider a setting where a multiverse analysis is conducted using an available dataset, and based on those findings one decides to gather additional data to gain more information on some of the specific treatments or outcomes. Assuming the additional data to be independent from the previous data, one easily define e-variables that combine the evidence across both datasets, for example by taking the products of the e-variables obtained in each set. As a word of caution however, a repeated application of e-variable multiplicity adjustments does not guarantee FDR control. For example, applying e-BH once all data has been obtained controls the FDR, but applying e-BH for the first dataset and for the combined dataset does not control the FDR.
+%Another property, albeit less relevant to standard multiverse applications, is the anytime validity of e-variables. This is useful in sequential settings where one decides to continue or stop experimentation based on the data that was observed so far, in a manner that was not pre-defined in advance. In such settings, p-values cannot be calibrated to control type I error, whereas e-variables continue to be valid, provided that they are constructed to satisfy certain martingale properties. Although we are not aware of applications that have made such uses for multiverse analysis, one could consider a setting where a multiverse analysis is conducted using an available dataset, and based on those findings one decides to gather additional data to gain more information on some of the specific treatments or outcomes. Assuming the additional data to be independent from the previous data, one easily define e-variables that combine the evidence across both datasets, for example by taking the products of the e-variables obtained in each set. 
+
+As a word of caution, in sequential settings where one decides to observe more data based on previous e-values, a repeated application of FDR procedures does not guarantee FDR control. For example, applying e-BH only once after all data has been obtained controls the FDR, since for each individual test one has an e-variable, but applying e-BH to a first dataset and then applying e-BH again after observing a second dataset does not control the overall FDR across both applications of e-BH.
 \color{black}
 
 
@@ -484,8 +542,8 @@ Another property, albeit less relevant to standard multiverse applications, is t
 \label{sec:simulation}
 
 \color{blue}
-Given that there are several strategies to define e-variables (Section \ref{ssec:define_evariables}), we first conduct in Section \ref{ssec:simstudy_evalues} a simulation exercise to compare their statistical powers, in the context of single-outcome linear and logistic regressions, with multiple treatments and control covariates.
-Subsequently, in Section \ref{ssec:simulation_multiverse} we extend the simulations to a multiverse setting where one considers several outcomes, focusing on the two most powerful e-values found in Section \ref{ssec:simstudy_evalues}. We also compare their power to that of BY P-value adjustment.
+Since there are several strategies to define e-variables (Section \ref{ssec:define_evariables}), we first conduct in Section \ref{ssec:simstudy_evalues} a simulation exercise to compare their statistical powers, in the context of single-outcome linear and logistic regressions, with multiple treatments and control covariates.
+Subsequently, in Section \ref{ssec:simulation_multiverse} we extend the simulations to a multiverse setting where one considers several outcomes, focusing on the two most powerful e-values found in Section \ref{ssec:simstudy_evalues}. We also compare their power to that of BY p-value adjustment.
 \color{black}
 
 
@@ -505,7 +563,7 @@ Subsequently, in Section \ref{ssec:simulation_multiverse} we extend the simulati
 \end{figure}
 
 \begin{table}[ht]
-\caption{Proportion of type I errors for $E\in\{E^{um},E^{sr},E^{c1},E^{c2}\}$ and significance levels $\alpha \in \{0.01,0.05\}$ in logistic regression}\label{tabtype1logreg}%
+\caption{Proportion of type I errors {\color{blue} out of 1,000 simulations} for $E\in\{E^{um},E^{sr},E^{c1},E^{c2}\}$ and significance levels $\alpha \in \{0.01,0.05\}$ in logistic regression}\label{tabtype1logreg}%
 \begin{tabular}{ccc|cc|cc|cc}
 \hline
 n    & \multicolumn{2}{c|}{$E^{um}$} & \multicolumn{2}{c|}{$E^{sr}$}& \multicolumn{2}{c|}{$E^{c1}$} & \multicolumn{2}{c}{$E^{c2}$}\\ \hline
@@ -518,11 +576,12 @@ n    & \multicolumn{2}{c|}{$E^{um}$} & \multicolumn{2}{c|}{$E^{sr}$}& \multicolu
 \end{table}
 
 
-We assess the type I error control and power of the four strategies to obtain e-values discussed in Section \ref{ssec:define_evariables}: universal mixture and soft-rank e-values and the mixture and inverse root calibrators in \eqref{eq:calibrator1}-\eqref{eq:calibrator2}. We run a simulation study in Gaussian linear regression and in logistic regression. We considered sample sizes $n$ ranging from 100 to 10,000 and 10 covariates. The covariates were generated from a zero-mean multivariate Gaussian with pairwise covariance $0.5$. Covariates were scaled to unit sample variance. For each family and each sample size, we simulate 100 datasets with data-generating regression coefficients $\beta_i^*\in[0,1]$, $i=1,\ldots,10$.
+We assess the type I error control and power of the four strategies to obtain e-values from Section \ref{ssec:define_evariables}: universal mixture and soft-rank e-values and the mixture and inverse root calibrators in \eqref{eq:calibrator1}-\eqref{eq:calibrator2}. We run a simulation study in Gaussian linear regression and in logistic regression. We considered sample sizes $n$ ranging from 100 to 10,000 and 10 covariates. The covariates were generated from a zero-mean multivariate Gaussian with pairwise correlations $0.5$. Covariates were scaled to unit sample variance. For each family and each sample size, we simulate \color{blue} 1,000 \color{black} datasets with data-generating regression coefficients $\beta_i^*\in[0,1]$, $i=1,\ldots,10$.
 
 %\david{If there are 0 type I errors for all methods and $n$ then no need to show the table, we can just say in the text that the there were no type I errors, to save space.}
 %\david{Here and in the table caption I'd say ``proportion of type I errors'' instead of ``empirical probability''. Question: how is it possible that $E^{c2}$ rejects more null hypotheses at the $\alpha=0.01$ than at the 0.05 level? If the simulations are run on the same datasets (which would give more precise estimates when comparing methods) then this cannot possibly occur.}
-Table~\ref{tabtype1logreg} reports the proportion of type I errors over the 100 repetitions for selected sample sizes $n \in \{100, 500, 1500, 2000\}$ in logistic regression. All considered e-variables control the type I error below the specified significance level $\alpha$, in fact they behaved conservatively in that the proportions of type I errors were smaller than the desired level. Figure~\ref{fig:simlogreg} plots the average log e-values over the 100 repetitions for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ in logistic regression. Recall that larger e-values indicate stronger evidence against the null hypothesis. For data-generating $\beta_i^* \neq 0$ and small $n$, the calibrated e-values $E^{c1}$ and $E^{c2}$ clearly dominate the universal mixture and soft-rank e-variables $E^{um}$ and $E^{sr}$, accumulating stronger evidence in favor of the alternative. For large $n$, the calibrated e-variable $E^{c2}$ became less competitive whereas the soft-rank e-variable $E^{sr}$ became more competitive, nearly matching the mixture calibrated e-variable $E^{c1}$ in some scenarios. 
+Table~\ref{tabtype1logreg} reports the proportion of type I errors over the \color{blue} 1,000 \color{black} repetitions for $n \in \{100, 500, 1500, 2000\}$ in logistic regression. All considered e-variables control the type I error below the specified significance level $\alpha$, in fact they \color{blue} were very conservative in that their type I errors were close to 0. Intuitively, the anytime-validity of e-variables implies that one can peek at the data at any moment in time, requiring one to be conservative. In Section \ref{ssec:simulation_multiverse} we assess whether this conservativeness significantly reduces statistical power relative to BY p-value adjustment, finding that the effect is fairly minor. \color{black}
+Figure~\ref{fig:simlogreg} plots the average log e-values over the 100 repetitions for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ in logistic regression. Recall that larger e-values indicate stronger evidence against the null hypothesis. For data-generating $\beta_i^* \neq 0$ and small $n$, the calibrated e-values $E^{c1}$ and $E^{c2}$ clearly dominate the universal mixture and soft-rank e-variables $E^{um}$ and $E^{sr}$, accumulating stronger evidence in favor of the alternative. For large $n$, the calibrated e-variable $E^{c2}$ became less competitive whereas the soft-rank e-variable $E^{sr}$ became more competitive, nearly matching the mixture calibrated e-variable $E^{c1}$ in some scenarios. 
 
 
 % \begin{table}[ht]
@@ -552,7 +611,10 @@ Table~\ref{tabtype1logreg} reports the proportion of type I errors over the 100 
 \end{figure}
 
 
-Figure~\ref{fig:simlinreg} reports the average log e-value for $\beta_i^*\in \{0, 0.15, 0.3, 0.5\}$ over the 100 repetitions in Gaussian linear regression. The findings are similar to those from logistic regression. Further, there were no type I errors in our linear regression simulations for selected samples sizes $n\in\{100, 500, 1500, 2000\}$ for $\alpha \in \{0.01,0.05\}$. In summary, out of the assessed e-variables, we recommend the mixture calibrator $E^{c1}$ to test the null hypotheses in \eqref{eq:test}, as it accrues stronger evidence for truly alternative hypotheses while appropriately controlling type I error. We remark that such e-values are only properly calibrated when the assumed model is correct (or approximately so), otherwise permutation-based soft-rank e-variables may be preferable for being more robust to model misspecification.
+Figure~\ref{fig:simlinreg} reports analogous results for linear regression, revealing similar findings to the logistic regression case. 
+Further, there were no type I errors in our linear regression simulations for $n\in\{100, 500, 1500, 2000\}$ and $\alpha \in \{0.01,0.05\}$. In summary, out of the assessed e-variables, we recommend the mixture calibrator $E^{c1}$ % to test the null hypotheses in \eqref{eq:test}, 
+as it accrues stronger evidence for truly alternative hypotheses. % while appropriately controlling type I error. 
+We remark that such e-values are only properly calibrated when the assumed model is correct (or approximately so), otherwise permutation-based soft-rank e-variables may be preferable for being more robust to model misspecification.
 
 
 \color{blue}
@@ -563,33 +625,30 @@ Figure~\ref{fig:simlinreg} reports the average log e-value for $\beta_i^*\in \{0
 
 \begin{figure}[ht]
 \begin{tabular}{c}
-%Power & Average log e-value \\
-\includegraphics[width=0.8\textwidth, height=0.5\textwidth]{../images/sim.multiverse_logevalue.pdf} \\
+$L=5$ outcomes \\
 \includegraphics[width=0.8\textwidth, height=0.5\textwidth]{../images/sim.multiverse_power.pdf}  \\ 
+$L=20$ outcomes \\
+\includegraphics[width=0.8\textwidth, height=0.5\textwidth]{../images/sim.multiverse_large_power.pdf}  \\ 
 \end{tabular}
-\caption{Multiverse simulation with $L=5$ outcomes. 
-Top: average log e-values for mixture (calib.c1) and inverse root p-to-e calibrators (calib.c2).
-Bottom: proportion of rejected hypothesis vs. data-generating $\beta_i^*$. 
+\caption{Proportion of rejected hypothesis vs. data-generating $\beta_i^*$ in the multiverse simulations with 5 and 20 outcomes. The thick horizontal line indicates 0.05
 }
-\label{fig:sim_multiverse}
+\label{fig:sim_multiverse_power}
 \end{figure}
 
 \begin{figure}[ht]
 \begin{tabular}{c}
-%Power & Average log e-value \\
-\includegraphics[width=0.8\textwidth, height=0.5\textwidth]{../images/sim.multiverse_large_logevalue.pdf} \\
-\includegraphics[width=0.8\textwidth, height=0.5\textwidth]{../images/sim.multiverse_large_power.pdf}  \\ 
+\includegraphics[width=0.8\textwidth, height=0.5\textwidth]{../images/sim.multiverse_logevalue.pdf} \\
+%\includegraphics[width=0.8\textwidth, height=0.5\textwidth]{../images/sim.multiverse_large_logevalue.pdf} \\
 \end{tabular}
-\caption{Multiverse simulation with $L=20$ outcomes. 
-Top: average log e-values for mixture (calib.c1) and inverse root p-to-e calibrators (calib.c2).
-Bottom: proportion of rejected hypothesis vs. data-generating $\beta_i^*$. 
+\caption{Average log e-values for mixture (calib.c1) and inverse root p-to-e calibrators (calib.c2)
+in the multiverse simulation (5 outcomes)
 }
-\label{fig:sim_multiverse_large}
+\label{fig:sim_multiverse_logevid}
 \end{figure}
 
-We considered a multiverse analysis that mimics the teenager application in Section \ref{sec:teenager}, with $p_x=5$ treatments and $p_z=14$ controls, whose values were generated drawing with replacement observations from the teenager study.
-We set the sample size to $n= 1,000$ and $n=10,000$.
-We considered a moderately-sized multiverse featuring $L=5$ outcomes and a larger multiverse with $L=20$ outcomes, leading to a total of 20 and 80 hypothesis being tested (respectively).
+We performed a multiverse analysis that mimics the teenager application in Section \ref{sec:teenager}, with $p_x=5$ treatments and $p_z=14$ controls, whose values were generated drawing with replacement observations from the teenager dataset.
+We considered sample sizes of $n= 1,000$ and $n=10,000$,
+a moderately-sized multiverse featuring $L=5$ outcomes and a larger multiverse with $L=20$ outcomes, leading to a total of 25 and 100 hypothesis being tested (respectively).
 
 We simulated the outcomes from linear regression models with independent standard Gaussian errors. The control covariate coefficients were $\eta_z^{(l)}= (1, 0.9, 0.8, \ldots, 0.1, 0, 0, 0, 0)$ for all outcomes $l=1,\ldots,L$. In the multiverse with $L=5$ outcomes, we set the treatment effects to
 $\beta^{(1)}= (0, 0, 0, 0, 0)$, 
@@ -597,18 +656,20 @@ $\beta^{(2)}= (0, 0, 0.05, 0.1, 0.15)$,
 $\beta^{(3)} = (0, 0, 0.1, 0.15, 0.2)$,
 $\beta^{(4)} = (0, 0, 0.15, 0.2, 0.25)$,
 $\beta^{(5)} = (0, 0, 0.2, 0.25, 0.3)$.
-That is, all treatment effects are 0 for outcome 1, and for the remaining treatments two are 0 and three are non-zero.
+That is, all treatment effects are 0 for outcome 1, and for the remaining outcomes two effects are 0 and three are non-zero.
 In the multiverse with $L=20$ outcomes, we used the same $(\beta^{(1)},\ldots,\beta^{(5)})$ for outcomes 1-5, and again the same coefficients for outcomes 6-10, 11-15, and 16-20. 
 
-We only considered the two e-variables that exhibited the highest power in Section \ref{ssec:simstudy_evalues}, namely the mixture $E^{c1}$ and inverse root $E^{c2}$ calibrated e-variables, as well as BY-adjusted P-values.
+We only considered the two e-variables that exhibited the highest power in Section \ref{ssec:simstudy_evalues}, namely the mixture $E^{c1}$ and inverse root $E^{c2}$ calibrated e-variables, combined with the closed e-BH procecure. We also considered BY-adjusted p-values.
 
-For each $n$ and $L$ combination we simulated 1,000 independent datasets, and we report averaged results in Figures \ref{fig:sim_multiverse} and \ref{fig:sim_multiverse_large} for $L=5$ and $L=20$ respectively.
-Similar to our findings from Section \ref{ssec:simulation_multiverse}, $E^{c1}$ exhibited a larger mean log-evidence than $E^{c2}$ (top panel) when truly $\beta_i^{(l)} \neq 0$, and similar mean when truly $\beta_i^{(l)}=0$. 
-Interestingly, their statistical power when using the closed e-BH procedure to control the FDR below 0.05 was very similar (bottom panel). 
-That is, while the mean log $E^{c1}$ tended to be higher than the mean log $E^{c2}$, the difference was mostly observed in situations where both were fairly high, and therefore had a negligible effects on the statistical power at a 0.05 FDR cutoff.
-Figure \ref{fig:sim_multiverse} also shows that the power for BY-adjusted P-values was slightly higher than for either e-variable.
-If one is purely interested in FDR control, in our considered settings there are no benefits in using e-variables over BY-adjusted P-values.
-We remark however that e-variables may still be interesting for easily combining evidence across hypotheses, and across independent datasets, as illustrated in Section \ref{ssec:teenager_combining}.
+For each $n$ and $L$ combination we simulated 1,000 independent datasets, and we report averaged results.
+Both $E^{c1}$ and $E^{c2}$ had a very similar statistical power (Figure \ref{fig:sim_multiverse_power}).
+The power of BY-adjusted p-values was also similar, albeit slightly higher in the smaller universe with $L=5$ outcomes and $n=1,000$, and slightly lower in the larger multiverse with $L=20$ and $n=10,000$.
+This is in line with our discussion in Section \ref{ssec:fdr_control}, where e-values may be slightly more powerful than BY adjustments when testing many hypotheses.
+$E^{c1}$ exhibited a larger mean log-evidence than $E^{c2}$ when truly $\beta_i^{(l)} \neq 0$, similar to our findings in Section \ref{ssec:simstudy_evalues}.
+That is, while $\mathbb E [\ln E^{c1}]$ tended to be higher than $\mathbb E[ \ln E^{c2}]$, the difference was mostly in situations where both were fairly high, and therefore had a negligible effects on the statistical power at a 0.05 FDR cutoff.
+
+Purely in terms of FDR control, in these simulations there are essentially no benefits in using e-variables over BY-adjusted p-values.
+In such settings, the main interest of e-variables may be in easily combining evidence across hypotheses, and across independent datasets, as illustrated in Section \ref{ssec:teenager_combining}.
 \color{black}
 
 
@@ -656,10 +717,10 @@ We remark however that e-variables may still be interesting for easily combining
 \end{figure}
 
 \begin{table}[ht]
-\caption{MCS Data. Rejected hypothesis by the refined e-BH procedure using mixture calibrated e-variables $E^{c1}$ (top 4 rows) or by BY P-value adjustment (top 7 rows) with FDR level 0.05, estimated odds ratio and 95\% e-confidence intervals}\label{tab:mcs_evalues}%
+\caption{MCS Data. Rejected hypothesis by the refined e-BH procedure using mixture calibrated e-variables $E^{c1}$ (top 4 rows) or by BY p-value adjustment (top 7 rows) with FDR level 0.05, estimated odds ratio and 95\% e-confidence intervals}\label{tab:mcs_evalues}%
 \begin{tabular}{@{}llccccc@{}}
 \toprule
-Outcome & Treatment & Odds ratio & 95\% conf. int. & e-value  & \color{blue} BY P-value\\
+Outcome & Treatment & Odds ratio & 95\% conf. int. & e-value  & \color{blue} BY p-value\\
 \midrule
 Low self-esteem     &  internet        & 4.20 &(1.72,10.39) & 37,790& \color{blue} 1.75 $\times 10^{-5}$ \\
 Depressive symptoms & social media     & 3.02 &(1.37,6.68)  & 1,851 & \color{blue} 2.92 $\times 10^{-4}$ \\
@@ -674,7 +735,7 @@ Low self-esteem     & social media     & 2.34 & (0.97,5.68) &  15.7 & \color{blu
 
 \color{black}
 We apply our multiverse framework to study the association between technology and teenager mental well-being in the 2015 survey of the Millennium Cohort Study (MCS) \color{blue} in Section \ref{ssec:teenager_multiplicity}. \color{black} The MCS is a socio-economic and health survey tracking a representative sample of children born in the UK around year 2000 throughout their life. The sample size is $n = 11,884$ teenagers, \color{blue} with $>8,000$ complete observations (Table \ref{tab:missings}), \color{black} and features several outcome measures of mental well-being, $p_x=5$ treatments measuring the use of various technologies, and $p_z=14$ control covariates.
-Using Specification Curve Analysis, \cite{orben:2019} concluded that the association between technology and teenager well-being was not practically relevant. %To assess significance of effects across outcomes and treatments, 
+Using SCA, \cite{orben:2019} concluded that the association between technology and teenager well-being was not practically relevant. %To assess significance of effects across outcomes and treatments, 
 %These authors used Specification Curve Analysis~\cite{simonsohn:2020}, which as discussed in Section~\ref{sec:intro} has serious shortcomings when used for proper statistical inference. 
 \color{blue}
 Here, we estimate and obtain e-values for the association between each (outcome, treatment) combination
@@ -703,12 +764,12 @@ continuous variables, normalized such that 0 means “no usage” and 1 means ma
 reportable usage. TV usage was discretized into low, medium and high usage because its association with most outcomes was not linear (although it was monotone). The outcome variables are binary and were obtained by binning originally continuous data with validated cutoffs for abnormal behavior. See \cite{semken:2022} (Section S4) for further details on data pre-processing.
 \color{blue} Table \ref{tab:missings} reports the number of individuals reporting the outcomes and that of complete observations, with no missings on the treatments nor in the controls. These missings were mostly due to control covariates, with 3,446 individuals not reporting at least one control, and only 376 failing to report a treatment. Our analysis is based on these complete observations, and therefore our findings should be interpreted as being conditional on this population. We remark that one could consider several strategies to handle the missing data and view them as a data analytic choice within the multiverse analysis. While interesting, such comparisons are beyond are scope.  \color{black}
 
-As an exploratory analysis, we plot in Figure~\ref{fig:exp.mcs} the mean treatment effects when fitting a logistic regression on each outcome against treatment and control variables. The reported 95\% confidence interval are e-confidence intervals based on e-variable $E^{c1}$, that is, the ranges of treatment effect values for which $E^{c1}<1/0.05$~\cite{ramdas:2025}. In other words, an e-confidence interval captures the ranges of null hypothesis that are not rejected for a given level, similarly to standard confidence interval derived from test statistics. A total of 7 treatments appear significant based on e-confidence intervals. A more liberal approach considering standard likelihood ratio p-values individually and a 5\% cutoff would lead to 12 significant treatments. These e-intervals and p-values do not however account for the multiplicity and correlation of the hypotheses being tested.
+We plot in Figure~\ref{fig:exp.mcs} the mean treatment effects when fitting a logistic regression on each outcome against treatment and control variables. The reported 95\% confidence interval are e-confidence intervals based on e-variable $E^{c1}$, that is, the ranges of null treatment effect values for which $E^{c1}<1/0.05$~\cite{ramdas:2025}. In other words, an e-confidence interval captures the ranges of null hypothesis that are not rejected for a given level, similarly to standard confidence interval derived from test statistics. A total of 7 treatments appear significant based on e-confidence intervals. \david{Later we say that there are 6 significant e-values, as shown in Table \ref{tab:mcs_evalues}. } A more liberal approach considering standard likelihood ratio p-values and a 5\% cutoff leads to 12 significant findings. These e-intervals and p-values do not however account for multiple hypotheses being tested.
 
-Following our proposed framework, we compute next e-values for each outcome-treatment pair and apply the closed $\overline{\text{e-BH}}$ procedure (Section \ref{ssec:fdr_control}). 
-In particular, we used the mixture calibrator e-variable $E^{c1}$ in \eqref{eq:calibrator1}, as it exhibited the largest power in our simulations. 
-Before applying the e-BH procedure, there were six hypotheses for which $1/E^{c1} > 20$, a thresholding which controls the individual type I error for each hypothesis at the 0.05 level.
-Table~\ref{tab:mcs_evalues} reports the subset of these that were rejected by the refined e-BH procedure, when controlling the FDR below 0.05. Using the inverse root e-variable lead to the same conclusions albeit with smaller e-values. Alternative, less powerful, choices of e-variables in Section~\ref{ssec:define_evariables} (universal mixture, soft-rank) lead to no rejection in this dataset after the refined e-BH adjustment. Applying $\overline{\text{e-BH}}$ instead of the refined e-BH procedure did not alter any of the results. In total, four hypotheses are rejected by our framework suggesting a significant effect of technology on teenager well-being contrary to the original study in~\cite{orben:2019}. Specifically, a strong internet usage was found to be significantly associated with low self-esteem and depressive symptoms as self-assessed by the teenagers, and high peer problems as assessed by their parents.
+Following our framework, we applied the closed $\overline{\text{e-BH}}$ procedure (Section \ref{ssec:fdr_control}) to the computed e-values for each outcome-treatment pair.
+%In particular, we used the mixture calibrator e-variable $E^{c1}$ in \eqref{eq:calibrator1}, as it exhibited the largest power in our simulations. 
+Before doings so, there were six hypotheses for which $1/E^{c1} > 20$. %, a thresholding which controls the individual type I error for each hypothesis at the 0.05 level.
+Table~\ref{tab:mcs_evalues} reports the subset of these that were rejected by the closed e-BH procedure, when controlling the FDR $\leq 0.05$. Using the inverse root e-variable lead to the same conclusions albeit with smaller e-values. Alternative, less powerful, choices of e-variables in Section~\ref{ssec:define_evariables} (universal mixture, soft-rank) lead to no rejection in this dataset after the closed e-BH adjustment. In total, four hypotheses are rejected by our framework, suggesting a significant effect of technology on teenager well-being contrary to the original study in~\cite{orben:2019}. Specifically, a strong internet usage was found to be significantly associated with low self-esteem and depressive symptoms as self-assessed by the teenagers, and high peer problems as assessed by their parents.
 High social media usage was also found to be significantly associated with self-assessed depressive symptoms.
 We remark that the odds-ratio for these associations were in the range $[2,4]$, 
 %\paul{is that large?} \david{they're certainly not negligible, it means that the odds of something bad happening are somewhere between 2 and 4 times higher. An OR of 1.5 is already relevant, typically.}
@@ -718,7 +779,7 @@ that is these findings are not only statistically significant but also practical
 
 
 \color{blue}
-The main reason why our findings differ from the original study in \cite{orben:2019} is that the latter used Specification Curve Analysis to estimate a median treatment effect across all outcomes and treatments (as well as also across all possible control covariate configurations). As shown in Figure \ref{fig:exp.mcs} there is significant heterogeneity of the effects across outcomes and treatments. For example, the point estimate for the association between high TV usage and most outcomes was negative (suggesting that TV usage might be associated with lower chances of poor mental well-being), whereas for social media and internet use the estimates were positive for self-assessed outcomes like depression and low self-steem and negative for parent-assessed outcomes like high peer problems and low pro-sociality. The median of these heterogeneous effects is close to 0, which led \cite{orben:2019} to conclude that the association between mental well-being and technology use was too small to warrant policy change. We argue that in the presence of strong treatment effect heterogeneity, summaries such as the median can mask the presence of important individual treatment effects.
+The main reason why our findings differ from the original study in \cite{orben:2019} is that the latter used SCA to estimate a median treatment effect across all outcomes and treatments (as well as also across all possible control covariate configurations). As shown in Figure \ref{fig:exp.mcs} there is significant heterogeneity of the effects across outcomes and treatments. For example, the point estimate for the association between high TV usage and most outcomes was negative (suggesting that TV usage might be associated with lower chances of poor mental well-being), whereas for social media and internet use the estimates were positive for self-assessed outcomes like depression and low self-steem and negative for parent-assessed outcomes like high peer problems and low pro-sociality. The median of these heterogeneous effects is close to 0, which led \cite{orben:2019} to conclude that the association between mental well-being and technology use was too small to warrant policy change. We argue that in the presence of strong treatment effect heterogeneity, summaries such as the median can mask the presence of important individual treatment effects.
 We remark that there are observational studies \cite{valkenburg:2022}, randomized controlled trials \cite{allcott:2020,allcott:2022} and natural experiments \cite{braghieri:2022} indicating that there is a negative effect of social media on self-reported mental well-being, aligning with our findings.
 \color{black}
 
@@ -750,17 +811,17 @@ MCS + MTF & Depressed (adolescent) & TV &         101,186        \\
 
 To illustrate that e-variables allow combining evidence across multiple tests in a simple and intuitive manner, we perform two analyses.
 The first analysis is reported in rows 1-5 of Table \ref{tab:mcs_overalltest}. For each treatment, it shows an e-variable that provides evidence against the global null hypothesis that the treatment has no effect on any of the outcomes in the MCS study. Specifically, said e-variable is obtained as the average of the e-variables across the 8 outcomes. Table \ref{tab:mcs_overalltest} shows that there is strong evidence that internet and social media use have an effect, whereas for electronic games there is moderate evidence and for TV and computer usage there is very little evidence.
-We emphasize that one could also use P-values to test these global null hypotheses. For example, Bonferroni-corrected P-values also control the type I error under the global null and under arbitrary dependences between the hypotheses. In the MCS data, the Bonferroni correction obtains statistically significant evidence (at the 0.05 level) for internet, social media and electronic games, providing a similar message to that in Table \ref{tab:mcs_overalltest}. 
+We emphasize that one could also use p-values to test these global null hypotheses. For example, Bonferroni-corrected p-values also control the type I error under the global null and under arbitrary dependences between the hypotheses. In the MCS data, the Bonferroni correction obtains statistically significant evidence (at the 0.05 level) for internet, social media and electronic games, providing a similar message to that in Table \ref{tab:mcs_overalltest}. 
 Hence, in this example the main appeal for e-value aggregation is the interpretability of the provided overall measures of evidence, rather than on statistical power.
 
 The second analysis is shown in the last 2 rows of Table \ref{tab:mcs_overalltest}. It illustrates that, after seeing the MCS data, one can proceed to obtain more data to obtain further evidence, and easily aggregate that evidence with the e-values in Table \ref{tab:mcs_evalues}, while still controlling type I error for each individual hypotheses.
 Specifically, \cite{twenge:2018} studied the association between depression (outcome) and social media and TV (treatments) using the MtF data.
 Since MCS and MtF are independent studies conducted in different countries, we may obtain a combined e-value for this outcome and 2 treatments by taking the product of their e-values in the MCS study (Table \ref{tab:mcs_evalues}) and that in the MtF study.
-Table 2 in \cite{twenge:2018} reports a significant association between depression and social media and TV (P-values $6.69 \times 10^{-17}$ and $2.58 \times 10^{-8}$ respectively), 
+Table 2 in \cite{twenge:2018} reports a significant association between depression and social media and TV (p-values $6.69 \times 10^{-17}$ and $2.58 \times 10^{-8}$ respectively), 
 in an analysis that was adjusted by gender, race, socio-economic status, grade and region where they lived, and which included $n=77,487$ individuals.
 The mixture calibrator gave e-values $1.08 \times 10^{13}$ for social media and $126,827$ for TV.
 Taking the product with the e-values obtained in the MCS data (1,851 and 0.798) gives aggregated e-values $1.99 \times 10^{16}$ and 101,186 for social media and TV.
-Note that MCS did not provide evidence for the association with TV and, after failing to reject that null hypothesis with a P-value, one cannot gather more data while controlling type I errors. In contrast, e-values control type I error in such sequential settings.
+Note that MCS did not provide evidence for the association with TV and, after failing to reject that null hypothesis with a p-value, one cannot gather more data while controlling type I errors. In contrast, e-values control type I error in such sequential settings.
 \color{black}
 
 

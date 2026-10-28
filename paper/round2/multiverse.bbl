@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{30}
+\begin{thebibliography}{38}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -44,34 +44,6 @@
 \csname PreBibitemsHook\endcsname
 
 %%% 1
-\bibitem[\protect\citeauthoryear{Simonsohn et~al.}{2020}]{simonsohn:2020}
-\begin{barticle}
-\bauthor{\bsnm{Simonsohn}, \binits{U.}},
-\bauthor{\bsnm{Simmons}, \binits{J.P.}},
-\bauthor{\bsnm{Nelson}, \binits{L.D.}}:
-\batitle{Specification curve analysis}.
-\bjtitle{Nature human behaviour}
-\bvolume{4}(\bissue{11}),
-\bfpage{1208}--\blpage{1214}
-(\byear{2020})
-\end{barticle}
-\endbibitem
-
-%%% 2
-\bibitem[\protect\citeauthoryear{Semken and Rossell}{2022}]{semken:2022}
-\begin{barticle}
-\bauthor{\bsnm{Semken}, \binits{C.}},
-\bauthor{\bsnm{Rossell}, \binits{D.}}:
-\batitle{Specification analysis for technology use and teenager well-being:
-  Statistical validity and a bayesian proposal}.
-\bjtitle{Journal of the Royal Statistical Society C}
-\bvolume{71}(\bissue{5}),
-\bfpage{1330}--\blpage{1355}
-(\byear{2022})
-\end{barticle}
-\endbibitem
-
-%%% 3
 \bibitem[\protect\citeauthoryear{Orben and Przybylski}{2019}]{orben:2019}
 \begin{barticle}
 \bauthor{\bsnm{Orben}, \binits{A.}},
@@ -85,20 +57,96 @@
 \end{barticle}
 \endbibitem
 
-%%% 4
-\bibitem[\protect\citeauthoryear{Kass and Raftery}{1995}]{kass_raftery:1995}
+%%% 2
+\bibitem[\protect\citeauthoryear{Banerjee et~al.}{2015}]{banerjee_abhijit:2015}
 \begin{barticle}
-\bauthor{\bsnm{Kass}, \binits{R.E.}},
-\bauthor{\bsnm{Raftery}, \binits{A.E.}}:
-\batitle{Bayes factors}.
-\bjtitle{Journal of the american statistical association}
-\bvolume{90}(\bissue{430}),
-\bfpage{773}--\blpage{795}
-(\byear{1995})
+\bauthor{\bsnm{Banerjee}, \binits{A.}},
+\bauthor{\bsnm{Duflo}, \binits{E.}},
+\bauthor{\bsnm{Goldberg}, \binits{N.}},
+\bauthor{\bsnm{Karlan}, \binits{D.}},
+\bauthor{\bsnm{Osei}, \binits{R.}},
+\bauthor{\bsnm{Parient{\'e}}, \binits{W.}},
+\bauthor{\bsnm{Shapiro}, \binits{J.}},
+\bauthor{\bsnm{Thuysbaert}, \binits{B.}},
+\bauthor{\bsnm{Udry}, \binits{C.}}:
+\batitle{A multifaceted program causes lasting progress for the very poor:
+  Evidence from six countries}.
+\bjtitle{Science}
+\bvolume{348}(\bissue{6236}),
+\bfpage{1260799}
+(\byear{2015})
+\end{barticle}
+\endbibitem
+
+%%% 3
+\bibitem[\protect\citeauthoryear{Bail et~al.}{2018}]{bail:2018}
+\begin{barticle}
+\bauthor{\bsnm{Bail}, \binits{C.A.}},
+\bauthor{\bsnm{Argyle}, \binits{L.P.}},
+\bauthor{\bsnm{Brown}, \binits{T.W.}},
+\bauthor{\bsnm{Bumpus}, \binits{J.P.}},
+\bauthor{\bsnm{Chen}, \binits{H.}},
+\bauthor{\bsnm{Hunzaker}, \binits{M.F.}},
+\bauthor{\bsnm{Lee}, \binits{J.}},
+\bauthor{\bsnm{Mann}, \binits{M.}},
+\bauthor{\bsnm{Merhout}, \binits{F.}},
+\bauthor{\bsnm{Volfovsky}, \binits{A.}}:
+\batitle{Exposure to opposing views on social media can increase political
+  polarization}.
+\bjtitle{Proceedings of the National Academy of Sciences}
+\bvolume{115}(\bissue{37}),
+\bfpage{9216}--\blpage{9221}
+(\byear{2018})
+\end{barticle}
+\endbibitem
+
+%%% 4
+\bibitem[\protect\citeauthoryear{Pocock et~al.}{1987}]{pocock:1987}
+\begin{barticle}
+\bauthor{\bsnm{Pocock}, \binits{S.J.}},
+\bauthor{\bsnm{Geller}, \binits{N.L.}},
+\bauthor{\bsnm{Tsiatis}, \binits{A.A.}}:
+\batitle{The analysis of multiple endpoints in clinical trials}.
+\bjtitle{Biometrics}
+\bvolume{43}(\bissue{3}),
+\bfpage{487}--\blpage{498}
+(\byear{1987})
+\doiurl{10.2307/2531992}
 \end{barticle}
 \endbibitem
 
 %%% 5
+\bibitem[\protect\citeauthoryear{Knutti et~al.}{2010}]{knutti:2010}
+\begin{barticle}
+\bauthor{\bsnm{Knutti}, \binits{R.}},
+\bauthor{\bsnm{Furrer}, \binits{R.}},
+\bauthor{\bsnm{Tebaldi}, \binits{C.}},
+\bauthor{\bsnm{Cermak}, \binits{J.}},
+\bauthor{\bsnm{Meehl}, \binits{G.A.}}:
+\batitle{Challenges in combining projections from multiple climate models}.
+\bjtitle{Journal of Climate}
+\bvolume{23}(\bissue{10}),
+\bfpage{2739}--\blpage{2758}
+(\byear{2010})
+\end{barticle}
+\endbibitem
+
+%%% 6
+\bibitem[\protect\citeauthoryear{Steegen et~al.}{2016}]{steegen:2016}
+\begin{barticle}
+\bauthor{\bsnm{Steegen}, \binits{S.}},
+\bauthor{\bsnm{Tuerlinckx}, \binits{F.}},
+\bauthor{\bsnm{Gelman}, \binits{A.}},
+\bauthor{\bsnm{Vanpaemel}, \binits{W.}}:
+\batitle{Increasing transparency through a multiverse analysis}.
+\bjtitle{Perspectives on Psychological Science}
+\bvolume{11}(\bissue{5}),
+\bfpage{702}--\blpage{712}
+(\byear{2016})
+\end{barticle}
+\endbibitem
+
+%%% 7
 \bibitem[\protect\citeauthoryear{Wang and Ramdas}{2022}]{wang_ruodu:2022}
 \begin{barticle}
 \bauthor{\bsnm{Wang}, \binits{R.}},
@@ -111,76 +159,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 6
-\bibitem[\protect\citeauthoryear{Vovk and Wang}{2021}]{vovk:2021}
-\begin{barticle}
-\bauthor{\bsnm{Vovk}, \binits{V.}},
-\bauthor{\bsnm{Wang}, \binits{R.}}:
-\batitle{E-values: Calibration, combination and applications}.
-\bjtitle{The Annals of Statistics}
-\bvolume{49}(\bissue{3}),
-\bfpage{1736}--\blpage{1754}
-(\byear{2021})
-\end{barticle}
-\endbibitem
-
-%%% 7
-\bibitem[\protect\citeauthoryear{Gr{\"u}nwald et~al.}{2024}]{gruenwald:2024}
-\begin{barticle}
-\bauthor{\bsnm{Gr{\"u}nwald}, \binits{P.}},
-\bauthor{\bsnm{Heide}, \binits{R.}},
-\bauthor{\bsnm{Koolen}, \binits{W.}}:
-\batitle{Safe testing}.
-\bjtitle{Journal of the Royal Statistical Society B}
-\bvolume{86}(\bissue{5}),
-\bfpage{1091}--\blpage{1128}
-(\byear{2024})
-\end{barticle}
-\endbibitem
-
 %%% 8
-\bibitem[\protect\citeauthoryear{Chugg et~al.}{2026}]{chugg:2026}
-\begin{barticle}
-\bauthor{\bsnm{Chugg}, \binits{B.}},
-\bauthor{\bsnm{Ramdas}, \binits{A.}},
-\bauthor{\bsnm{Gr{\"u}nwald}, \binits{P.}}:
-\batitle{E-values as statistical evidence: A comparison to bayes factors,
-  likelihoods, and p-values}.
-\bjtitle{arXiv}
-\bvolume{2603.24421},
-\bfpage{1}--\blpage{34}
-(\byear{2026})
-\end{barticle}
-\endbibitem
-
-%%% 9
-\bibitem[\protect\citeauthoryear{Ramdas and Wang}{2025}]{ramdas:2025}
-\begin{barticle}
-\bauthor{\bsnm{Ramdas}, \binits{A.}},
-\bauthor{\bsnm{Wang}, \binits{R.}}:
-\batitle{Hypothesis testing with e-values}.
-\bjtitle{Foundations and Trends{\textregistered} in Statistics}
-\bvolume{1}(\bissue{1-2}),
-\bfpage{1}--\blpage{390}
-(\byear{2025})
-\end{barticle}
-\endbibitem
-
-%%% 10
-\bibitem[\protect\citeauthoryear{Benjamini and Hochberg}{1995}]{benjamini:1995}
-\begin{barticle}
-\bauthor{\bsnm{Benjamini}, \binits{Y.}},
-\bauthor{\bsnm{Hochberg}, \binits{Y.}}:
-\batitle{Controlling the false discovery rate: A practical and powerful
-  approach to multiple testing}.
-\bjtitle{Journal of the Royal Statistical Society B}
-\bvolume{57}(\bissue{1}),
-\bfpage{289}--\blpage{300}
-(\byear{1995})
-\end{barticle}
-\endbibitem
-
-%%% 11
 \bibitem[\protect\citeauthoryear{Benjamini and
   Yekutieli}{2001}]{benjamini:2001}
 \begin{barticle}
@@ -195,7 +174,104 @@
 \end{barticle}
 \endbibitem
 
+%%% 9
+\bibitem[\protect\citeauthoryear{Vovk and Wang}{2021}]{vovk:2021}
+\begin{barticle}
+\bauthor{\bsnm{Vovk}, \binits{V.}},
+\bauthor{\bsnm{Wang}, \binits{R.}}:
+\batitle{E-values: Calibration, combination and applications}.
+\bjtitle{The Annals of Statistics}
+\bvolume{49}(\bissue{3}),
+\bfpage{1736}--\blpage{1754}
+(\byear{2021})
+\end{barticle}
+\endbibitem
+
+%%% 10
+\bibitem[\protect\citeauthoryear{Gr{\"u}nwald et~al.}{2024}]{gruenwald:2024}
+\begin{barticle}
+\bauthor{\bsnm{Gr{\"u}nwald}, \binits{P.}},
+\bauthor{\bsnm{Heide}, \binits{R.}},
+\bauthor{\bsnm{Koolen}, \binits{W.}}:
+\batitle{Safe testing}.
+\bjtitle{Journal of the Royal Statistical Society B}
+\bvolume{86}(\bissue{5}),
+\bfpage{1091}--\blpage{1128}
+(\byear{2024})
+\end{barticle}
+\endbibitem
+
+%%% 11
+\bibitem[\protect\citeauthoryear{Chugg et~al.}{2026}]{chugg:2026}
+\begin{barticle}
+\bauthor{\bsnm{Chugg}, \binits{B.}},
+\bauthor{\bsnm{Ramdas}, \binits{A.}},
+\bauthor{\bsnm{Gr{\"u}nwald}, \binits{P.}}:
+\batitle{E-values as statistical evidence: A comparison to bayes factors,
+  likelihoods, and p-values}.
+\bjtitle{arXiv}
+\bvolume{2603.24421},
+\bfpage{1}--\blpage{34}
+(\byear{2026})
+\end{barticle}
+\endbibitem
+
 %%% 12
+\bibitem[\protect\citeauthoryear{Ramdas and Wang}{2025}]{ramdas:2025}
+\begin{barticle}
+\bauthor{\bsnm{Ramdas}, \binits{A.}},
+\bauthor{\bsnm{Wang}, \binits{R.}}:
+\batitle{Hypothesis testing with e-values}.
+\bjtitle{Foundations and Trends{\textregistered} in Statistics}
+\bvolume{1}(\bissue{1-2}),
+\bfpage{1}--\blpage{390}
+(\byear{2025})
+\end{barticle}
+\endbibitem
+
+%%% 13
+\bibitem[\protect\citeauthoryear{Simonsohn et~al.}{2020}]{simonsohn:2020}
+\begin{barticle}
+\bauthor{\bsnm{Simonsohn}, \binits{U.}},
+\bauthor{\bsnm{Simmons}, \binits{J.P.}},
+\bauthor{\bsnm{Nelson}, \binits{L.D.}}:
+\batitle{Specification curve analysis}.
+\bjtitle{Nature human behaviour}
+\bvolume{4}(\bissue{11}),
+\bfpage{1208}--\blpage{1214}
+(\byear{2020})
+\end{barticle}
+\endbibitem
+
+%%% 14
+\bibitem[\protect\citeauthoryear{Semken and Rossell}{2022}]{semken:2022}
+\begin{barticle}
+\bauthor{\bsnm{Semken}, \binits{C.}},
+\bauthor{\bsnm{Rossell}, \binits{D.}}:
+\batitle{Specification analysis for technology use and teenager well-being:
+  Statistical validity and a bayesian proposal}.
+\bjtitle{Journal of the Royal Statistical Society C}
+\bvolume{71}(\bissue{5}),
+\bfpage{1330}--\blpage{1355}
+(\byear{2022})
+\end{barticle}
+\endbibitem
+
+%%% 15
+\bibitem[\protect\citeauthoryear{Benjamini and Hochberg}{1995}]{benjamini:1995}
+\begin{barticle}
+\bauthor{\bsnm{Benjamini}, \binits{Y.}},
+\bauthor{\bsnm{Hochberg}, \binits{Y.}}:
+\batitle{Controlling the false discovery rate: A practical and powerful
+  approach to multiple testing}.
+\bjtitle{Journal of the Royal Statistical Society B}
+\bvolume{57}(\bissue{1}),
+\bfpage{289}--\blpage{300}
+(\byear{1995})
+\end{barticle}
+\endbibitem
+
+%%% 16
 \bibitem[\protect\citeauthoryear{Storey}{2003}]{storey:2003}
 \begin{barticle}
 \bauthor{\bsnm{Storey}, \binits{J.D.}}:
@@ -208,7 +284,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 13
+%%% 17
 \bibitem[\protect\citeauthoryear{Efron et~al.}{2001}]{efron:2001}
 \begin{barticle}
 \bauthor{\bsnm{Efron}, \binits{B.}},
@@ -223,7 +299,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 14
+%%% 18
 \bibitem[\protect\citeauthoryear{Storey}{2007}]{storey:2007}
 \begin{barticle}
 \bauthor{\bsnm{Storey}, \binits{J.D.}}:
@@ -236,7 +312,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 15
+%%% 19
 \bibitem[\protect\citeauthoryear{Guindani et~al.}{2009}]{guindani:2009}
 \begin{barticle}
 \bauthor{\bsnm{Guindani}, \binits{M.}},
@@ -250,7 +326,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 16
+%%% 20
 \bibitem[\protect\citeauthoryear{Efron}{2012}]{efron:2012}
 \begin{bbook}
 \bauthor{\bsnm{Efron}, \binits{B.}}:
@@ -263,7 +339,7 @@ vol. \bseriesno{1}.
 \end{bbook}
 \endbibitem
 
-%%% 17
+%%% 21
 \bibitem[\protect\citeauthoryear{Wasserman et~al.}{2020}]{wasserman:2020}
 \begin{barticle}
 \bauthor{\bsnm{Wasserman}, \binits{L.}},
@@ -277,7 +353,7 @@ vol. \bseriesno{1}.
 \end{barticle}
 \endbibitem
 
-%%% 18
+%%% 22
 \bibitem[\protect\citeauthoryear{Koning}{2023}]{koning:2023}
 \begin{barticle}
 \bauthor{\bsnm{Koning}, \binits{N.W.}}:
@@ -290,7 +366,49 @@ vol. \bseriesno{1}.
 \end{barticle}
 \endbibitem
 
-%%% 19
+%%% 23
+\bibitem[\protect\citeauthoryear{Hern{\'a}n and Robins}{2010}]{hernan:2010}
+\begin{bbook}
+\bauthor{\bsnm{Hern{\'a}n}, \binits{M.A.}},
+\bauthor{\bsnm{Robins}, \binits{J.M.}}:
+\bbtitle{Causal Inference}.
+\bpublisher{CRC, Boca Raton, FL}, \blocation{???}
+(\byear{2010})
+\end{bbook}
+\endbibitem
+
+%%% 24
+\bibitem[\protect\citeauthoryear{Henckel et~al.}{2022}]{henckel:2022}
+\begin{barticle}
+\bauthor{\bsnm{Henckel}, \binits{L.}},
+\bauthor{\bsnm{Perkovi{\'c}}, \binits{E.}},
+\bauthor{\bsnm{Maathuis}, \binits{M.H.}}:
+\batitle{Graphical criteria for efficient total effect estimation via
+  adjustment in causal linear models}.
+\bjtitle{Journal of the Royal Statistical Society B}
+\bvolume{84}(\bissue{2}),
+\bfpage{579}--\blpage{599}
+(\byear{2022})
+\end{barticle}
+\endbibitem
+
+%%% 25
+\bibitem[\protect\citeauthoryear{Papaspiliopoulos
+  et~al.}{2026}]{papaspiliopoulos:2026}
+\begin{barticle}
+\bauthor{\bsnm{Papaspiliopoulos}, \binits{O.}},
+\bauthor{\bsnm{Rossell}, \binits{D.}},
+\bauthor{\bsnm{Torrens-Dinar{\`e}s}, \binits{M.}}:
+\batitle{Inference for multiple treatment effects using confounder importance
+  learning}.
+\bjtitle{Bayesian Analysis}
+\bvolume{21}(\bissue{2}),
+\bfpage{909}--\blpage{936}
+(\byear{2026})
+\end{barticle}
+\endbibitem
+
+%%% 26
 \bibitem[\protect\citeauthoryear{Ramdas and Manole}{2026}]{ramdas:2026}
 \begin{barticle}
 \bauthor{\bsnm{Ramdas}, \binits{A.}},
@@ -305,7 +423,7 @@ vol. \bseriesno{1}.
 \end{barticle}
 \endbibitem
 
-%%% 20
+%%% 27
 \bibitem[\protect\citeauthoryear{Zellner}{1986}]{zellner:1986}
 \begin{bchapter}
 \bauthor{\bsnm{Zellner}, \binits{A.}}:
@@ -319,7 +437,7 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \end{bchapter}
 \endbibitem
 
-%%% 21
+%%% 28
 \bibitem[\protect\citeauthoryear{Schwarz}{1978}]{schwarz:1978}
 \begin{barticle}
 \bauthor{\bsnm{Schwarz}, \binits{G.}}:
@@ -331,7 +449,21 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \end{barticle}
 \endbibitem
 
-%%% 22
+%%% 29
+\bibitem[\protect\citeauthoryear{Saban{\'e}s~Bov{\'e} and
+  Held}{2011}]{sabanes:2011}
+\begin{barticle}
+\bauthor{\bsnm{Saban{\'e}s~Bov{\'e}}, \binits{D.}},
+\bauthor{\bsnm{Held}, \binits{L.}}:
+\batitle{Hyper-g priors for generalized linear models}.
+\bjtitle{Bayesian Analysis}
+\bvolume{6}(\bissue{3}),
+\bfpage{387}--\blpage{410}
+(\byear{2011})
+\end{barticle}
+\endbibitem
+
+%%% 30
 \bibitem[\protect\citeauthoryear{Kass et~al.}{1990}]{kass:1990}
 \begin{barticle}
 \bauthor{\bsnm{Kass}, \binits{R.E.}},
@@ -345,7 +477,7 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \end{barticle}
 \endbibitem
 
-%%% 23
+%%% 31
 \bibitem[\protect\citeauthoryear{Rossell and Rubio}{2021}]{rossell:2021b}
 \begin{barticle}
 \bauthor{\bsnm{Rossell}, \binits{D.}},
@@ -359,7 +491,7 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \end{barticle}
 \endbibitem
 
-%%% 24
+%%% 32
 \bibitem[\protect\citeauthoryear{Shafer et~al.}{2011}]{shafer:2011}
 \begin{barticle}
 \bauthor{\bsnm{Shafer}, \binits{G.}},
@@ -375,7 +507,7 @@ In: \bbtitle{Bayesian Inference and Decision Techniques: Essays in Honor of
 \end{barticle}
 \endbibitem
 
-%%% 25
+%%% 33
 \bibitem[\protect\citeauthoryear{Miech et~al.}{2025}]{mtfstudy:2025}
 \begin{botherref}
 \oauthor{\bsnm{Miech}, \binits{R.A.}},
@@ -394,7 +526,7 @@ Ann Arbor, MI
 \end{botherref}
 \endbibitem
 
-%%% 26
+%%% 34
 \bibitem[\protect\citeauthoryear{Twenge et~al.}{2018}]{twenge:2018}
 \begin{barticle}
 \bauthor{\bsnm{Twenge}, \binits{J.M.}},
@@ -411,7 +543,7 @@ Ann Arbor, MI
 \end{barticle}
 \endbibitem
 
-%%% 27
+%%% 35
 \bibitem[\protect\citeauthoryear{Valkenburg et~al.}{2022}]{valkenburg:2022}
 \begin{barticle}
 \bauthor{\bsnm{Valkenburg}, \binits{P.M.}},
@@ -426,7 +558,7 @@ Ann Arbor, MI
 \end{barticle}
 \endbibitem
 
-%%% 28
+%%% 36
 \bibitem[\protect\citeauthoryear{Allcott et~al.}{2020}]{allcott:2020}
 \begin{barticle}
 \bauthor{\bsnm{Allcott}, \binits{H.}},
@@ -441,7 +573,7 @@ Ann Arbor, MI
 \end{barticle}
 \endbibitem
 
-%%% 29
+%%% 37
 \bibitem[\protect\citeauthoryear{Allcott et~al.}{2022}]{allcott:2022}
 \begin{barticle}
 \bauthor{\bsnm{Allcott}, \binits{H.}},
@@ -455,7 +587,7 @@ Ann Arbor, MI
 \end{barticle}
 \endbibitem
 
-%%% 30
+%%% 38
 \bibitem[\protect\citeauthoryear{Braghieri et~al.}{2022}]{braghieri:2022}
 \begin{botherref}
 \oauthor{\bsnm{Braghieri}, \binits{L.}},

@@ -1,4 +1,4 @@
-\begin{thebibliography}{7}
+\begin{thebibliography}{14}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -16,17 +16,31 @@ H.~Allcott, M.~Gentzkow, and L.~Song.
 \newblock Digital addiction.
 \newblock \emph{American Economic Review}, 112:\penalty0 2424--2463, 2022.
 
-\bibitem[Benjamini and Yekutieli(2001)]{benjamini:2001}
-Y.~Benjamini and D.~Yekutieli.
-\newblock The control of the false discovery rate in multiple testing under
-  dependency.
-\newblock \emph{The Annals of Statistics}, 29:\penalty0 1165--1188, 2001.
-
 \bibitem[Braghieri et~al.(2022)Braghieri, Levy, and Makarin]{braghieri:2022}
 L.~Braghieri, R.~Levy, and A.~Makarin.
 \newblock Social media and mental health.
 \newblock \emph{London: Centre for Economic Policy Research. {CEPR} Discussion
   Paper}, 17252, 2022.
+
+\bibitem[Chugg et~al.(2026)Chugg, Ramdas, and Gr{\"u}nwald]{chugg:2026}
+Ben Chugg, Aaditya Ramdas, and Peter Gr{\"u}nwald.
+\newblock E-values as statistical evidence: A comparison to bayes factors,
+  likelihoods, and p-values.
+\newblock \emph{arXiv}, 2603.24421:\penalty0 1--34, 2026.
+
+\bibitem[Gr{\"u}nwald et~al.(2024)Gr{\"u}nwald, de~Heide, and
+  Koolen]{gruenwald:2024}
+P.~Gr{\"u}nwald, R.~de~Heide, and W.~Koolen.
+\newblock Safe testing.
+\newblock \emph{Journal of the Royal Statistical Society B}, 86\penalty0
+  (5):\penalty0 1091--1128, 2024.
+
+\bibitem[Henckel et~al.(2022)Henckel, Perkovi{\'c}, and Maathuis]{henckel:2022}
+Leonard Henckel, Emilija Perkovi{\'c}, and Marloes~H Maathuis.
+\newblock Graphical criteria for efficient total effect estimation via
+  adjustment in causal linear models.
+\newblock \emph{Journal of the Royal Statistical Society B}, 84\penalty0
+  (2):\penalty0 579--599, 2022.
 
 \bibitem[Orben and Przybylski(2019)]{orben:2019}
 Amy Orben and Andrew~K Przybylski.
@@ -35,11 +49,44 @@ Amy Orben and Andrew~K Przybylski.
 \newblock \emph{Nature human behaviour}, 3\penalty0 (2):\penalty0 173--182,
   2019.
 
+\bibitem[Papaspiliopoulos et~al.(2026)Papaspiliopoulos, Rossell, and
+  Torrens-Dinar{\`e}s]{papaspiliopoulos:2026}
+Omiros Papaspiliopoulos, David Rossell, and Miquel Torrens-Dinar{\`e}s.
+\newblock Inference for multiple treatment effects using confounder importance
+  learning.
+\newblock \emph{Bayesian Analysis}, 21\penalty0 (2):\penalty0 909--936, 2026.
+
+\bibitem[Ramdas and Wang(2025)]{ramdas:2025}
+Aaditya Ramdas and Ruodu Wang.
+\newblock Hypothesis testing with e-values.
+\newblock \emph{Foundations and Trends{\textregistered} in Statistics},
+  1\penalty0 (1-2):\penalty0 1--390, 2025.
+
+\bibitem[Semken and Rossell(2022)]{semken:2022}
+C.~Semken and D.~Rossell.
+\newblock Specification analysis for technology use and teenager well-being:
+  Statistical validity and a bayesian proposal.
+\newblock \emph{Journal of the Royal Statistical Society C}, 71\penalty0
+  (5):\penalty0 1330--1355, 2022.
+
+\bibitem[Steegen et~al.(2016)Steegen, Tuerlinckx, Gelman, and
+  Vanpaemel]{steegen:2016}
+Sara Steegen, Francis Tuerlinckx, Andrew Gelman, and Wolf Vanpaemel.
+\newblock Increasing transparency through a multiverse analysis.
+\newblock \emph{Perspectives on Psychological Science}, 11\penalty0
+  (5):\penalty0 702--712, 2016.
+
 \bibitem[Valkenburg et~al.(2022)Valkenburg, Meier, and Beyens]{valkenburg:2022}
 P.M. Valkenburg, A.~Meier, and I.~Beyens.
 \newblock Social media use and its impact on adolescent mental health: an
   umbrella review of the evidence.
 \newblock \emph{Current Opinion in Psychology}, 44:\penalty0 58--68, 2022.
+
+\bibitem[Vovk and Wang(2021)]{vovk:2021}
+Vladimir Vovk and Ruodu Wang.
+\newblock E-values: Calibration, combination and applications.
+\newblock \emph{The Annals of Statistics}, 49\penalty0 (3):\penalty0
+  1736--1754, 2021.
 
 \bibitem[Wang and Ramdas(2022)]{wang_ruodu:2022}
 Ruodu Wang and Aaditya Ramdas.
