@@ -54,8 +54,8 @@
 
 \maketitle
 
-\noindent We thank the editor and referees for the positive feedback and constructive comments. We carefully considered all points raised and revised the manuscript accordingly. We feel that the paper has improved in completeness and clarity as a result, and thank the Editor and Referees for that.
-For your convenience, the updated text in the manuscript is highlighted in blue. A point-by-point reply to all the raised issues follows.
+\noindent We thank the editor and referees for the positive feedback and constructive comments. We carefully considered all points raised and revised the manuscript accordingly. We feel that the paper has improved significantly in completeness and clarity as a result, and thank the editor and referees for that.
+For your convenience, the updated text in the manuscript is highlighted in blue. 
 
 
 % =============================================================================
@@ -65,9 +65,26 @@ For your convenience, the updated text in the manuscript is highlighted in blue.
 
 
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Editor:} Reviewers have now commented on your paper. You will see that they are advising that you revise your manuscript. If you are prepared to undertake the work required, I would be pleased to reconsider my decision. Please in order to accept the manuscript for the special issue, I ask authors to check thoroughly points raised by Reviewer 1, in particular points 1. and 2.
+    \item \textbf{Editor:} Reviewers have now commented on your paper. You will see that they are advising that you revise your manuscript. If you are prepared to undertake the work required, I would be pleased to reconsider my decision. Please in order to accept the manuscript for the special issue, I ask authors to check thoroughly points raised by Reviewer 1, in particular points 1 and 2.
 
-    \reply We have revised the manuscript along the directions suggested by the referees (and, in particular, Points 1-2 raised by Referee 1), please see below for our reply. Thank you for the opportunity to revise the manuscript.
+    \reply Thank you for the opportunity to revise the manuscript. We have thoroughly revised it along the directions suggested by the referees (and, in particular, Points 1-2 raised by Referee 1). 
+In fact, the observations from the referees made us realize that we had previously taken an overly simplistic view of e-values that was almost entirely focused on multiplicity control. The revised paper views their use more broadly, and to reflect that we updated the title to ``The role of e-values in multiverse analysis'' (before we mentioned the term ``multiplicity control'' explicitly).
+We now discuss at greater depth that e-values may also be appealing in multiverse analyses for their flexibility in allowing one to combine evidence across hypotheses, and across datasets and time. In fact, our updated results indicate that e-values often have limited interest purely in terms of FDR control, since the Benjamini-Yekutieli p-value adjustment also controls the FDR and usually exhibits higher statistical power (except in large multiverses where one tests many hypotheses). Hence, the main appeal of e-values may lie in their flexibility.
+
+We illustrated these issues by extending our simulation study, where we considered multiverses of various sizes and we added the Benjamini-Yekutieli procedure as a benchmark. We also showed in our teenager application how to use e-values to obtain overall measures of evidence that a treatment has no effect on any outcome, and on combining the evidence provided by two independent studies.
+Other significant changes include:
+\begin{itemize}[leftmargin=*]
+\item  Fixing the error in the write-up of the sum-to-zero constraint pointed out by Referee 1
+
+\item Clarifying the terminology of ``treatment effect'', in particular explaining that it does not necessarily refer to causal effects, discussing an alternative definition mentioned by the referees, and discussing under what conditions the effect could be claimed to be causal.
+\item We added references to the introduction and to other places suggested by Referee 2, to better frame our work within the literature.
+
+\item We added an analytical comparison of Benjamini-Yekutieli p-value adjustment and the e-BH procedure for e-values (Section 3). The comparison suggests in which settings either procedure may be expected to have higher statistical power, and these observations match what we observe in our empirical results: while the power of both procedures does not differ massively, BY is better for smaller multiverses, and e-values are better for larger multiverses.
+
+\item We added a new simulation study in Section 4.2 that mimics more closely a multiverse analysis setting. It considers multiple outcomes, a mix of truly active and truly inactive treatments, and covariate values are drawn from the teenager data to reflect a dependence structure that could be found in a real application.
+\end{itemize}
+
+Please see below for a point-by-point reply to these and other issues raised by the referees.
 
 
 
@@ -80,7 +97,7 @@ For your convenience, the updated text in the manuscript is highlighted in blue.
 
 \section*{Reply to Referee 1}
 
-Thank you for taking a careful look at our work. Your suggestions led to what we believe is a significantly improved paper, so we reiterate our thanks. Please find a point-by-point reply below.
+Thank you for taking a careful look at our work. Your suggestions led to a significantly improved paper, which we appreciate sincerely. Please find a point-by-point reply below.
 
 \subsection*{Major comments}
 
@@ -88,7 +105,7 @@ Thank you for taking a careful look at our work. Your suggestions led to what we
     \item \textbf{Comment:} I have a feeling that the weighted sum-to-zero coding in Section 2 is incorrect. As defined, $g_{ik} = \rho_k$ for observations in subpopulation $k$ and $-(1 - \rho_k)$ otherwise, so the column sum is $n_k\rho_k - (n - n_k)(1 - \rho_k) = n(\rho_k^2 - (1 - \rho_k)^2) = n(2\rho_k - 1)$, which is zero only when $\rho_k = 1/2$. The claim that $\sum_i g_{ik} = 0$, and hence the identity that $\beta_j^{(l)}$ equals the average effect fails. The intended coding is presumably $g_{ik} = 1 - \rho_k$ for observations in subpopulation $k$ and $-\rho_k$ otherwise, which does sum to zero. The subsequent expression for $\beta_{jk}^{(l)}$ must be corrected accordingly. Please verify whether the code implements the stated or the corrected coding.
     
     \reply 
-Thank you for pointing out this important issue, this was an oversight on our end when writing the paper. Indeed, to guarantee that $\sum_{i=1}^n g_{ik}=0$ the coding should be $g_{ik}= 1 - \rho_k$ for individuals in subpopulation $k$ and $g_{ik}= -\rho_k$ otherwise. Then, letting $n_k$ be the number of observations coming from subpopulation $k$ and $\rho_k = n_k/n$ be the corresponding proportion, 
+Thank you for pointing this out, it was an oversight on our end when writing the paper. Indeed, to guarantee that $\sum_{i=1}^n g_{ik}=0$ the coding should be $g_{ik}= 1 - \rho_k$ for individuals in subpopulation $k$ and $g_{ik}= -\rho_k$ otherwise. Then, letting $n_k$ be the number of observations coming from subpopulation $k$ and $\rho_k = n_k/n$ be the corresponding proportion, 
 \begin{align}
  \sum_{i=1}^n g_{ik}= n_k (1-\rho_k) + (n - n_k) (- \rho_k)= n_k \frac{n - n_k}{n} - (n-n_k) \frac{n_k}{n} = 0.
 \nonumber
@@ -104,13 +121,15 @@ We corrected the paper accordingly. We also checked that there were no errors in
 The new simulation study (Section 4.2) considers 5 treatments and 14 control covariates.
 Their values are generated by sampling with replacement from the MCS data,
 so that the covariate correlation structure and the dependence between tests in our simulations match those of the MCS data.
-We considered two sample sizes $n=1,000$ and $n=10,000$, and a moderately-sized multiverse with 5 outcomes and a larger multiverse with 20 outcomes, leading to a total of 4 simulation settings.
-We then set generate values for each outcome from a linear regression model where some of the data-generating $\beta_i^*=0$ and some $\beta_i^* \neq 0$.
+We considered two sample sizes $n=1,000$ and $n=10,000$, and a moderately-sized multiverse with $L=5$ outcomes and a larger multiverse with $L=20$ outcomes, leading to a total of 4 simulation settings.
+We then set generate values for each outcome from a linear regression model where some of the data-generating $\beta_i^*=0$ and some $\beta_i^* \neq 0$, so that there is a mix of truly active and truly inactive treatments.
 
+We also applied the closed e-BH procedure (which has strictly higher power than e-BH) to the ensemble, as you requested.
 Per your next comment, we also considered Benjamini-Yekutieli P-value adjustment as an alternative strategy to control the FDR.
-Briefly, the power of the top two e-variable procedures was very similar to that of BY adjustment, with slight advantages for the latter in the smaller multiverse and slight advantages for the former in the larger multiverse.
+Briefly, the power of the top two e-variable procedures was similar to that of BY adjustment, with slight advantages for the latter in the smaller multiverse and slight advantages for the former in the larger multiverse.
+We observed similar findings in the teenager data, where BY rejected more hypotheses than closed e-BH.
 This made us realize that the merits of e-variables for multiverse analysis lie not so much in FDR control, rather than on their flexibility in allowing to combine evidence across hypotheses and across independent datasets, and we updated the paper in this direction. 
-In particular, the changed the title from ``evalues for multiplicity control in multiverse analysis'' to ``The role of e-values in multiverse analysis'', we updated the abstract, introduction and the rest of the paper accordingly.
+In particular, the changed the title from ``evalues for multiplicity control in multiverse analysis'' to ``The role of e-values in multiverse analysis'', we updated the abstract, introduction and the rest of the paper accordingly, including an illustration of aggregating evidence with e-values in the teenager data in Section 5.2.
 See also our next point below.
 
 
@@ -125,15 +144,15 @@ Briefly, there are two main considerations. First, as pointed out by \cite{wang_
 Our new simulations in Section 4.2 reflect this. While the differences in power between the closed e-BH procedure (an improved version of e-BH) and BY are small, BY attains slightly higher power than closed e-BH in the smaller multiverse, and slightly lower power in the larger universe.
 
 The second consideration is that, for any fixed $K$ the relative powers depend on the magnitude of the $k^{th}$ ordered reciprocal e-value $1/E_{[k]}$ versus that of the P-value $P_{[k]}$. For example, consider the mixture calibrator e-variable (which has a fairly competitive power in our experiments).
-For small $P_{[k]}$, applying e-BH implies a threshold
+For small $P_{[k]}$, e-BH roughly seeks the largest $k$ such that
 \begin{align}
  P_{[k]} (\ln P_{[k]})^2 \leq \frac{\alpha k}{K}
 \nonumber
 \end{align}
-whereas BY approximately uses a threshold $P_{[k]} \leq (\alpha k)/[K (\ln(K) + 0.577)]$.
+whereas BY approximately uses $P_{[k]} \leq (\alpha k)/[K (\ln(K) + 0.577)]$.
 Therefore, if $(\ln P_{[k]})^2 > \ln(K) + 0.577$ then one expects BY to have higher power for rejecting these hypotheses, and otherwise e-BH has higher power. Because of the step-up nature of the e-BH and BY procedures, the hypotheses that are actually rejected are not driven by the most extreme P-values but rather by the smallest P-valuesatisfying the threshold.
 
-As mentioned, in practice both in our experiments and in the teenager data BY-adjusted P-values has similar but overall slightly higher power than applying the closed e-BH procedure to calibrated e-variables.
+As mentioned, both in our experiments and in the teenager data, BY-adjusted P-values has similar but overall slightly higher power than applying the closed e-BH procedure to calibrated e-variables.
 Therefore, the main appeal of e-variables for multiverse analysis may lie in their flexibility to combine evidence across hypotheses and across datasets.
 To illustrate this, we added a new Section 5.2 analyzing the teenager data. Therein, we obtain for each treatment an overall measure of evidence against the null hypothesis that the treatment has no effect on any outcome. We also illustrate how after having observed the e-values in the MCS data one can incorporate further evidence provided by an independent Monitoring the Future (MtF) study, while maintaining the statistical validity of each individual e-value. Such an exercise would not be possible with P-values because, after having looked at the MCS P-values, one has already spent the whole of the type I error.
 
