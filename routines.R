@@ -187,7 +187,7 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
     for(i in 1:length(list.modelsminus1)){
       glm.fitmin = glm(formula = list.modelsminus1[[i]], data=data, family=family.glm)
       if(family.glm=='gaussian'){
-        res_anova  <- anova(glm.fitfull, glm.fitmin)
+        res_anova  <- anova(glm.fitmin, glm.fitfull, test='F')
         if (logpvalue) {
           F_stat  <- res_anova$F[2]
           df1     <- abs(res_anova$Df[2])

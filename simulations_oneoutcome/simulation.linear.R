@@ -1,5 +1,6 @@
 library(mvtnorm)
-setwd("~/GitHub/multiverse.evalues/")
+setwd("~/github/multiverse.evalues")
+#setwd("~/GitHub/multiverse.evalues/")
 source('routines.R')
 set.seed(35)
 
@@ -9,7 +10,7 @@ beta = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 0.75, 1)
 cov = matrix(rep(0.5,p.sim*p.sim), ncol=p.sim)
 diag(cov) = rep(1,p.sim)
 
-nb.sim = 100
+nb.sim = 1000
 summary.mixt.res = data.frame()
 summary.soft.res = data.frame()
 summary.bf.res = data.frame()
@@ -103,61 +104,61 @@ for(n.sim in c(100, 250, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000
   }
   softrankevalues.res$sim = as.numeric(rownames(softrankevalues.res))
   softrankevalues.res$n = rep(n.sim, nrow(softrankevalues.res))
-  write.csv(softrankevalues.res,paste0('simulations/linreg/logsoftevalues.sim.n',n.sim,'.csv'),row.names = FALSE)
+  write.csv(softrankevalues.res,paste0('simulations_oneoutcome/linreg/logsoftevalues.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.soft.sim = as.matrix(t(colMeans(softrankevalues.res)))
   summary.soft.res = rbind(summary.soft.res, summary.soft.sim)
   
   mixtevalues.res$sim = as.numeric(rownames(mixtevalues.res))
   mixtevalues.res$n = rep(n.sim, nrow(mixtevalues.res))
-  write.csv(mixtevalues.res,paste0('simulations/linreg/logmixtevalues.sim.n',n.sim,'.csv'),row.names = FALSE)
+  write.csv(mixtevalues.res,paste0('simulations_oneoutcome/linreg/logmixtevalues.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.mixt.sim = as.matrix(t(colMeans(mixtevalues.res)))
   summary.mixt.res = rbind(summary.mixt.res, summary.mixt.sim)
   
   bf.res$sim = as.numeric(rownames(bf.res))
   bf.res$n = rep(n.sim, nrow(bf.res))
-  write.csv(bf.res,paste0('simulations/linreg/logbf.sim.n',n.sim,'.csv'),row.names = FALSE)
+  write.csv(bf.res,paste0('simulations_oneoutcome/linreg/logbf.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.sim.bf = as.matrix(t(colMeans(bf.res)))
   summary.bf.res = rbind(summary.bf.res, summary.sim.bf)
   
   p.values.res$sim = as.numeric(rownames(p.values.res))
   p.values.res$n = rep(n.sim, nrow(p.values.res))
-  write.csv(p.values.res,paste0('simulations/linreg/p.values.sim.n',n.sim,'.csv'),row.names = FALSE)
+  write.csv(p.values.res,paste0('simulations_oneoutcome/linreg/p.values.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.sim.p.values = as.matrix(t(colMeans(p.values.res)))
   summary.p.values.res = rbind(summary.p.values.res, summary.sim.p.values)
   
   calib1.res$sim = as.numeric(rownames(calib1.res))
   calib1.res$n = rep(n.sim, nrow(calib1.res))
-  write.csv(calib1.res,paste0('simulations/linreg/logcalib1.sim.n',n.sim,'.csv'),row.names = FALSE)
+  write.csv(calib1.res,paste0('simulations_oneoutcome/linreg/logcalib1.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.sim.calib1 = as.matrix(t(colMeans(calib1.res)))
   summary.calib1.res = rbind(summary.calib1.res, summary.sim.calib1)
   
   calib2.res$sim = as.numeric(rownames(calib2.res))
   calib2.res$n = rep(n.sim, nrow(calib2.res))
-  write.csv(calib2.res,paste0('simulations/linreg/logcalib2.sim.n',n.sim,'.csv'),row.names = FALSE)
+  write.csv(calib2.res,paste0('simulations_oneoutcome/linreg/logcalib2.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.sim.calib2 = as.matrix(t(colMeans(calib2.res)))
   summary.calib2.res = rbind(summary.calib2.res, summary.sim.calib2)
   
   calib3.res$sim = as.numeric(rownames(calib3.res))
   calib3.res$n = rep(n.sim, nrow(calib3.res))
-  write.csv(calib3.res,paste0('simulations/linreg/logcalib3.sim.n',n.sim,'.csv'),row.names = FALSE)
+  write.csv(calib3.res,paste0('simulations_oneoutcome/linreg/logcalib3.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.sim.calib3 = as.matrix(t(colMeans(calib3.res)))
   summary.calib3.res = rbind(summary.calib3.res, summary.sim.calib3)
   
   calib4.res$sim = as.numeric(rownames(calib4.res))
   calib4.res$n = rep(n.sim, nrow(calib4.res))
-  write.csv(calib4.res,paste0('simulations/linreg/logcalib4.sim.n',n.sim,'.csv'),row.names = FALSE)
+  write.csv(calib4.res,paste0('simulations_oneoutcome/linreg/logcalib4.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.sim.calib4 = as.matrix(t(colMeans(calib4.res)))
   summary.calib4.res = rbind(summary.calib4.res, summary.sim.calib4)
 }
 
-write.csv(summary.mixt.res,paste0('simulations/linreg/summaries.logmixt.sim.csv'),row.names = FALSE)
-write.csv(summary.soft.res,paste0('simulations/linreg/summaries.logsoft.sim.csv'),row.names = FALSE)
-write.csv(summary.bf.res,paste0('simulations/linreg/summaries.logbf.sim.csv'),row.names = FALSE)
-write.csv(summary.p.values.res,paste0('simulations/linreg/summaries.pvalues.sim.csv'),row.names = FALSE)
-write.csv(summary.calib1.res,paste0('simulations/linreg/summaries.logcalib1.sim.csv'),row.names = FALSE)
-write.csv(summary.calib2.res,paste0('simulations/linreg/summaries.logcalib2.sim.csv'),row.names = FALSE)
-write.csv(summary.calib3.res,paste0('simulations/linreg/summaries.logcalib3.sim.csv'),row.names = FALSE)
-write.csv(summary.calib4.res,paste0('simulations/linreg/summaries.logcalib4.sim.csv'),row.names = FALSE)
+write.csv(summary.mixt.res,paste0('simulations_oneoutcome/linreg/summaries.logmixt.sim.csv'),row.names = FALSE)
+write.csv(summary.soft.res,paste0('simulations_oneoutcome/linreg/summaries.logsoft.sim.csv'),row.names = FALSE)
+write.csv(summary.bf.res,paste0('simulations_oneoutcome/linreg/summaries.logbf.sim.csv'),row.names = FALSE)
+write.csv(summary.p.values.res,paste0('simulations_oneoutcome/linreg/summaries.pvalues.sim.csv'),row.names = FALSE)
+write.csv(summary.calib1.res,paste0('simulations_oneoutcome/linreg/summaries.logcalib1.sim.csv'),row.names = FALSE)
+write.csv(summary.calib2.res,paste0('simulations_oneoutcome/linreg/summaries.logcalib2.sim.csv'),row.names = FALSE)
+write.csv(summary.calib3.res,paste0('simulations_oneoutcome/linreg/summaries.logcalib3.sim.csv'),row.names = FALSE)
+write.csv(summary.calib4.res,paste0('simulations_oneoutcome/linreg/summaries.logcalib4.sim.csv'),row.names = FALSE)
 
 summary.mixt.res$type='mixt'
 summary.soft.res$type='soft'
@@ -175,4 +176,9 @@ summary.all.res=rbind(summary.mixt.res,
                       summary.calib2.res,
                       summary.calib3.res,
                       summary.calib4.res)
-write.csv(summary.all.res,'~/GitHub/multiverse.evalues/simulations/linreg/summaries.all.csv',row.names = FALSE)
+write.csv(summary.all.res,'simulations_oneoutcome/linreg/summaries.all.csv',row.names = FALSE)
+
+
+
+# Evaluate mean run time (run hypsupp setting arguments softrank=TRUE, mixtevalue=FALSE, BF=FALSE, p.to.e=FALSE)
+
