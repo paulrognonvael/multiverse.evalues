@@ -129,7 +129,7 @@ Per your next comment, we also considered Benjamini-Yekutieli P-value adjustment
 Briefly, the power of the top two e-variable procedures was similar to that of BY adjustment, with slight advantages for the latter in the smaller multiverse and slight advantages for the former in the larger multiverse.
 We observed similar findings in the teenager data, where BY rejected more hypotheses than closed e-BH.
 This made us realize that the merits of e-variables for multiverse analysis lie not so much in FDR control, rather than on their flexibility in allowing to combine evidence across hypotheses and across independent datasets, and we updated the paper in this direction. 
-In particular, the changed the title from ``evalues for multiplicity control in multiverse analysis'' to ``The role of e-values in multiverse analysis'', we updated the abstract, introduction and the rest of the paper accordingly, including an illustration of aggregating evidence with e-values in the teenager data in Section 5.2.
+In particular, the changed the title from ``e-values for multiplicity control in multiverse analysis'' to ``The role of e-values in multiverse analysis'', we updated the abstract, introduction and the rest of the paper accordingly, including an illustration of aggregating evidence with e-values in the teenager data in Section 5.2.
 See also our next point below.
 
 
@@ -150,7 +150,7 @@ For small $P_{[k]}$, e-BH roughly seeks the largest $k$ such that
 \nonumber
 \end{align}
 whereas BY approximately uses $P_{[k]} \leq (\alpha k)/[K (\ln(K) + 0.577)]$.
-Therefore, if $(\ln P_{[k]})^2 > \ln(K) + 0.577$ then one expects BY to have higher power for rejecting these hypotheses, and otherwise e-BH has higher power. Because of the step-up nature of the e-BH and BY procedures, the hypotheses that are actually rejected are not driven by the most extreme P-values but rather by the smallest P-valuesatisfying the threshold.
+Therefore, if $(\ln P_{[k]})^2 > \ln(K) + 0.577$ then one expects BY to have higher power for rejecting these hypotheses, and otherwise e-BH has higher power. Because of the step-up nature of the e-BH and BY procedures, the hypotheses that are actually rejected are not driven by the most extreme P-values but rather by the smallest P-value satisfying the threshold.
 
 As mentioned, both in our experiments and in the teenager data, BY-adjusted P-values has similar but overall slightly higher power than applying the closed e-BH procedure to calibrated e-variables.
 Therefore, the main appeal of e-variables for multiverse analysis may lie in their flexibility to combine evidence across hypotheses and across datasets.
@@ -268,7 +268,7 @@ comments are provided below.
 
 \begin{enumerate}[leftmargin=*]
 
-\item \textbf{Commment:} Page 5. The subpopulation-encoding notation ($g_{ik}$) relies on a specific weighted sum-to-zero constraint. It would be useful for the authors to include a brief, intuitive explanation of how this constraint behaves in practice, as the current mathematical definition is quite dense.
+\item \textbf{Comment:} Page 5. The subpopulation-encoding notation ($g_{ik}$) relies on a specific weighted sum-to-zero constraint. It would be useful for the authors to include a brief, intuitive explanation of how this constraint behaves in practice, as the current mathematical definition is quite dense.
 
 \reply
 
@@ -281,7 +281,7 @@ Because of this orthogonality, $\beta_j^{(l)}$ is an average population effect w
 \item \textbf{Comment:} Page 5. Could you please clarify if the definition of treatment effect in terms of the derivative of $F\circ\mathbb{F}$ is mainstream or a specialized definition for your paper? Marginal effects are often defined in terms of the derivative of $\mathbb{E}$ (Ai and Norton 2003) instead, which accounts for the scale induced by the link function. Of course, this does not affect linear regression, but it induces a difference for other GLMs.
 
 \reply We added this alternative definition of treatment effect alongside our original definition, and explained that it is particularly popular in the causal inference literature. Specifically, the treatment effect is $(F^{-1})' (x_i, z_i, g_i) [ \beta_j^{(l)} + g_i^T \delta_j^{(l)} ]$ and the ATE is $\beta_j^{(l)} \frac{1}{n} \sum_{i=1}^n (F^{-1})' (x_i, z_i, g_i)$, where $F^{-1}$ is the inverse link function.
-We also explained that therefore testing for the existence of a treatment effect continues to correspond to testing $\beta_j^{(l)}=0$ as in our original defnision, and that testing for a treatment effect in a subpopulation continues to correspond to $\beta_j^{(l)} + g_i^T \delta_j^{(l)} =0$.
+We also explained that therefore testing for the existence of a treatment effect continues to correspond to testing $\beta_j^{(l)}=0$ as in our original definition, and that testing for a treatment effect in a subpopulation continues to correspond to $\beta_j^{(l)} + g_i^T \delta_j^{(l)} =0$.
 Since the rest of the paper focuses on hypothesis testing, which of the two definitions is used does not affect the rest of the paper much.
 
 
@@ -339,9 +339,9 @@ We also added a remark that the unit information interpretation holds exactly on
 
     \item \textbf{Comment:} The simulation study utilizes 10 covariates drawn from a multivariate Gaussian with a uniform pairwise covariance of 0.5. Could the authors discuss this specific covariance structure? Is this moderate-to-high level of collinearity representative of typical Social Science datasets?
 
-    \reply We used this structure as a simple one that allows for moderate correlations. In our experience, there isn't a typical amount of collinearity that would representative across Social Sciences applications, rather this depends strongly on the setting. For example, in our teenager study most pairwise correlations are below 0.5, whereas in Macroeconomics applications studying GDP growth based on country-level indicators many covariates exhibit stronger correlations (often $>0.9$).
+    \reply We used this structure as a simple one that allows for moderate correlations. In our experience, there isn't a typical amount of collinearity that would be representative across Social Sciences applications, rather this depends strongly on the setting. For example, in our teenager study most pairwise correlations are below 0.5, whereas in Macroeconomics applications studying GDP growth based on country-level indicators many covariates exhibit stronger correlations (often $>0.9$).
 
-To address this issue, in our new simulation study in Section 5.2 (which we added per Referee 1's request) we draw covariate values from the actual teenager data. In this way, the covariate correlation structure in our simulations is the same as that in our motivating application, so it would be at least representative of these type of applications.
+To address this issue, in our new simulation study in Section 5.2 (which we added per Referee 1's request) we draw covariate values from the actual teenager data. In this way, the covariate correlation structure in our simulations is the same as that in our motivating application, so it would be at least representative of this type of applications.
 
     \vspace{0.5cm}
 
@@ -386,7 +386,7 @@ and added a note that one could consider several strategies to handle the missin
     \reply Thank you for the suggestion. We added the following discussion to the paper.
 
 \color{blue}
-The main reason why our findings differ from the original study in \cite{orben:2019} is that the latter used Specification Curve Analysis to estimate a median treatment effect across all outcomes and treatments (as well as also across all possible control covariate configurations). As shown in Figure 5 there is significant heterogeneity of the effects across outcomes and treatments. For example, the point estimate for the association between high TV usage and most outcomes was negative (suggesting that TV usage might be associated with lower chances of poor mental well-being), whereas for social media and internet use the estimates were positive for self-assessed outcomes like depression and low self-steem and negative for parent-assessed outcomes like high peer problems and low pro-sociality. The median of these heterogeneous effects is close to 0, which led \cite{orben:2019} to conclude that the association between mental well-being and technology use was too small to warrant policy change. We argue that in the presence of strong treatment effect heterogeneity, summaries such as the median can mask the presence of important individual treatment effects.
+The main reason why our findings differ from the original study in \cite{orben:2019} is that the latter used Specification Curve Analysis to estimate a median treatment effect across all outcomes and treatments (as well as also across all possible control covariate configurations). As shown in Figure 5 there is significant heterogeneity of the effects across outcomes and treatments. For example, the point estimate for the association between high TV usage and most outcomes was negative (suggesting that TV usage might be associated with lower chances of poor mental well-being), whereas for social media and internet use the estimates were positive for self-assessed outcomes like depression and low self-esteem and negative for parent-assessed outcomes like high peer problems and low pro-sociality. The median of these heterogeneous effects is close to 0, which led \cite{orben:2019} to conclude that the association between mental well-being and technology use was too small to warrant policy change. We argue that in the presence of strong treatment effect heterogeneity, summaries such as the median can mask the presence of important individual treatment effects.
 We remark that there are observational studies \cite{valkenburg:2022}, randomized controlled trials \cite{allcott:2020,allcott:2022} and natural experiments \cite{braghieri:2022} indicating that there is a negative effect of social media on self-reported mental well-being, aligning with our findings.
 
 \color{black}
