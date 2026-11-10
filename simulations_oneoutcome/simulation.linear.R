@@ -1,8 +1,9 @@
 library(mvtnorm)
-setwd("~/github/multiverse.evalues")
-#setwd("~/GitHub/multiverse.evalues/")
+setwd("~/Github/multiverse.evalues/")
+#setwd("~/github/multiverse.evalues")
 source('routines.R')
 set.seed(35)
+
 
 p.sim=10
 beta = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 0.75, 1)
@@ -10,7 +11,7 @@ beta = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 0.75, 1)
 cov = matrix(rep(0.5,p.sim*p.sim), ncol=p.sim)
 diag(cov) = rep(1,p.sim)
 
-nb.sim = 1000
+nb.sim = 2
 summary.mixt.res = data.frame()
 summary.soft.res = data.frame()
 summary.bf.res = data.frame()
@@ -19,6 +20,7 @@ summary.calib1.res = data.frame()
 summary.calib2.res = data.frame()
 summary.calib3.res = data.frame()
 summary.calib4.res = data.frame()
+summary.time.res = data.frame()
 
 for(n.sim in c(100, 250, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000
                )){
@@ -31,6 +33,7 @@ for(n.sim in c(100, 250, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000
   calib2.res = data.frame()
   calib3.res = data.frame()
   calib4.res = data.frame()
+  time.res = data.frame()
   
   for(i in 1:nb.sim){
     cat('\n------------- simulation',i,'--------------\n')
@@ -101,6 +104,9 @@ for(n.sim in c(100, 250, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000
     colnames(calib4.df) = supp.stats$var
     calib4.df[1,] = supp.stats$logcalib4
     calib4.res = rbind(calib4.res,calib4.df)
+    
+    # store e-value computation time 
+    time.res = rbind(time.res,tt$time)
   }
   softrankevalues.res$sim = as.numeric(rownames(softrankevalues.res))
   softrankevalues.res$n = rep(n.sim, nrow(softrankevalues.res))
@@ -149,6 +155,12 @@ for(n.sim in c(100, 250, 500, 750, 1000, 1500, 2000, 2500, 5000, 10000
   write.csv(calib4.res,paste0('simulations_oneoutcome/linreg/logcalib4.sim.n',n.sim,'.csv'),row.names = FALSE)
   summary.sim.calib4 = as.matrix(t(colMeans(calib4.res)))
   summary.calib4.res = rbind(summary.calib4.res, summary.sim.calib4)
+  
+  time.res$sim = as.numeric(rownames(time.res))
+  time.res$n = rep(n.sim, nrow(time.res))
+  write.csv(time.res,paste0('simulations_oneoutcome/linreg/time.sim.n',n.sim,'.csv'),row.names = FALSE)
+  summary.sim.time = as.matrix(t(colMeans(time.res)))
+  summary.time.res = rbind(summary.time.res, summary.sim.time)
 }
 
 write.csv(summary.mixt.res,paste0('simulations_oneoutcome/linreg/summaries.logmixt.sim.csv'),row.names = FALSE)
@@ -159,6 +171,8 @@ write.csv(summary.calib1.res,paste0('simulations_oneoutcome/linreg/summaries.log
 write.csv(summary.calib2.res,paste0('simulations_oneoutcome/linreg/summaries.logcalib2.sim.csv'),row.names = FALSE)
 write.csv(summary.calib3.res,paste0('simulations_oneoutcome/linreg/summaries.logcalib3.sim.csv'),row.names = FALSE)
 write.csv(summary.calib4.res,paste0('simulations_oneoutcome/linreg/summaries.logcalib4.sim.csv'),row.names = FALSE)
+write.csv(summary.time.res,paste0('simulations_oneoutcome/linreg/summaries.time.sim.csv'),row.names = FALSE)
+
 
 summary.mixt.res$type='mixt'
 summary.soft.res$type='soft'
@@ -178,7 +192,4 @@ summary.all.res=rbind(summary.mixt.res,
                       summary.calib4.res)
 write.csv(summary.all.res,'simulations_oneoutcome/linreg/summaries.all.csv',row.names = FALSE)
 
-
-
-# Evaluate mean run time (run hypsupp setting arguments softrank=TRUE, mixtevalue=FALSE, BF=FALSE, p.to.e=FALSE)
 

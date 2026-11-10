@@ -117,7 +117,8 @@ logcalib4_logp = function(log_p) {
 }
 
 
-
+# Computes the p-value and a range of evalues (soft rank, universal mixture, 4 types of calibrated evalues) for 
+# for the regression coefficients of variables specified in argument vars
 hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FALSE, BF=FALSE, 
                    p.to.e=FALSE, logpvalue=FALSE){
   if(!require(modelSelection)){
@@ -125,6 +126,7 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
     library(modelSelection)
   }
   
+  # Fit the MLE of the regression under full model (with all variables)
   family.glm = family
   if(family.glm=='normal'){family.glm='gaussian'}
   glm.fitfull = glm(formula=formula, data=data, family=family.glm)
@@ -134,48 +136,65 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
   list.modelsminus1 = drop_one_formulas(formula,vars)
   names(list.modelsminus1) = sprintf('min%s',vars)
   
+  # create storage object
   hypsupp = data.frame(modname = names(list.modelsminus1), var = vars)
   
+  # Get the marginal likelihood of the regression under full model and zellner unit information prior
   if(mixtevalue | BF){
-    ## marginal loglik full model - zellner unit information prior
+    t0.fullmllik <- Sys.time()
     full.marg.llik = marginalLikelihood(y=formula, data=data, family=family, 
                                         priorCoef = zellnerprior())
+    t1.fullmllik <- Sys.time()
+    time.fullmllik = as.double(t1.fullmllik - t0.fullmllik, units = "secs")
   }
   
+  # Get the softrank e-value
   if(softrank){
     hypsupp['softevalue']=rep(NA,length(list.modelsminus1))
     hypsupp['logsoftevalue']=rep(NA,length(list.modelsminus1))
+    t0.softrank <- Sys.time()
     for(i in 1:length(vars)){
       hypsupp[i,c('softevalue','logsoftevalue')]=lmResPerm.onevar(vars[i], formula=formula,
                                                                   data=data, 
                                                                   family=family.glm, 
                                                                   B=5000)
     }
+    t1.softrank <- Sys.time()
+    time.softrank = as.double((t1.softrank - t0.softrank)/length(list.modelsminus1), units = "secs")
   }
   
+  # Get the universal mixture e-value
   if(mixtevalue){
     ## MLE log likelihood for small models
     hypsupp['mle.llik']=rep(NA,length(list.modelsminus1))
+    t0.mixt <- Sys.time()
     for(i in 1:length(list.modelsminus1)){
       glm.fitmin = glm(formula = list.modelsminus1[[i]], data=data, family=family.glm)
       hypsupp$mle.llik[i] = as.numeric(logLik(glm.fitmin))
     }
     hypsupp['mixtevalue'] =  exp(full.marg.llik-hypsupp['mle.llik'])
+    t1.mixt <- Sys.time()
+    time.mixt = as.double((t1.mixt - t0.mixt)/length(list.modelsminus1), units = "secs") + time.fullmllik
     hypsupp['logmixtevalue'] =  full.marg.llik-hypsupp['mle.llik']
   }
   
+  # Get the Bayes factor
   if(BF){
     hypsupp['marg.llik'] = rep(NA,length(list.modelsminus1))
     
     ## marginal loglik for small model- zellner unit information prior
+    t0.bf <- Sys.time()
     for(i in 1:length(list.modelsminus1)){
       hypsupp$marg.llik[i] = marginalLikelihood(y=list.modelsminus1[[i]], 
                                                 data = data, family=family, priorCoef = zellnerprior())
     }
     hypsupp['BF'] = exp(full.marg.llik-hypsupp['marg.llik'])
+    t1.bf <- Sys.time()
+    time.bf = as.double((t1.bf - t0.bf)/length(list.modelsminus1), units = "secs") + time.fullmllik
     hypsupp['logBF'] = full.marg.llik-hypsupp['marg.llik']
   }
   
+  # Get the calibrated e-values
   if(p.to.e){
     hypsupp['anov.pvalue'] = rep(NA,length(list.modelsminus1))
     hypsupp['logcalib1'] = rep(NA,length(list.modelsminus1))
@@ -184,30 +203,31 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
     hypsupp['logcalib4'] = rep(NA,length(list.modelsminus1))
     
     ## MLE fit for full model
+    t0.calib <- Sys.time()
     for(i in 1:length(list.modelsminus1)){
       glm.fitmin = glm(formula = list.modelsminus1[[i]], data=data, family=family.glm)
       if(family.glm=='gaussian'){
         res_anova  <- anova(glm.fitmin, glm.fitfull, test='F')
+        F_stat  <- res_anova$F[2]
+        df1     <- abs(res_anova$Df[2])
+        df2     <- res_anova$`Resid. Df`[2]
         if (logpvalue) {
-          F_stat  <- res_anova$F[2]
-          df1     <- abs(res_anova$Df[2])
-          df2     <- res_anova$`Resid. Df`[2]
           hypsupp$anov.logpvalue[i] <- pf(F_stat, df1 = df1, df2 = df2, lower.tail = FALSE, log.p = TRUE)          
         } else {
-          hypsupp$anov.pvalue[i]= res_anova$`Pr(>F)`[2]
+          hypsupp$anov.pvalue[i]= pf(F_stat, df1 = df1, df2 = df2, lower.tail = FALSE, log.p = FALSE)
         }
       }
       if(family.glm=='binomial'){
         res_anova = anova(glm.fitfull,glm.fitmin)
+        dev_diff <- abs(res_anova$Deviance[2])
+        df_diff  <- abs(res_anova$Df[2])
         if (logpvalue) {
-          dev_diff <- abs(res_anova$Deviance[2])
-          df_diff  <- abs(res_anova$Df[2])
           hypsupp$anov.logpvalue[i] <- pchisq(dev_diff, df = df_diff, lower.tail = FALSE, log.p = TRUE)
         } else {
-          hypsupp$anov.pvalue[i]= res_anova$`Pr(>Chi)`[2]        
+          hypsupp$anov.pvalue[i]= pchisq(dev_diff, df = df_diff, lower.tail = FALSE, log.p = FALSE)        
         }
       }
-      if (logpvalue) {
+      if(logpvalue) {
         hypsupp$logcalib1[i] = logcalib1_logp(hypsupp$anov.logpvalue[i])
         hypsupp$logcalib2[i] = logcalib2_logp(hypsupp$anov.logpvalue[i])
         hypsupp$logcalib3[i] = logcalib3_logp(hypsupp$anov.logpvalue[i])
@@ -220,14 +240,20 @@ hypsupp = function(formula, data, family, vars=NA, softrank=TRUE, mixtevalue=FAL
         hypsupp$logcalib4[i] = logcalib4(hypsupp$anov.pvalue[i])
       }
     }
+    t1.calib <- Sys.time()
+    time.calib = as.double((t1.calib - t0.calib)/length(list.modelsminus1), units = "secs")
   }
-  
   res = hypsupp[,-which(colnames(hypsupp)%in%c('mle.llik','marg.llik','modname'))] 
   if (logpvalue) res$anov.pvalue = exp(res$anov.logpvalue)
   
-  return(list(stats = res, all.res = hypsupp, glm.full=glm.fitfull))
+  supp.time = data.frame(softrank = time.softrank, uni.mixt= time.mixt, 
+                         bf=time.bf, calib=time.calib)
+  
+  return(list(stats = res, all.res = hypsupp, glm.full=glm.fitfull, time = supp.time))
 }
 
+# Computes the  e-confidence interval (calib1) for 
+# for the regression coefficients of variables specified in argument vars
 e.conf.int = function(vars=NA, formula, data, family, level, grid.up.width = 10, grid.low.width = 10){
   family.glm = family
   if(family.glm=='normal'){family.glm='gaussian'}
@@ -301,11 +327,18 @@ get.e.value.nonzero = function(beta0, var, formula, data, family, full.model){
   
   if(family.glm=='gaussian'){
     glm.fitconst = glm(formula = const.model, data=data, family="gaussian")
-    return(logcalib1(anova(full.model,glm.fitconst)$`Pr(>F)`[2]))
+    res_anova  <- anova(full.model,glm.fitconst, test='F')
+    F_stat  <- res_anova$F[2]
+    df1     <- abs(res_anova$Df[2])
+    df2     <- res_anova$`Resid. Df`[2]
+    return(logcalib1(pf(F_stat, df1 = df1, df2 = df2, lower.tail = FALSE, log.p = FALSE)))
   }
   if(family.glm=='binomial'){
     glm.fitconst = glm(formula = const.model, data=data, family=binomial(link="logit"))
-    return(logcalib1(anova(full.model,glm.fitconst)$`Pr(>Chi)`[2]))
+    res_anova = anova(full.model,glm.fitconst)
+    dev_diff <- abs(res_anova$Deviance[2])
+    df_diff  <- abs(res_anova$Df[2])
+    return(logcalib1(pchisq(dev_diff, df = df_diff, lower.tail = FALSE, log.p = FALSE)))
   }
 }
 
